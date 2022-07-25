@@ -40,7 +40,7 @@ import org.mule.runtime.extension.api.annotation.error.ErrorTypes;
  *
  * @since 1.0
  */
-@Extension(name = "Database")
+@Extension(name = "Teradata")
 @Operations({DbBulkOperations.class, DbDdlOperations.class, DbDmlOperations.class})
 @Sources(RowListener.class)
 @ConnectionProviders({DbDataSourceReferenceConnectionProvider.class, DbGenericConnectionProvider.class,
