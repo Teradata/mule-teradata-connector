@@ -26,6 +26,7 @@ public class TestDbConfig {
     USE_MSSQL_SERVER = getValueFor("mssql");
     USE_DERBY = getValueFor("derby");
     USE_ORACLE = getValueFor("oracle");
+    USE_TERADATA = getValueFor("teradata");
   }
 
   private static boolean USE_DERBY;
@@ -73,9 +74,11 @@ public class TestDbConfig {
    */
   private static boolean USE_MSSQL_SERVER;
 
+  private static boolean USE_TERADATA;
+
   public static List<Object[]> getResources() {
 
-    if (!(USE_DERBY || USE_MYSQL || USE_MYSQL_OLD_DRIVER || USE_MSSQL_SERVER || USE_ORACLE)) {
+    if (!(USE_DERBY || USE_MYSQL || USE_MYSQL_OLD_DRIVER || USE_MSSQL_SERVER || USE_ORACLE || USE_TERADATA)) {
       USE_DERBY = true;
     }
 
@@ -123,6 +126,16 @@ public class TestDbConfig {
     if (USE_MSSQL_SERVER) {
       final SqlServerTestDataBase sqlServerTestDataBase = new SqlServerTestDataBase();
       return singletonList(new Object[] {"integration/config/mssql-db-config.xml", sqlServerTestDataBase,
+          sqlServerTestDataBase.getDbType(), singletonList("merge")});
+    } else {
+      return emptyList();
+    }
+  }
+
+  public static List<Object[]> getTeradataResource() {
+    if (USE_TERADATA) {
+      final SqlServerTestDataBase sqlServerTestDataBase = new SqlServerTestDataBase();
+      return singletonList(new Object[] {"integration/config/teradata-db-config.xml", sqlServerTestDataBase,
           sqlServerTestDataBase.getDbType(), singletonList("merge")});
     } else {
       return emptyList();
