@@ -8,10 +8,9 @@
         ">
 
     <db:config name="dbConfigTeradata">
-        <db:my-sql-connection host="0.0.0.0" port="#[java!org::mule::extension::db::DbMunitUtils::getDbPort('teradata')]"
-                              user="dbc" password="dbc">
+        <db:teradata-connection host="localhost" port="1025" user="dbc" password="dbc">
             <db:pooling-profile/>
-        </db:my-sql-connection>
+        </db:teradata-connection>
     </db:config>
 
     <db:config name="dbConfigTeradata2">
