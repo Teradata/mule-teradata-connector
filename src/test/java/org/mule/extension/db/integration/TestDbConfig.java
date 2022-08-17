@@ -132,15 +132,9 @@ public class TestDbConfig {
 
   public static List<Object[]> getTeradataResource() {
     if (USE_TERADATA) {
-<<<<<<< HEAD
       final TeradataTestDatabase teradataTestDataBase = new TeradataTestDatabase();
       return singletonList(new Object[] {"integration/config/teradata-db-config.xml", teradataTestDataBase,
           teradataTestDataBase.getDbType(), emptyList()});
-=======
-      final SqlServerTestDataBase sqlServerTestDataBase = new SqlServerTestDataBase();
-      return singletonList(new Object[] {"integration/config/teradata-db-config.xml", sqlServerTestDataBase,
-          sqlServerTestDataBase.getDbType(), singletonList("merge")});
->>>>>>> origin/master
     } else {
       return emptyList();
     }
