@@ -8,7 +8,7 @@
     <flow name="usesStringOnImplicitParam">
         <db:insert config-ref="dbConfig">
            <db:sql>
-               INSERT INTO PLANET(POSITION, NAME, DESCRIPTION) VALUES (777, 'Pluto', :description)
+               INSERT INTO PLANET(PLANET_POS, NAME, DESCRIPTION) VALUES (777, 'Pluto', :description)
            </db:sql>
             <db:input-parameters>
                 #[
@@ -23,7 +23,7 @@
     <flow name="usesStringOnExplicitParam">
         <db:insert config-ref="dbConfig">
             <db:sql>
-                INSERT INTO PLANET(POSITION, NAME, DESCRIPTION) VALUES (777, 'Pluto', :description)
+                INSERT INTO PLANET(PLANET_POS, NAME, DESCRIPTION) VALUES (777, 'Pluto', :description)
             </db:sql>
             <db:parameter-types>
                 <db:parameter-type key="description" type="CLOB"/>

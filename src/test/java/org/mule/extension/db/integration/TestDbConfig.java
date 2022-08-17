@@ -10,10 +10,7 @@ package org.mule.extension.db.integration;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
-import org.mule.extension.db.integration.model.DerbyTestDatabase;
-import org.mule.extension.db.integration.model.MySqlTestDatabase;
-import org.mule.extension.db.integration.model.OracleTestDatabase;
-import org.mule.extension.db.integration.model.SqlServerTestDataBase;
+import org.mule.extension.db.integration.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +76,7 @@ public class TestDbConfig {
   public static List<Object[]> getResources() {
 
     if (!(USE_DERBY || USE_MYSQL || USE_MYSQL_OLD_DRIVER || USE_MSSQL_SERVER || USE_ORACLE || USE_TERADATA)) {
-      USE_DERBY = true;
+      USE_TERADATA = true;
     }
 
     List<Object[]> result = new ArrayList<>();
@@ -88,6 +85,7 @@ public class TestDbConfig {
     result.addAll(getMySqlResource());
     result.addAll(getOracleResource());
     result.addAll(getSqlServerResource());
+    result.addAll(getTeradataResource());
 
     return result;
   }
@@ -134,9 +132,9 @@ public class TestDbConfig {
 
   public static List<Object[]> getTeradataResource() {
     if (USE_TERADATA) {
-      final SqlServerTestDataBase sqlServerTestDataBase = new SqlServerTestDataBase();
-      return singletonList(new Object[] {"integration/config/teradata-db-config.xml", sqlServerTestDataBase,
-          sqlServerTestDataBase.getDbType(), singletonList("merge")});
+      final TeradataTestDatabase teradataTestDataBase = new TeradataTestDatabase();
+      return singletonList(new Object[] {"integration/config/teradata-db-config.xml", teradataTestDataBase,
+          teradataTestDataBase.getDbType(), emptyList()});
     } else {
       return emptyList();
     }

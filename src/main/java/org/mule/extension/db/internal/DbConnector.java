@@ -44,9 +44,7 @@ import org.mule.runtime.extension.api.annotation.error.ErrorTypes;
 @Extension(name = "Teradata")
 @Operations({DbBulkOperations.class, DbDdlOperations.class, DbDmlOperations.class})
 @Sources(RowListener.class)
-@ConnectionProviders({DbDataSourceReferenceConnectionProvider.class, DbGenericConnectionProvider.class,
-    DerbyConnectionProvider.class, MySqlConnectionProvider.class, OracleDbConnectionProvider.class,
-    SqlServerConnectionProvider.class, TeradataConnectionProvider.class})
+@ConnectionProviders({DbGenericConnectionProvider.class, TeradataConnectionProvider.class})
 @Xml(prefix = "db")
 @ErrorTypes(DbError.class)
 @ExpressionFunctions(DbFunctions.class)

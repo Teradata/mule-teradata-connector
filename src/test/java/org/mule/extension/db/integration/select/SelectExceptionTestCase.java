@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runners.Parameterized;
+import org.mule.extension.db.integration.model.TeradataTestDatabase;
 
 public class SelectExceptionTestCase extends AbstractDbIntegrationTestCase {
 
@@ -28,9 +29,9 @@ public class SelectExceptionTestCase extends AbstractDbIntegrationTestCase {
 
   @Parameterized.Parameters(name = "{2}")
   public static List<Object[]> parameters() {
-    final DerbyTestDatabase derbyTestDatabase = new DerbyTestDatabase();
-    return singletonList(new Object[] {"integration/config/derby-pooling-db-config.xml", derbyTestDatabase,
-        derbyTestDatabase.getDbType(), emptyList()});
+    final TeradataTestDatabase teradataTestDatabase = new TeradataTestDatabase();
+    return singletonList(new Object[] {"integration/config/teradata-db-config.xml", teradataTestDatabase,
+        teradataTestDatabase.getDbType(), emptyList()});
   }
 
   @Override
@@ -50,7 +51,7 @@ public class SelectExceptionTestCase extends AbstractDbIntegrationTestCase {
         flowRunner("selectException").run();
         fail("Expected 'Table does not exist' exception.");
       } catch (Exception e) {
-        assertThat("Iteration " + i, e.getMessage(), containsString("Table/View 'NOT_EXISTS' does not exist."));
+        assertThat("Iteration " + i, e.getMessage(), containsString("Object 'NOT_EXISTS' does not exist."));
       }
     }
   }

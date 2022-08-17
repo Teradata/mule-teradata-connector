@@ -7,13 +7,13 @@
 
     <flow name="insertMetadata">
         <db:insert config-ref="dbConfig">
-            <db:sql>INSERT INTO PLANET(POSITION, NAME) VALUES (777, 'Mercury')</db:sql>
+            <db:sql>INSERT INTO PLANET(PLANET_POS, NAME) VALUES (777, 'Mercury')</db:sql>
         </db:insert>
     </flow>
 
     <flow name="bulkInsertMetadata">
         <db:bulk-insert config-ref="dbConfig">
-            <db:sql>INSERT INTO PLANET(POSITION, NAME) VALUES (777, :name)</db:sql>
+            <db:sql>INSERT INTO PLANET(PLANET_POS, NAME) VALUES (777, :name)</db:sql>
         </db:bulk-insert>
     </flow>
 

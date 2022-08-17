@@ -30,6 +30,7 @@ public class StoredProcedureParamTypeResolutionTestCase extends AbstractDbIntegr
 
   @Before
   public void setupStoredProcedure() throws Exception {
+    testDatabase.grantUserAllAccess(getDefaultDataSource());
     testDatabase.createStoredProcedureAddOne(getDefaultDataSource());
   }
 

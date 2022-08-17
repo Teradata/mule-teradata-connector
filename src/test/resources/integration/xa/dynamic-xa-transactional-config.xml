@@ -11,7 +11,7 @@
         <set-variable variableName="dataSourceUrl" value="jdbc:derby:muleEmbeddedDB;create=true"/>
 
         <db:update config-ref="dbConfig">
-            <db:parameterized-query>update PLANET set NAME='Mercury' where POSITION=4</db:parameterized-query>
+            <db:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</db:parameterized-query>
         </db:update>
         <test:processor throwException="true" exceptionToThrow="java.lang.IllegalStateException"/>
     </flow>
@@ -20,7 +20,7 @@
         <set-variable variableName="dataSourceUrl" value="jdbc:derby:muleEmbeddedDB;create=true"/>
 
         <db:update config-ref="dbConfig">
-            <db:parameterized-query>update PLANET set NAME='Mercury' where POSITION=4</db:parameterized-query>
+            <db:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</db:parameterized-query>
         </db:update>
     </flow>
 
@@ -28,7 +28,7 @@
         <set-variable variableName="dataSourceUrl" value="jdbc:derby:muleEmbeddedDB;create=true"/>
 
         <db:update config-ref="dbConfig" transactionalAction="NOT_SUPPORTED">
-            <db:parameterized-query>update PLANET set NAME='Mercury' where POSITION=4</db:parameterized-query>
+            <db:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</db:parameterized-query>
         </db:update>
 
         <test:processor throwException="true" exceptionToThrow="java.lang.IllegalStateException"/>
@@ -38,7 +38,7 @@
         <set-variable variableName="dataSourceUrl" value="jdbc:derby:muleEmbeddedDB;create=true"/>
 
         <db:update config-ref="dbConfig" transactionalAction="NOT_SUPPORTED">
-            <db:parameterized-query>update PLANET set NAME='Mercury' where POSITION=4</db:parameterized-query>
+            <db:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</db:parameterized-query>
         </db:update>
 
         <test:processor throwException="true" exceptionToThrow="java.lang.IllegalStateException"/>

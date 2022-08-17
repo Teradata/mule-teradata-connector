@@ -165,6 +165,13 @@ public class DerbyTestDatabase extends AbstractTestDatabase {
           "DYNAMIC RESULT SETS 0\n" +
           "EXTERNAL NAME '" + DerbyTestStoredProcedure.class.getName() + ".getReducedBiography'";
 
+  @Override
+  public void grantUserAllAccess(DataSource dataSource) throws SQLException {
+    executeDdl(dataSource,
+               "GRANT ALL\n" +
+                   "ON INTEGRATION_TEST\n" +
+                   "TO dbc;\n COMMIT WORK; \n");
+  }
 
   @Override
   public void createPlanetTable(Connection connection) throws SQLException {

@@ -7,7 +7,7 @@
 
     <flow name="errorQuery">
         <db:select config-ref="dbConfig">
-            <db:parameterized-query>SELECT * FROM PLANET WHERE POSITION = 4</db:parameterized-query>
+            <db:parameterized-query>SELECT * FROM PLANET WHERE PLANET_POS = 4</db:parameterized-query>
         </db:select>
     </flow>
 </mule>

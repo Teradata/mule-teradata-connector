@@ -22,14 +22,14 @@
 
     <flow name="fixedParam">
         <db:select config-ref="dbConfig">
-            <db:sql>SELECT * FROM PLANET WHERE POSITION = 4</db:sql>
+            <db:sql>SELECT * FROM PLANET WHERE PLANET_POS = 4</db:sql>
         </db:select>
     </flow>
 
     <flow name="expressionAndFixedParamMixed">
-        <set-variable variableName="position" value="3"/>
+        <set-variable variableName="planet_pos" value="3"/>
         <db:select config-ref="dbConfig">
-            <db:sql>#["SELECT * FROM PLANET WHERE POSITION = $(vars.position) AND NAME = 'Earth'"]</db:sql>
+            <db:sql>#["SELECT * FROM PLANET WHERE PLANET_POS = $(vars.planet_pos) AND NAME = 'Earth'"]</db:sql>
         </db:select>
     </flow>
 

@@ -7,7 +7,7 @@
 
     <flow name="insertClobType">
         <db:insert config-ref="dbConfig">
-            <db:sql>INSERT INTO PLANET(POSITION, DESCRIPTION) VALUES (:id, :description)</db:sql>
+            <db:sql>INSERT INTO PLANET(PLANET_POS, DESCRIPTION) VALUES (:id, :description)</db:sql>
             <db:input-parameters>
                 #[
                 {
@@ -20,11 +20,11 @@
 
     <flow name="selectClobType">
         <db:select config-ref="dbConfig">
-            <db:sql>SELECT DESCRIPTION from PLANET where POSITION = :position</db:sql>
+            <db:sql>SELECT DESCRIPTION from PLANET where PLANET_POS = :planet_pos</db:sql>
             <db:input-parameters>
                 #[
                 {
-                'position' : vars.position,
+                'planet_pos' : vars.planet_pos,
                 }]
             </db:input-parameters>
         </db:select>
@@ -34,7 +34,7 @@
 
     <flow name="insertBlobType">
         <db:insert config-ref="dbConfig">
-            <db:sql>INSERT INTO PLANET(POSITION, PICTURE) VALUES (:id, :picture)</db:sql>
+            <db:sql>INSERT INTO PLANET(PLANET_POS, PICTURE) VALUES (:id, :picture)</db:sql>
             <db:input-parameters>
                 #[
                 {
@@ -47,11 +47,11 @@
 
     <flow name="selectBlobType">
         <db:select config-ref="dbConfig">
-            <db:sql>SELECT PICTURE from PLANET where POSITION = :position</db:sql>
+            <db:sql>SELECT PICTURE from PLANET where PLANET_POS = :planet_pos</db:sql>
             <db:input-parameters>
                 #[
                 {
-                'position' : vars.position,
+                'planet_pos' : vars.planet_pos,
                 }]
             </db:input-parameters>
         </db:select>

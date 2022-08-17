@@ -42,12 +42,12 @@ public class SelectMetadataOutputTestCase extends AbstractDbIntegrationTestCase 
 
   @Test
   public void selectSome() throws Exception {
-    ObjectType record = getSelectOutputMetadata("select ID, POSITION from PLANET");
+    ObjectType record = getSelectOutputMetadata("select ID, PLANET_POS from PLANET");
 
     assertThat(record.getFields().size(), equalTo(2));
     assertFieldOfType(record, "ID", testDatabase.getIdFieldMetaDataType());
     assertFieldRequirement(record, "ID", true);
-    assertFieldOfType(record, "POSITION", testDatabase.getPositionFieldMetaDataType());
+    assertFieldOfType(record, "PLANET_POS", testDatabase.getPositionFieldMetaDataType());
   }
 
   @Test

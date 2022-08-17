@@ -7,7 +7,7 @@
 
     <flow name="selectSingleRecord">
         <db:query-single config-ref="dbConfig">
-           <db:sql>SELECT ID, NAME, POSITION from PLANET WHERE NAME = :name</db:sql>
+           <db:sql>SELECT ID, NAME, PLANET_POS from PLANET WHERE NAME = :name</db:sql>
            <db:input-parameters>#[{name: vars.name}]</db:input-parameters>
         </db:query-single>
     </flow>
@@ -17,7 +17,7 @@
 
         <foreach collection="#[1 to vars.iterations]" >
           <db:query-single config-ref="dbConfigWithPooling">
-             <db:sql>#["SELECT ID, NAME, POSITION FROM PLANET WHERE NAME = :name"]</db:sql>
+             <db:sql>#["SELECT ID, NAME, PLANET_POS FROM PLANET WHERE NAME = :name"]</db:sql>
              <db:input-parameters>#[{name: vars.name}]</db:input-parameters>
           </db:query-single>
 
@@ -29,7 +29,7 @@
 
     <flow name="querySingleWithNoRecords">
         <db:query-single config-ref="dbConfig">
-            <db:sql>#["SELECT ID, NAME, POSITION FROM PLANET WHERE NAME = :name"]</db:sql>
+            <db:sql>#["SELECT ID, NAME, PLANET_POS FROM PLANET WHERE NAME = :name"]</db:sql>
             <db:input-parameters>#[{name: 'ALPHA CENTAURI'}]</db:input-parameters>
         </db:query-single>
     </flow>

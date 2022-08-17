@@ -9,20 +9,20 @@
 
     <flow name="jdbcRollback">
         <db:update config-ref="dbConfig">
-            <db:parameterized-query>update PLANET set NAME='Mercury' where POSITION=4</db:parameterized-query>
+            <db:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</db:parameterized-query>
         </db:update>
         <test:processor throwException="true" exceptionToThrow="java.lang.IllegalStateException"/>
     </flow>
 
     <flow name="jdbcCommit">
         <db:update config-ref="dbConfig">
-            <db:parameterized-query>update PLANET set NAME='Mercury' where POSITION=4</db:parameterized-query>
+            <db:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</db:parameterized-query>
         </db:update>
     </flow>
 
     <flow name="rollbackWithNonTransactionalMP">
         <db:update config-ref="dbConfig" transactionalAction="NOT_SUPPORTED">
-            <db:parameterized-query>update PLANET set NAME='Mercury' where POSITION=4</db:parameterized-query>
+            <db:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</db:parameterized-query>
         </db:update>
 
         <test:processor throwException="true" exceptionToThrow="java.lang.IllegalStateException"/>
@@ -30,7 +30,7 @@
 
     <flow name="commitWithNonTransactionalMP">
         <db:update config-ref="dbConfig" transactionalAction="NOT_SUPPORTED">
-            <db:parameterized-query>update PLANET set NAME='Mercury' where POSITION=4</db:parameterized-query>
+            <db:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</db:parameterized-query>
         </db:update>
 
         <test:processor throwException="true" exceptionToThrow="java.lang.IllegalStateException"/>

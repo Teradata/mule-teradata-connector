@@ -7,13 +7,13 @@
 
     <flow name="inlineQuery">
         <db:update config-ref="dbConfig">
-            <db:sql>#["update PLANET set NAME='Mercury' where POSITION=4"]</db:sql>
+            <db:sql>#["update PLANET set NAME='Mercury' where PLANET_POS=4"]</db:sql>
         </db:update>
     </flow>
 
     <flow name="expressionParam">
         <db:update config-ref="dbConfig">
-            <db:sql>#["update PLANET set NAME='Mercury' where POSITION=$(vars.position) AND NAME = 'Earth'"]</db:sql>
+            <db:sql>#["update PLANET set NAME='Mercury' where PLANET_POS=$(vars.planet_pos) AND NAME = 'Earth'"]</db:sql>
         </db:update>
     </flow>
 </mule>
