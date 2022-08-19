@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="insertClobType">
-        <db:insert config-ref="dbConfig">
-            <db:sql>INSERT INTO PLANET(PLANET_POS, DESCRIPTION) VALUES (:id, :description)</db:sql>
-            <db:input-parameters>
+        <teradata:insert config-ref="dbConfig">
+            <teradata:sql>INSERT INTO PLANET(PLANET_POS, DESCRIPTION) VALUES (:id, :description)</teradata:sql>
+            <teradata:input-parameters>
                 #[
                 {
                 'id' : vars.id,
                 'description' : payload
                 }]
-            </db:input-parameters>
-        </db:insert>
+            </teradata:input-parameters>
+        </teradata:insert>
     </flow>
 
     <flow name="selectClobType">
-        <db:select config-ref="dbConfig">
-            <db:sql>SELECT DESCRIPTION from PLANET where PLANET_POS = :planet_pos</db:sql>
-            <db:input-parameters>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>SELECT DESCRIPTION from PLANET where PLANET_POS = :planet_pos</teradata:sql>
+            <teradata:input-parameters>
                 #[
                 {
                 'planet_pos' : vars.planet_pos,
                 }]
-            </db:input-parameters>
-        </db:select>
+            </teradata:input-parameters>
+        </teradata:select>
         <set-payload value="#[output text/plain --- payload[0].DESCRIPTION]"/>
     </flow>
 
 
     <flow name="insertBlobType">
-        <db:insert config-ref="dbConfig">
-            <db:sql>INSERT INTO PLANET(PLANET_POS, PICTURE) VALUES (:id, :picture)</db:sql>
-            <db:input-parameters>
+        <teradata:insert config-ref="dbConfig">
+            <teradata:sql>INSERT INTO PLANET(PLANET_POS, PICTURE) VALUES (:id, :picture)</teradata:sql>
+            <teradata:input-parameters>
                 #[
                 {
                 'id' : vars.id,
                 'picture' : payload
                 }]
-            </db:input-parameters>
-        </db:insert>
+            </teradata:input-parameters>
+        </teradata:insert>
     </flow>
 
     <flow name="selectBlobType">
-        <db:select config-ref="dbConfig">
-            <db:sql>SELECT PICTURE from PLANET where PLANET_POS = :planet_pos</db:sql>
-            <db:input-parameters>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>SELECT PICTURE from PLANET where PLANET_POS = :planet_pos</teradata:sql>
+            <teradata:input-parameters>
                 #[
                 {
                 'planet_pos' : vars.planet_pos,
                 }]
-            </db:input-parameters>
-        </db:select>
+            </teradata:input-parameters>
+        </teradata:select>
         <set-payload value="#[payload[0].PICTURE]"/>
     </flow>
 
     <flow name="getLanguage">
-        <db:select config-ref="dbConfig">
-            <db:sql >select SAMPLE_TEXT from LANGUAGES where NAME = :language</db:sql>
-            <db:input-parameters>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql >select SAMPLE_TEXT from LANGUAGES where NAME = :language</teradata:sql>
+            <teradata:input-parameters>
                 #[
                     {
                         'language' : vars.languageName,
                     }
                 ]
-            </db:input-parameters>
-        </db:select>
+            </teradata:input-parameters>
+        </teradata:select>
         <set-payload value="#[output text/plain --- payload[0].SAMPLE_TEXT]"/>
     </flow>
 

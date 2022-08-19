@@ -2,14 +2,14 @@
 
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
 	  xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
-	  xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	  xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
 	  xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
 	  xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
         http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
-        http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+        http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd
         http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<munit:config name="delete-journey-test-case.xml" />
 	<munit:before-suite name="DeleteJourneyBefore_Suite">
@@ -19,19 +19,19 @@
 			<munit:behavior>
 				<flow-ref name="TruncateTableFlow" />
 				<flow-ref name="ComplexCaseSetup" />
-			<db:select config-ref="dbConfigMySQL">
-				<db:sql ><![CDATA[select * from flights;]]></db:sql>
-			</db:select>
+			<teradata:select config-ref="dbConfigMySQL">
+				<teradata:sql ><![CDATA[select * from flights;]]></teradata:sql>
+			</teradata:select>
 			</munit:behavior>
 			<munit:execution>
-			<db:delete config-ref="dbConfigMySQL">
-				<db:sql ><![CDATA[DELETE from flights where destination = "CL";]]></db:sql>
-			</db:delete>
+			<teradata:delete config-ref="dbConfigMySQL">
+				<teradata:sql ><![CDATA[DELETE from flights where destination = "CL";]]></teradata:sql>
+			</teradata:delete>
 			</munit:execution>
 		<munit:validation>
-				<db:select config-ref="dbConfigMySQL">
-					<db:sql><![CDATA[SELECT * from flights;]]></db:sql>
-				</db:select>
+				<teradata:select config-ref="dbConfigMySQL">
+					<teradata:sql><![CDATA[SELECT * from flights;]]></teradata:sql>
+				</teradata:select>
 			<ee:transform>
 					<ee:message>
 						<ee:set-payload><![CDATA[%dw 2.0
@@ -49,14 +49,14 @@ payload]]></ee:set-payload>
 				<flow-ref name="ComplexCaseSetup" />
 			</munit:behavior>
 			<munit:execution>
-				<db:delete config-ref="dbConfigMySQL">
-				<db:sql ><![CDATA[Delete from flights where start = "NY" and destination = "BR";]]></db:sql>
-			</db:delete>
+				<teradata:delete config-ref="dbConfigMySQL">
+				<teradata:sql ><![CDATA[Delete from flights where start = "NY" and destination = "BR";]]></teradata:sql>
+			</teradata:delete>
 			</munit:execution>
 			<munit:validation>
-				<db:select config-ref="dbConfigMySQL">
-					<db:sql><![CDATA[SELECT * from flights;]]></db:sql>
-				</db:select>
+				<teradata:select config-ref="dbConfigMySQL">
+					<teradata:sql><![CDATA[SELECT * from flights;]]></teradata:sql>
+				</teradata:select>
 			<ee:transform>
 					<ee:message>
 						<ee:set-payload><![CDATA[%dw 2.0
@@ -74,17 +74,17 @@ payload]]></ee:set-payload>
 				<flow-ref name="ComplexCaseSetup" />
 			</munit:behavior>
 			<munit:execution>
-			<db:delete config-ref="dbConfigMySQL">
-				<db:sql ><![CDATA[DELETE from flights where start=:newYork;]]></db:sql>
-				<db:input-parameters ><![CDATA[#[{
+			<teradata:delete config-ref="dbConfigMySQL">
+				<teradata:sql ><![CDATA[DELETE from flights where start=:newYork;]]></teradata:sql>
+				<teradata:input-parameters ><![CDATA[#[{
 newYork:"NY",
-}]]]></db:input-parameters>
-			</db:delete>
+}]]]></teradata:input-parameters>
+			</teradata:delete>
 			</munit:execution>
 		<munit:validation>
-				<db:select config-ref="dbConfigMySQL">
-					<db:sql><![CDATA[SELECT * FROM flights;]]></db:sql>
-				</db:select>
+				<teradata:select config-ref="dbConfigMySQL">
+					<teradata:sql><![CDATA[SELECT * FROM flights;]]></teradata:sql>
+				</teradata:select>
 			<ee:transform>
 					<ee:message>
 						<ee:set-payload><![CDATA[%dw 2.0
@@ -103,22 +103,22 @@ payload]]></ee:set-payload>
 			</munit:behavior>
 			<munit:execution>
 				<try transactionalAction="ALWAYS_BEGIN">
-				<db:delete target="singleDelete" config-ref="dbConfigMySQL">
-					<db:sql ><![CDATA[DELETE from flights where start=:newYork;]]></db:sql>
-					<db:input-parameters ><![CDATA[#[{
+				<teradata:delete target="singleDelete" config-ref="dbConfigMySQL">
+					<teradata:sql ><![CDATA[DELETE from flights where start=:newYork;]]></teradata:sql>
+					<teradata:input-parameters ><![CDATA[#[{
 newYork:"NY",
-}]]]></db:input-parameters>
-				</db:delete>
-				<db:delete config-ref="dbConfigMySQL" transactionalAction="ALWAYS_JOIN">
-					<db:sql ><![CDATA[DELETE from flights where start=:newYork;]]></db:sql>
-					<db:input-parameters ><![CDATA[#[{
+}]]]></teradata:input-parameters>
+				</teradata:delete>
+				<teradata:delete config-ref="dbConfigMySQL" transactionalAction="ALWAYS_JOIN">
+					<teradata:sql ><![CDATA[DELETE from flights where start=:newYork;]]></teradata:sql>
+					<teradata:input-parameters ><![CDATA[#[{
 newYork:"NY",
-}]]]></db:input-parameters>
-				</db:delete>
+}]]]></teradata:input-parameters>
+				</teradata:delete>
 				</try>
-				<db:select config-ref="dbConfigMySQL" transactionalAction="ALWAYS_JOIN">
-						<db:sql><![CDATA[SELECT start from flights;]]></db:sql>
-					</db:select>
+				<teradata:select config-ref="dbConfigMySQL" transactionalAction="ALWAYS_JOIN">
+						<teradata:sql><![CDATA[SELECT start from flights;]]></teradata:sql>
+					</teradata:select>
 			<ee:transform>
 					<ee:message>
 						<ee:set-payload><![CDATA[%dw 2.0
@@ -138,9 +138,9 @@ payload]]></ee:set-payload>
 				<flow-ref name="ComplexCaseSetup" />
 			</munit:behavior>
 		<munit:execution>
-			<db:delete config-ref="dbConfigMySQL" transactionalAction="ALWAYS_JOIN">
-				<db:sql><![CDATA[Delete from flights;]]></db:sql>
-			</db:delete>
+			<teradata:delete config-ref="dbConfigMySQL" transactionalAction="ALWAYS_JOIN">
+				<teradata:sql><![CDATA[Delete from flights;]]></teradata:sql>
+			</teradata:delete>
 			</munit:execution>
 		</munit:test>
 	<munit:test name="JoinIfPossiblePositiveDeleteTestCase">
@@ -150,13 +150,13 @@ payload]]></ee:set-payload>
 			</munit:behavior>
 			<munit:execution>
 				<try transactionalAction="ALWAYS_BEGIN">
-				<db:delete config-ref="dbConfigMySQL">
-					<db:sql ><![CDATA[Delete from flights;]]></db:sql>
-				</db:delete>
+				<teradata:delete config-ref="dbConfigMySQL">
+					<teradata:sql ><![CDATA[Delete from flights;]]></teradata:sql>
+				</teradata:delete>
 				</try>
-				<db:select config-ref="dbConfigMySQL">
-						<db:sql><![CDATA[SELECT start from flights;]]></db:sql>
-					</db:select>
+				<teradata:select config-ref="dbConfigMySQL">
+						<teradata:sql><![CDATA[SELECT start from flights;]]></teradata:sql>
+					</teradata:select>
 			<ee:transform>
 					<ee:message>
 						<ee:set-payload><![CDATA[%dw 2.0
@@ -177,13 +177,13 @@ payload]]></ee:set-payload>
 			</munit:behavior>
 			<munit:execution>
 				<try transactionalAction="ALWAYS_BEGIN">
-				<db:delete config-ref="dbConfigMySQL" transactionalAction="NOT_SUPPORTED" target="singleDelete">
-					<db:sql ><![CDATA[Delete from flights where start = "NY";]]></db:sql>
-				</db:delete>
+				<teradata:delete config-ref="dbConfigMySQL" transactionalAction="NOT_SUPPORTED" target="singleDelete">
+					<teradata:sql ><![CDATA[Delete from flights where start = "NY";]]></teradata:sql>
+				</teradata:delete>
 				</try>
-				<db:select config-ref="dbConfigMySQL">
-						<db:sql><![CDATA[SELECT * from flights;]]></db:sql>
-					</db:select>
+				<teradata:select config-ref="dbConfigMySQL">
+						<teradata:sql><![CDATA[SELECT * from flights;]]></teradata:sql>
+					</teradata:select>
 			<ee:transform>
 					<ee:message>
 						<ee:set-payload><![CDATA[%dw 2.0
@@ -203,9 +203,9 @@ payload]]></ee:set-payload>
 				<flow-ref name="ComplexCaseSetup" />
 			</munit:behavior>
 			<munit:execution>
-				<db:delete config-ref="dbConfigMySQL" transactionalAction="NOT_SUPPORTED" target="singleDelete">
-				<db:sql><![CDATA[Delete from flights where start = "NY";]]></db:sql>
-			</db:delete>
+				<teradata:delete config-ref="dbConfigMySQL" transactionalAction="NOT_SUPPORTED" target="singleDelete">
+				<teradata:sql><![CDATA[Delete from flights where start = "NY";]]></teradata:sql>
+			</teradata:delete>
 			</munit:execution>
 			<munit:validation>
 				<ee:transform>
@@ -216,9 +216,9 @@ output application/json
 payload]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
-			<db:select config-ref="dbConfigMySQL" transactionalAction="NOT_SUPPORTED">
-					<db:sql><![CDATA[SELECT start from flights;]]></db:sql>
-				</db:select>
+			<teradata:select config-ref="dbConfigMySQL" transactionalAction="NOT_SUPPORTED">
+					<teradata:sql><![CDATA[SELECT start from flights;]]></teradata:sql>
+				</teradata:select>
 			<munit-tools:assert-equals actual="#[sizeOf(payload)]" expected="#[2]" />
 			</munit:validation>
 		</munit:test>

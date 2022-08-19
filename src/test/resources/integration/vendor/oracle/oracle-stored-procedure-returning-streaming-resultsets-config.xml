@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="defaultQueryRequestResponse">
-        <db:stored-procedure config-ref="dbConfig" streaming="true">
-            <db:parameterized-query>{ call getSplitTestRecords(:resultSet1, :resultSet2) }</db:parameterized-query>
-            <db:out-param name="resultSet1" type="CURSOR"/>
-            <db:out-param name="resultSet2" type="CURSOR"/>
-        </db:stored-procedure>
+        <teradata:stored-procedure config-ref="dbConfig" streaming="true">
+            <teradata:parameterized-query>{ call getSplitTestRecords(:resultSet1, :resultSet2) }</teradata:parameterized-query>
+            <teradata:out-param name="resultSet1" type="CURSOR"/>
+            <teradata:out-param name="resultSet2" type="CURSOR"/>
+        </teradata:stored-procedure>
 
         <set-variable variableName="records" value="#[[]]"/>
 

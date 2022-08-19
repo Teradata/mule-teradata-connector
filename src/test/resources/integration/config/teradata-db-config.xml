@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
-    <db:config name="dbConfig">
-        <db:teradata-connection url="jdbc:teradata://localhost/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
-        </db:teradata-connection>
-    </db:config>
+    <teradata:config name="dbConfig">
+        <teradata:teradata-connection url="jdbc:teradata://localhost/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
+        </teradata:teradata-connection>
+    </teradata:config>
 
-    <db:config name="dbConfigWithPooling">
-        <db:teradata-connection url="jdbc:teradata://localhost/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
-            <db:pooling-profile maxPoolSize="10" maxWait="1">
-            </db:pooling-profile>
-        </db:teradata-connection>
-    </db:config>
+    <teradata:config name="dbConfigWithPooling">
+        <teradata:teradata-connection url="jdbc:teradata://localhost/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
+            <teradata:pooling-profile maxPoolSize="10" maxWait="1">
+            </teradata:pooling-profile>
+        </teradata:teradata-connection>
+    </teradata:config>
 
-    <db:config name="pooledJdbcConfig">
-        <db:teradata-connection url="jdbc:teradata://localhost/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
-            <db:pooling-profile maxPoolSize="2" minPoolSize="0" maxWait="1" maxWaitUnit="SECONDS"/>
-            <db:column-types>
-                <db:column-type typeName="CONTACT_DETAILS" id="2000"/>
-            </db:column-types>
-        </db:teradata-connection>
-    </db:config>
+    <teradata:config name="pooledJdbcConfig">
+        <teradata:teradata-connection url="jdbc:teradata://localhost/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
+            <teradata:pooling-profile maxPoolSize="2" minPoolSize="0" maxWait="1" maxWaitUnit="SECONDS"/>
+            <teradata:column-types>
+                <teradata:column-type typeName="CONTACT_DETAILS" id="2000"/>
+            </teradata:column-types>
+        </teradata:teradata-connection>
+    </teradata:config>
 
 </mule>

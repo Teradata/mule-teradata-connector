@@ -2,14 +2,14 @@
 
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
 	  xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
-	  xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	  xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
 	  xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
 	  xsi:schemaLocation="http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
-		http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+		http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd
 		http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 
 	<munit:config name="select-test-case.xml" minMuleVersion="4.1.6" >
@@ -40,21 +40,21 @@
 
 	<munit:before-test name="createATableWithLOBs">
 		<try>
-			<db:execute-script config-ref="${config}">
-				<db:sql><![CDATA[DROP TABLE  LOBTEST]]></db:sql>
-			</db:execute-script>
+			<teradata:execute-script config-ref="${config}">
+				<teradata:sql><![CDATA[DROP TABLE  LOBTEST]]></teradata:sql>
+			</teradata:execute-script>
 			<error-handler>
 				<on-error-continue enableNotifications="true" logException="false">
 				</on-error-continue>
 			</error-handler>
 		</try>
-		<db:execute-ddl config-ref="${config}">
-			<db:sql><![CDATA[CREATE TABLE LOBTEST(COL1 number, COL2 BLOB, COL3 CLOB, COL4 NCLOB)]]></db:sql>
-		</db:execute-ddl>
+		<teradata:execute-ddl config-ref="${config}">
+			<teradata:sql><![CDATA[CREATE TABLE LOBTEST(COL1 number, COL2 BLOB, COL3 CLOB, COL4 NCLOB)]]></teradata:sql>
+		</teradata:execute-ddl>
 		<foreach collection="#[1 to 3]">
-			<db:execute-script config-ref="${config}">
-				<db:sql ><![CDATA[INSERT INTO LOBTEST VALUES (1, hextoraw('453d7a34'), 'CLOB value is here', TO_NCLOB('NCLOB value is here'))]]></db:sql>
-			</db:execute-script>
+			<teradata:execute-script config-ref="${config}">
+				<teradata:sql ><![CDATA[INSERT INTO LOBTEST VALUES (1, hextoraw('453d7a34'), 'CLOB value is here', TO_NCLOB('NCLOB value is here'))]]></teradata:sql>
+			</teradata:execute-script>
 		</foreach>
 	</munit:before-test>
 
@@ -62,12 +62,12 @@
 	from a table that has LOB columns. On Oracle, these columns are returned as input streams. This test assures
 	that if there are open streams not yet consumed, the connection will stay open until the flow ends. In this way,
 	there won't be any "Connection Closed" exception when trying to read the input streams. -->
-	<munit:test name="whenStreamsAreConsumedAfterPagingProviderIsClosed_ThenNoExceptionIsThrown" ignore="#[java!org::mule::extension::db::DbMunitUtils::isTestIgnored('oracle')]">
+	<munit:test name="whenStreamsAreConsumedAfterPagingProviderIsClosed_ThenNoExceptionIsThrown" ignore="#[java!org::mule::extension::teradata::DbMunitUtils::isTestIgnored('oracle')]">
 		<munit:execution>
-			<db:select config-ref="${config}">
+			<teradata:select config-ref="${config}">
 				<ee:repeatable-file-store-iterable inMemoryObjects="10" />
-				<db:sql>SELECT * FROM LOBTEST</db:sql>
-			</db:select>
+				<teradata:sql>SELECT * FROM LOBTEST</teradata:sql>
+			</teradata:select>
 		</munit:execution>
 
 		<munit:validation>
@@ -93,9 +93,9 @@ payload]]></ee:set-payload>
 
 	<munit:after-test name="dropTable">
 		<try>
-			<db:execute-script config-ref="${config}">
-				<db:sql><![CDATA[DROP TABLE LOBTEST]]></db:sql>
-			</db:execute-script>
+			<teradata:execute-script config-ref="${config}">
+				<teradata:sql><![CDATA[DROP TABLE LOBTEST]]></teradata:sql>
+			</teradata:execute-script>
 			<error-handler>
 				<on-error-continue enableNotifications="true" logException="false">
 				</on-error-continue>

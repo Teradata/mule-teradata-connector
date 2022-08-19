@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="selectSingleRecord">
-        <db:query-single config-ref="dbConfig">
-           <db:sql>SELECT ID, NAME, PLANET_POS from PLANET WHERE NAME = :name</db:sql>
-           <db:input-parameters>#[{name: vars.name}]</db:input-parameters>
-        </db:query-single>
+        <teradata:query-single config-ref="dbConfig">
+           <teradata:sql>SELECT ID, NAME, PLANET_POS from PLANET WHERE NAME = :name</teradata:sql>
+           <teradata:input-parameters>#[{name: vars.name}]</teradata:input-parameters>
+        </teradata:query-single>
     </flow>
 
     <flow name="selectSingleRecordWithConnectionPool">
         <set-variable variableName="planetCollection" value="#[[]]" />
 
         <foreach collection="#[1 to vars.iterations]" >
-          <db:query-single config-ref="dbConfigWithPooling">
-             <db:sql>#["SELECT ID, NAME, PLANET_POS FROM PLANET WHERE NAME = :name"]</db:sql>
-             <db:input-parameters>#[{name: vars.name}]</db:input-parameters>
-          </db:query-single>
+          <teradata:query-single config-ref="dbConfigWithPooling">
+             <teradata:sql>#["SELECT ID, NAME, PLANET_POS FROM PLANET WHERE NAME = :name"]</teradata:sql>
+             <teradata:input-parameters>#[{name: vars.name}]</teradata:input-parameters>
+          </teradata:query-single>
 
           <set-variable variableName="planetCollection" value="#[vars.planetCollection ++ [payload]]" />
         </foreach>
@@ -28,50 +28,50 @@
     </flow>
 
     <flow name="querySingleWithNoRecords">
-        <db:query-single config-ref="dbConfig">
-            <db:sql>#["SELECT ID, NAME, PLANET_POS FROM PLANET WHERE NAME = :name"]</db:sql>
-            <db:input-parameters>#[{name: 'ALPHA CENTAURI'}]</db:input-parameters>
-        </db:query-single>
+        <teradata:query-single config-ref="dbConfig">
+            <teradata:sql>#["SELECT ID, NAME, PLANET_POS FROM PLANET WHERE NAME = :name"]</teradata:sql>
+            <teradata:input-parameters>#[{name: 'ALPHA CENTAURI'}]</teradata:input-parameters>
+        </teradata:query-single>
     </flow>
 
     <flow name="querySingleWithManyRecordsReturnsOnlyOne">
-        <db:query-single config-ref="dbConfigWithPooling">
-            <db:sql>#["SELECT NAME FROM PLANET"]</db:sql>
-        </db:query-single>
+        <teradata:query-single config-ref="dbConfigWithPooling">
+            <teradata:sql>#["SELECT NAME FROM PLANET"]</teradata:sql>
+        </teradata:query-single>
     </flow>
 
     <flow name="querySingleWithRecordWithClobField">
-        <db:stored-procedure config-ref="dbConfigWithPooling">
-            <db:sql>{ call updatePlanetDescription(:name, :description) }</db:sql>
-            <db:parameter-types>
-                <db:parameter-type key="description" type="CLOB" />
-            </db:parameter-types>
-            <db:input-parameters>
+        <teradata:stored-procedure config-ref="dbConfigWithPooling">
+            <teradata:sql>{ call updatePlanetDescription(:name, :description) }</teradata:sql>
+            <teradata:parameter-types>
+                <teradata:parameter-type key="description" type="CLOB" />
+            </teradata:parameter-types>
+            <teradata:input-parameters>
                 #[{'name' : vars.name, 'description' : payload}]
-            </db:input-parameters>
-        </db:stored-procedure>
+            </teradata:input-parameters>
+        </teradata:stored-procedure>
 
-        <db:query-single config-ref="dbConfigWithPooling">
-            <db:sql>#["SELECT DESCRIPTION FROM PLANET WHERE NAME = :name"]</db:sql>
-            <db:input-parameters>
+        <teradata:query-single config-ref="dbConfigWithPooling">
+            <teradata:sql>#["SELECT DESCRIPTION FROM PLANET WHERE NAME = :name"]</teradata:sql>
+            <teradata:input-parameters>
                 #[{'name' : vars.name }]
-            </db:input-parameters>
-        </db:query-single>
+            </teradata:input-parameters>
+        </teradata:query-single>
     </flow>
 
     <flow name="querySingleWithRecordWithBlobField">
-        <db:update config-ref="dbConfigWithPooling">
-            <db:sql>#["UPDATE PLANET SET PICTURE = :picture WHERE NAME = :name"]</db:sql>
-            <db:input-parameters>
+        <teradata:update config-ref="dbConfigWithPooling">
+            <teradata:sql>#["UPDATE PLANET SET PICTURE = :picture WHERE NAME = :name"]</teradata:sql>
+            <teradata:input-parameters>
                 #[{'picture' : payload, 'name' : vars.name }]
-            </db:input-parameters>
-        </db:update>
+            </teradata:input-parameters>
+        </teradata:update>
 
-        <db:query-single config-ref="dbConfigWithPooling">
-            <db:sql>SELECT PICTURE FROM PLANET WHERE NAME = :name</db:sql>
-            <db:input-parameters>
+        <teradata:query-single config-ref="dbConfigWithPooling">
+            <teradata:sql>SELECT PICTURE FROM PLANET WHERE NAME = :name</teradata:sql>
+            <teradata:input-parameters>
                 #[{'name' : vars.name }]
-            </db:input-parameters>
-        </db:query-single>
+            </teradata:input-parameters>
+        </teradata:query-single>
     </flow>
 </mule>

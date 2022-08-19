@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="updatesStringArray">
         <try transactionalAction="ALWAYS_BEGIN">
-            <db:select config-ref="dbConfig">
-                <db:sql>select ZIPS from REGIONS where REGION_NAME='Northwest'</db:sql>
-            </db:select>
+            <teradata:select config-ref="dbConfig">
+                <teradata:sql>select ZIPS from REGIONS where REGION_NAME='Northwest'</teradata:sql>
+            </teradata:select>
 
             <!-- Sets the SQL array as payload-->
             <set-payload value="#[payload[0]['ZIPS']]"/>
 
-            <db:update config-ref="dbConfig">
-                <db:sql>update REGIONS set ZIPS = :zip where REGION_NAME = 'Southwest'</db:sql>
-                <db:input-parameters>
+            <teradata:update config-ref="dbConfig">
+                <teradata:sql>update REGIONS set ZIPS = :zip where REGION_NAME = 'Southwest'</teradata:sql>
+                <teradata:input-parameters>
                     #[{'zip' : payload}]
-                </db:input-parameters>
-            </db:update>
+                </teradata:input-parameters>
+            </teradata:update>
 
-            <db:select config-ref="dbConfig">
-                <db:sql>select ZIPs from REGIONS where REGION_NAME = 'Southwest'</db:sql>
-            </db:select>
+            <teradata:select config-ref="dbConfig">
+                <teradata:sql>select ZIPs from REGIONS where REGION_NAME = 'Southwest'</teradata:sql>
+            </teradata:select>
 
             <!--Obtains the java array from the array field-->
             <set-payload value="#[payload[0]['ZIPS']]"/>
@@ -32,23 +32,23 @@
 
     <flow name="updatesStructArray">
         <try transactionalAction="ALWAYS_BEGIN">
-            <db:select config-ref="dbConfig">
-                <db:sql>select DETAILS from CONTACTS where CONTACT_NAME='Contact2'</db:sql>
-            </db:select>
+            <teradata:select config-ref="dbConfig">
+                <teradata:sql>select DETAILS from CONTACTS where CONTACT_NAME='Contact2'</teradata:sql>
+            </teradata:select>
 
             <!-- Sets the SQL array as payload-->
             <set-payload value="#[payload[0]['DETAILS']]"/>
 
-            <db:update config-ref="dbConfig">
-                <db:sql>update contacts set DETAILS = :detail where CONTACT_NAME = 'Contact1'</db:sql>
-                <db:input-parameters>
+            <teradata:update config-ref="dbConfig">
+                <teradata:sql>update contacts set DETAILS = :detail where CONTACT_NAME = 'Contact1'</teradata:sql>
+                <teradata:input-parameters>
                     #[{'detail' : payload}]
-                </db:input-parameters>
-            </db:update>
+                </teradata:input-parameters>
+            </teradata:update>
 
-            <db:select config-ref="dbConfig">
-                <db:sql>select DETAILS from CONTACTS where CONTACT_NAME='Contact1'</db:sql>
-            </db:select>
+            <teradata:select config-ref="dbConfig">
+                <teradata:sql>select DETAILS from CONTACTS where CONTACT_NAME='Contact1'</teradata:sql>
+            </teradata:select>
 
             <!--Obtains the java array from the array field-->
             <set-payload value="#[payload[0]['DETAILS']]"/>
