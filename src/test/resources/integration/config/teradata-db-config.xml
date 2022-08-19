@@ -25,14 +25,4 @@
             </teradata:column-types>
         </teradata:teradata-connection>
     </teradata:config>
-
-    <db:config name="pooledJdbcConfig">
-        <db:teradata-connection url="jdbc:teradata://localhost/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
-            <db:pooling-profile maxPoolSize="2" minPoolSize="0" maxWait="1" maxWaitUnit="SECONDS"/>
-            <db:column-types>
-                <db:column-type typeName="CONTACT_DETAILS" id="2000"/>
-            </db:column-types>
-        </db:teradata-connection>
-    </db:config>
-
 </mule>
