@@ -35,7 +35,7 @@ import org.junit.rules.ExpectedException;
 
 public class BulkInsertTestCase extends AbstractDbIntegrationTestCase {
 
-  private static int POSITION_OFFSET_1 = 300;
+  private static int PLANET_POS_OFFSET_1 = 300;
   private static String NAME_FIELD = "NAME";
   private static List<String> PLANET_NAMES =
       Arrays.asList("Vogsphere", "Caprica", "Coruscant", "Worlorn", "Ego", "Krypton", "Gallifrey",
@@ -72,8 +72,9 @@ public class BulkInsertTestCase extends AbstractDbIntegrationTestCase {
   @Test
   public void bulkInsertInsideForEachScope() throws Exception {
     Message response =
-        flowRunner("bulkInsertInsideForEachScope").withPayload(valuesWithIncrementalPosition(PLANET_NAMES, POSITION_OFFSET_1))
-            .withVariable("positionOffset", POSITION_OFFSET_1).keepStreamsOpen().run()
+        flowRunner("bulkInsertInsideForEachScope")
+            .withPayload(valuesWithIncrementalPosition(PLANET_NAMES, PLANET_POS_OFFSET_1))
+            .withVariable("positionOffset", PLANET_POS_OFFSET_1).keepStreamsOpen().run()
             .getMessage();
 
     assertRecords(response.getPayload().getValue(),
@@ -104,10 +105,10 @@ public class BulkInsertTestCase extends AbstractDbIntegrationTestCase {
     return values;
   }
 
-  private void addRecord(List<Map<String, Object>> values, String planetName, int position) {
+  private void addRecord(List<Map<String, Object>> values, String planetName, int planet_pos) {
     Map<String, Object> record = new HashMap<>();
     record.put("name", planetName);
-    record.put("position", position);
+    record.put("planet_pos", planet_pos);
     values.add(record);
   }
 

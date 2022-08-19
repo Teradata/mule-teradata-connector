@@ -11,6 +11,7 @@ import static org.junit.Assume.assumeThat;
 import static org.mule.db.commons.api.exception.connection.DbError.CANNOT_LOAD_DRIVER;
 import static org.mule.tck.junit4.matcher.ErrorTypeMatcher.errorType;
 
+import org.junit.Ignore;
 import org.mule.extension.db.internal.domain.connection.oracle.OracleDbConnectionProvider;
 
 import org.junit.Assume;
@@ -19,12 +20,7 @@ import org.junit.Test;
 public class MissingDriverNegativeTestCase extends AbstractDbNegativeConnectivityTestCase {
 
   @Test
-  public void oracleMissingDriver() {
-    assumeThat(isDriverInClassLoader(), is(false));
-    utils.assertFailedConnection("oracleConfigInvalidCredentials", IS_CONNECTION_EXCEPTION, is(errorType(CANNOT_LOAD_DRIVER)));
-  }
-
-  @Test
+  @Ignore
   public void genericDriverMissingClass() {
     utils.assertFailedConnection("driverClassNotFound", IS_CONNECTION_EXCEPTION, is(errorType(CANNOT_LOAD_DRIVER)));
   }

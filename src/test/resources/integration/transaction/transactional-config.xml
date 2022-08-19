@@ -10,7 +10,7 @@
     <flow name="commitTxUpdateOutsideABlock">
         <db:update config-ref="dbConfig">
             <db:sql>
-                update PLANET set NAME='Mercury' where POSITION=4
+                update PLANET set NAME='Mercury' where PLANET_POS=4
             </db:sql>
         </db:update>
         <test:processor throwException="true" exceptionToThrow="java.lang.IllegalStateException"/>
@@ -20,7 +20,7 @@
         <try transactionalAction="INDIFFERENT">
             <db:update config-ref="dbConfig" transactionalAction="JOIN_IF_POSSIBLE">
                 <db:sql>
-                    update PLANET set NAME='Mercury' where POSITION=4
+                    update PLANET set NAME='Mercury' where PLANET_POS=4
                 </db:sql>
             </db:update>
             <test:processor throwException="true" exceptionToThrow="java.lang.IllegalStateException"/>
@@ -31,7 +31,7 @@
         <try transactionalAction="BEGIN_OR_JOIN">
             <db:update config-ref="dbConfig" transactionalAction="NOT_SUPPORTED">
                 <db:sql>
-                    update PLANET set NAME='Mercury' where POSITION=4
+                    update PLANET set NAME='Mercury' where PLANET_POS=4
                 </db:sql>
             </db:update>
 
@@ -43,7 +43,7 @@
         <try transactionalAction="BEGIN_OR_JOIN">
             <db:update config-ref="dbConfig" transactionalAction="ALWAYS_JOIN">
                 <db:sql>
-                    update PLANET set NAME='Earth' where POSITION=4
+                    update PLANET set NAME='Earth' where PLANET_POS=4
                 </db:sql>
             </db:update>
             <test:processor throwException="true" exceptionToThrow="java.lang.IllegalStateException"/>
@@ -54,7 +54,7 @@
         <try transactionalAction="ALWAYS_BEGIN">
             <db:update config-ref="dbConfig" transactionalAction="JOIN_IF_POSSIBLE">
                 <db:sql>
-                    update PLANET set NAME='Mercury' where POSITION=4
+                    update PLANET set NAME='Mercury' where PLANET_POS=4
                 </db:sql>
             </db:update>
             <test:processor throwException="true" exceptionToThrow="java.lang.IllegalStateException"/>

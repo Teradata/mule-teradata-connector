@@ -35,8 +35,8 @@ public class UpdateNameParamOverrideTestCase extends AbstractDbIntegrationTestCa
     Message response = flowRunner("inlineOverriddenParams").run().getMessage();
 
     assertAffectedRows((StatementResult) response.getPayload().getValue(), 1);
-    List<Map<String, String>> result = selectData("select * from PLANET where POSITION=3", getDefaultDataSource());
-    assertRecords(result, new Record(new Field("NAME", "Mercury"), new Field("POSITION", 3)));
+    List<Map<String, String>> result = selectData("select * from PLANET where PLANET_POS=3", getDefaultDataSource());
+    assertRecords(result, new Record(new Field("NAME", "Mercury"), new Field("PLANET_POS", 3)));
   }
 
   @Test
@@ -44,16 +44,16 @@ public class UpdateNameParamOverrideTestCase extends AbstractDbIntegrationTestCa
     Message response = flowRunner("inlineQuery").run().getMessage();
 
     assertAffectedRows((StatementResult) response.getPayload().getValue(), 1);
-    List<Map<String, String>> result = selectData("select * from PLANET where POSITION=4", getDefaultDataSource());
-    assertRecords(result, new Record(new Field("NAME", "Mercury"), new Field("POSITION", 4)));
+    List<Map<String, String>> result = selectData("select * from PLANET where PLANET_POS=4", getDefaultDataSource());
+    assertRecords(result, new Record(new Field("NAME", "Mercury"), new Field("PLANET_POS", 4)));
   }
 
   @Test
   public void usesExpressionParam() throws Exception {
-    Message response = flowRunner("expressionParam").withVariable("position", 3).run().getMessage();
+    Message response = flowRunner("expressionParam").withVariable("PLANET_POS", 3).run().getMessage();
     assertAffectedRows((StatementResult) response.getPayload().getValue(), 1);
 
-    List<Map<String, String>> result = selectData("select * from PLANET where POSITION=3", getDefaultDataSource());
-    assertRecords(result, new Record(new Field("NAME", "Mercury"), new Field("POSITION", 3)));
+    List<Map<String, String>> result = selectData("select * from PLANET where PLANET_POS=3", getDefaultDataSource());
+    assertRecords(result, new Record(new Field("NAME", "Mercury"), new Field("PLANET_POS", 3)));
   }
 }

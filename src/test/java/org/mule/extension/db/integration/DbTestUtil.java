@@ -37,6 +37,6 @@ public class DbTestUtil {
   }
 
   public enum DbType {
-    MYSQL, ORACLE, DERBY, SQLSERVER
+    MYSQL, ORACLE, DERBY, SQLSERVER, TERADATA
   }
 }

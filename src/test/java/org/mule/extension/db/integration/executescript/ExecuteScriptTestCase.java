@@ -48,8 +48,9 @@ public class ExecuteScriptTestCase extends AbstractDbIntegrationTestCase {
     assertEquals(0, counters[0]);
     assertEquals(1, counters[1]);
 
-    List<Map<String, String>> result = selectData("select * from PLANET where POSITION=0 or POSITION=4", getDefaultDataSource());
-    assertRecords(result, new Record(new Field("NAME", "Mercury"), new Field("POSITION", 4)));
+    List<Map<String, String>> result =
+        selectData("select * from PLANET where PLANET_POS=0 or PLANET_POS=4", getDefaultDataSource());
+    assertRecords(result, new Record(new Field("NAME", "Mercury"), new Field("PLANET_POS", 4)));
   }
 
 }

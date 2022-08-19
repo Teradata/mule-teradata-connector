@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 
 /**
  * Defines an Oracle test database to use with ojdbc7 driver.
@@ -25,6 +26,14 @@ public class OracleTestDatabase extends AbstractTestDatabase {
   @Override
   public DbTestUtil.DbType getDbType() {
     return DbTestUtil.DbType.ORACLE;
+  }
+
+  @Override
+  public void grantUserAllAccess(DataSource dataSource) throws SQLException {
+    executeDdl(dataSource,
+               "GRANT ALL\n" +
+                   "ON INTEGRATION_TEST\n" +
+                   "TO dbc;\n COMMIT WORK; \n");
   }
 
   @Override

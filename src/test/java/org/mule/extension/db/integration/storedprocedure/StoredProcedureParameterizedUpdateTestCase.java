@@ -55,7 +55,7 @@ public class StoredProcedureParameterizedUpdateTestCase extends AbstractDbIntegr
     int expectedUpdateCount = testDatabase instanceof DerbyTestDatabase ? 0 : 1;
     assertThat(payload.get("updateCount1"), equalTo(expectedUpdateCount));
 
-    List<Map<String, String>> result = selectData("select * from PLANET where POSITION=4", getDefaultDataSource());
-    assertRecords(result, new Record(new Field("NAME", expectedPlanetName), new Field("POSITION", 4)));
+    List<Map<String, String>> result = selectData("select * from PLANET where PLANET_POS=4", getDefaultDataSource());
+    assertRecords(result, new Record(new Field("NAME", expectedPlanetName), new Field("PLANET_POS", 4)));
   }
 }

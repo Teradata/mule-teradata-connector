@@ -45,7 +45,7 @@ public class ColumnValueProviderTestCase extends AbstractDbIntegrationTestCase
   private void assertValues(ValueResult values) {
     assertThat(values.isSuccess(), is(true));
     assertThat(values.getValues(),
-               hasItems(valueWithId("POSITION"), valueWithId("NAME"), valueWithId("DESCRIPTION"), valueWithId("PICTURE"),
+               hasItems(valueWithId("PLANET_POS"), valueWithId("NAME"), valueWithId("DESCRIPTION"), valueWithId("PICTURE"),
                         valueWithId("ID")));
   }
 

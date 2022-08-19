@@ -7,13 +7,13 @@
 
     <flow name="update">
         <db:update config-ref="dbConfig">
-            <db:sql>update PLANET set NAME='Mercury' where POSITION=4</db:sql>
+            <db:sql>update PLANET set NAME='Mercury' where PLANET_POS=4</db:sql>
         </db:update>
     </flow>
 
     <flow name="updateWithNullValues">
         <db:update config-ref="dbConfig">
-            <db:sql>update PLANET set NAME='Mercury' where POSITION=4</db:sql>
+            <db:sql>update PLANET set NAME='Mercury' where PLANET_POS=4</db:sql>
             <db:input-parameters>
                 #[null]
             </db:input-parameters>
@@ -22,10 +22,10 @@
 
     <flow name="updateDynamic">
         <set-variable variableName="data" value="Mercury"/>
-        <set-variable variableName="position" value="4"/>
+        <set-variable variableName="planet_pos" value="4"/>
 
         <db:update config-ref="dbConfig">
-            <db:sql>#["update PLANET set NAME='$(vars.data)' where POSITION=$(vars.position)"]</db:sql>
+            <db:sql>#["update PLANET set NAME='$(vars.data)' where PLANET_POS=$(vars.planet_pos)"]</db:sql>
         </db:update>
     </flow>
 
@@ -73,7 +73,7 @@
 
     <flow name="updateWithNullValue">
         <db:update config-ref="dbConfig">
-            <db:sql>UPDATE PLANET SET NAME = :param where POSITION = 4</db:sql>
+            <db:sql>UPDATE PLANET SET NAME = :param where PLANET_POS = 4</db:sql>
             <db:input-parameters>#[{'param' : null}]</db:input-parameters>
         </db:update>
 
@@ -82,9 +82,4 @@
         </db:select>
     </flow>
 
-    <flow name="truncateTable">
-        <db:update config-ref="dbConfig">
-            <db:sql>TRUNCATE TABLE PLANET</db:sql>
-        </db:update>
-    </flow>
 </mule>

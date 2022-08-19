@@ -46,6 +46,14 @@ public class SqlServerTestDataBase extends AbstractTestDatabase {
           "END";
 
   @Override
+  public void grantUserAllAccess(DataSource dataSource) throws SQLException {
+    executeDdl(dataSource,
+               "GRANT ALL\n" +
+                   "ON INTEGRATION_TEST\n" +
+                   "TO dbc;\n COMMIT WORK; \n");
+  }
+
+  @Override
   public void createPlanetTable(Connection connection) throws SQLException {
     executeDdl(connection,
                "CREATE TABLE PLANET(\n" +

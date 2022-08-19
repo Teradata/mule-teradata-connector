@@ -47,7 +47,7 @@ public class UpdateStoredProcedure extends AbstractDbIntegrationTestCase {
     Message response = flowRunner("updateStoredProcedure").run().getMessage();
 
     assertAffectedRows((StatementResult) response.getPayload().getValue(), testDatabase instanceof DerbyTestDatabase ? 0 : 1);
-    List<Map<String, String>> result = selectData("select * from PLANET where POSITION=4", getDefaultDataSource());
-    assertRecords(result, new Record(new Field("NAME", "Mercury"), new Field("POSITION", 4)));
+    List<Map<String, String>> result = selectData("select * from PLANET where PLANET_POS=4", getDefaultDataSource());
+    assertRecords(result, new Record(new Field("NAME", "Mercury"), new Field("PLANET_POS", 4)));
   }
 }

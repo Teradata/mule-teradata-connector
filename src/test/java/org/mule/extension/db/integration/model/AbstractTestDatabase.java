@@ -58,8 +58,10 @@ public abstract class AbstractTestDatabase {
   }
 
   public void truncateSpaceshipTable(Connection connection) throws SQLException {
-    executeUpdate(connection, "TRUNCATE TABLE SPACESHIP");
+    executeUpdate(connection, "DELETE SPACESHIP ALL");
   }
+
+  public abstract void grantUserAllAccess(DataSource dataSource) throws SQLException;
 
   public abstract void createPlanetTable(Connection connection) throws SQLException;
 
@@ -126,17 +128,17 @@ public abstract class AbstractTestDatabase {
     }
   }
 
-  protected abstract String getInsertPlanetSql(String name, int position);
+  protected abstract String getInsertPlanetSql(String name, int planet_pos);
 
-  protected String getDeletePlanetSql(String name, int position) {
-    return "DELETE FROM PLANET WHERE NAME='" + name + "' AND POSITION=" + position;
+  protected String getDeletePlanetSql(String name, int planet_pos) {
+    return "DELETE FROM PLANET WHERE NAME='" + name + "' AND PLANET_POS=" + planet_pos;
   }
 
   public void createDefaultDatabaseConfig(DataSource dataSource) throws SQLException {
     Connection connection = dataSource.getConnection();
     try {
       connection.setAutoCommit(false);
-
+      grantUserAllAccessTest(dataSource);
       createPlanetTestTable(connection);
       createSpaceshipTestTable(connection);
       createLanguagesTestTable(connection);
@@ -327,6 +329,14 @@ public abstract class AbstractTestDatabase {
 
   protected boolean supportsXmlType() {
     return false;
+  }
+
+  protected void grantUserAllAccessTest(DataSource dataSource) throws SQLException {
+    try {
+      grantUserAllAccess(dataSource);
+    } catch (Exception e) {
+      throw new SQLException(e);
+    }
   }
 
   protected void createPlanetTestTable(Connection connection) throws SQLException {

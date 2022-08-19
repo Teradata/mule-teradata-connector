@@ -7,9 +7,9 @@
 
     <flow name="clobInoutParameter" >
         <db:stored-procedure config-ref="dbConfig">
-            <db:sql>{ call getSpanishLanguageSample(:language) }</db:sql>
+            <db:sql>{ call getSpanishLanguageSample(:languageSample) }</db:sql>
             <db:in-out-parameters>
-                <db:in-out-parameter key="language" value="#[payload]" />
+                <db:in-out-parameter key="languageSample" value="#[payload]" />
             </db:in-out-parameters>
         </db:stored-procedure>
         <set-payload value="#[output application/java --- payload.language]" />

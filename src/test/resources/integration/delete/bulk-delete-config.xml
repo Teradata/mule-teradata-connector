@@ -26,7 +26,7 @@
         </db:select>
 
         <db:bulk-update config-ref="dbConfig">
-            <db:sql>update PLANET set NAME='Mercury' where POSITION=:position</db:sql>
+            <db:sql>update PLANET set NAME='Mercury' where PLANET_POS=:planet_pos</db:sql>
         </db:bulk-update>
     </flow>
 </mule>

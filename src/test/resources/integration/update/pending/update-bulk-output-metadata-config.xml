@@ -7,7 +7,7 @@
 
     <flow name="updateBulkMetadata">
         <db:update config-ref="dbConfig" bulkMode="true">
-            <db:parameterized-query>update PLANET set NAME='Mercury' where POSITION=4</db:parameterized-query>
+            <db:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</db:parameterized-query>
         </db:update>
     </flow>
 </mule>

@@ -7,7 +7,7 @@
 
     <flow name="updateMetadata">
         <db:update config-ref="dbConfig">
-            <db:sql>update PLANET set NAME='Mercury' where POSITION=4</db:sql>
+            <db:sql>update PLANET set NAME='Mercury' where PLANET_POS=4</db:sql>
         </db:update>
     </flow>
 

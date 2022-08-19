@@ -135,7 +135,7 @@ public class StoredProcedureTestCase extends AbstractDbIntegrationTestCase {
     // Apparently Derby has a bug: when there are no resultset returned, then
     // there is a fake updateCount=0 that is returned. Check how this works in other DB vendors.
     // assertThat(payload.size(), equalTo(2));
-    assertThat(payload.get("result"), equalTo("today is 2019-10-31"));
+    assertThat(payload.get("result"), equalTo("today is 19/10/31"));
   }
 
   @Test
@@ -156,7 +156,7 @@ public class StoredProcedureTestCase extends AbstractDbIntegrationTestCase {
     // there is a fake updateCount=0 that is returned. Check how this works in other DB vendors.
     // assertThat(payload.size(), equalTo(2));
     assertThat(payload.get("result"),
-               equalTo("Dorothy Johnson Vaughan was born 1910-09-20, in Kansas City, Missouri and died in Hampton, Virginia"));
+               equalTo("Dorothy Johnson Vaughan was born 10/09/20, in Kansas City, Missouri and died in Hampton, Virginia"));
   }
 
 }

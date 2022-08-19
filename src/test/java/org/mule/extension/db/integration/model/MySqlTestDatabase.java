@@ -32,6 +32,14 @@ public class MySqlTestDatabase extends AbstractTestDatabase {
       + "BEGIN\n" + "    SELECT * FROM PLANET WHERE POSITION <= 2;\n" + "    SELECT * FROM PLANET WHERE POSITION > 2;\n" + "END;";
 
   @Override
+  public void grantUserAllAccess(DataSource dataSource) throws SQLException {
+    executeDdl(dataSource,
+               "GRANT ALL\n" +
+                   "ON INTEGRATION_TEST\n" +
+                   "TO dbc;\n COMMIT WORK; \n");
+  }
+
+  @Override
   public void createPlanetTable(Connection connection) throws SQLException {
     executeDdl(connection,
                "CREATE TABLE PLANET(ID INTEGER NOT NULL AUTO_INCREMENT,POSITION INTEGER,NAME VARCHAR(255), PICTURE BLOB, DESCRIPTION LONGTEXT, PRIMARY KEY (ID))");

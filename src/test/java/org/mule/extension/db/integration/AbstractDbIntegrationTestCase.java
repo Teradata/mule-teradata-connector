@@ -191,7 +191,8 @@ public abstract class AbstractDbIntegrationTestCase extends MuleArtifactFunction
     }
 
     List<Map<String, String>> result =
-        selectData(format("select * from PLANET where name in (%s)", conditionBuilder.toString()), getDefaultDataSource());
+        selectData(format("select * from PLANET where name in (%s) order by name", conditionBuilder.toString()),
+                   getDefaultDataSource());
 
     assertRecords(result, records.toArray(new Record[0]));
   }
@@ -220,7 +221,7 @@ public abstract class AbstractDbIntegrationTestCase extends MuleArtifactFunction
     assertThat(type.getFields().size(), equalTo(5));
     assertFieldOfType(type, "ID", testDatabase.getIdFieldMetaDataType());
     assertFieldRequirement(type, "ID", true);
-    assertFieldOfType(type, "POSITION", testDatabase.getPositionFieldMetaDataType());
+    assertFieldOfType(type, "PLANET_POS", testDatabase.getPositionFieldMetaDataType());
     assertFieldOfType(type, "NAME", typeBuilder.stringType().build());
     switch (testDatabase.getDbType()) {
       case MYSQL: {

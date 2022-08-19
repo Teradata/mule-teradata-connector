@@ -7,13 +7,13 @@
 
     <flow name="updateMetadataNoParams">
         <db:update config-ref="dbConfig">
-            <db:parameterized-query>update Planet set position = 1 where name = 'Mars'</db:parameterized-query>
+            <db:parameterized-query>update Planet set PLANET_POS = 1 where name = 'Mars'</db:parameterized-query>
         </db:update>
     </flow>
 
     <flow name="updateMetadataNotSupportedValueParams">
         <db:update config-ref="dbConfig">
-            <db:parameterized-query>update Planet set position = #[mel:payload.position] where name =
+            <db:parameterized-query>update Planet set PLANET_POS = #[mel:payload.planet_pos] where name =
                 #[mel:message.outboundProperties.name]
             </db:parameterized-query>
         </db:update>
@@ -21,14 +21,14 @@
 
     <flow name="updateMetadataBeanParams">
         <db:update config-ref="dbConfig">
-            <db:parameterized-query>update Planet set position = #[payload.position] where name = #[payload.name]
+            <db:parameterized-query>update Planet set PLANET_POS = #[payload.planet_pos] where name = #[payload.name]
             </db:parameterized-query>
         </db:update>
     </flow>
 
     <flow name="updateMetadataMapParams">
         <db:update config-ref="dbConfig">
-            <db:parameterized-query>update Planet set position = #[payload['position']] where name = #[payload.name]
+            <db:parameterized-query>update Planet set PLANET_POS = #[payload['planet_pos']] where name = #[payload.name]
             </db:parameterized-query>
         </db:update>
     </flow>

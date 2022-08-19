@@ -9,8 +9,8 @@ package org.mule.extension.db.integration.model;
 
 public class Language {
 
-  public static final Language SPANISH = new Language("Spanish", "La mejor letra del mundo es la �");
-  public static final Language GERMAN = new Language("German", "F�r den Feind noch den Frieden des Grabes");
+  public static final Language SPANISH = new Language("Spanish", "Ella es la niña con la letra más bonita del mundo");
+  public static final Language GERMAN = new Language("German", "gleichermaßen entsprechend ihren Fähigkeiten offenstehen");
 
   private String name;
   private String sampleText;
