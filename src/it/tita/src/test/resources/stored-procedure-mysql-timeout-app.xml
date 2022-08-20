@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns:http="http://www.mulesoft.org/schema/mule/http"
       xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd
             http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
             http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
 
@@ -17,21 +17,21 @@
         <http:listener-connection host="localhost" port="${port}" protocol="HTTP"/>
     </http:listener-config>
 
-    <db:config name="Database_Config">
-        <db:my-sql-connection host="localhost" port="${db.port}" user="root" password="password" database="xe"/>
-    </db:config>
+    <teradata:config name="Database_Config">
+        <teradata:my-sql-connection host="localhost" port="${db.port}" user="root" password="password" database="xe"/>
+    </teradata:config>
 
     <flow name="mysqlTimeoutTest">
         <http:listener path="/test-sp-timeout" config-ref="listenerConfig"/>
 
         <try>
-            <db:execute-script config-ref="Database_Config">
-                <db:sql><![CDATA[DROP TABLE TEST_MESSAGE]]></db:sql>
-            </db:execute-script>
+            <teradata:execute-script config-ref="Database_Config">
+                <teradata:sql><![CDATA[DROP TABLE TEST_MESSAGE]]></teradata:sql>
+            </teradata:execute-script>
 
-            <db:execute-script config-ref="Database_Config">
-                <db:sql><![CDATA[DROP PROCEDURE IF EXISTS GET_DELAYED_MESSAGE_BY_ID;]]></db:sql>
-            </db:execute-script>
+            <teradata:execute-script config-ref="Database_Config">
+                <teradata:sql><![CDATA[DROP PROCEDURE IF EXISTS GET_DELAYED_MESSAGE_BY_ID;]]></teradata:sql>
+            </teradata:execute-script>
 
             <error-handler>
                 <on-error-continue enableNotifications="true" logException="false">
@@ -40,22 +40,22 @@
         </try>
 
         <try>
-            <db:execute-ddl config-ref="Database_Config">
-                <db:sql><![CDATA[CREATE TABLE TEST_MESSAGE(MSG_ID int NOT NULL AUTO_INCREMENT,
+            <teradata:execute-ddl config-ref="Database_Config">
+                <teradata:sql><![CDATA[CREATE TABLE TEST_MESSAGE(MSG_ID int NOT NULL AUTO_INCREMENT,
                     STATE varchar(255),
                     MSG int,
                     PRIMARY KEY (MSG_ID))]]>
-                </db:sql>
-            </db:execute-ddl>
+                </teradata:sql>
+            </teradata:execute-ddl>
 
-            <db:insert config-ref="Database_Config">
-                <db:sql ><![CDATA[INSERT INTO TEST_MESSAGE (STATE, MSG) values(:state, :msg)]]></db:sql>
-                <db:input-parameters ><![CDATA[#[{
+            <teradata:insert config-ref="Database_Config">
+                <teradata:sql ><![CDATA[INSERT INTO TEST_MESSAGE (STATE, MSG) values(:state, :msg)]]></teradata:sql>
+                <teradata:input-parameters ><![CDATA[#[{
 	                "state": "SENT",
                     "msg": 8
                     }]]]>
-                </db:input-parameters>
-            </db:insert>
+                </teradata:input-parameters>
+            </teradata:insert>
 
             <error-handler>
                 <on-error-continue enableNotifications="true" logException="true">
@@ -65,8 +65,8 @@
         </try>
 
         <try>
-            <db:execute-ddl config-ref="Database_Config">
-                <db:sql><![CDATA[CREATE PROCEDURE GET_DELAYED_MESSAGE_BY_ID(IN pMsgId int, OUT pState varchar(255))
+            <teradata:execute-ddl config-ref="Database_Config">
+                <teradata:sql><![CDATA[CREATE PROCEDURE GET_DELAYED_MESSAGE_BY_ID(IN pMsgId int, OUT pState varchar(255))
                     BEGIN
                       SELECT SLEEP(2.0);
                       SELECT STATE into pState FROM
@@ -74,8 +74,8 @@
                       WHERE
                         MH.MSG_ID = pMsgId;
                     END;]]>
-                </db:sql>
-            </db:execute-ddl>
+                </teradata:sql>
+            </teradata:execute-ddl>
 
             <error-handler>
                 <on-error-continue enableNotifications="true" logException="true">
@@ -85,13 +85,13 @@
         </try>
 
         <try>
-            <db:stored-procedure config-ref="Database_Config" queryTimeout="500" queryTimeoutUnit="MILLISECONDS">
-                <db:sql><![CDATA[{ call GET_DELAYED_MESSAGE_BY_ID(:msgId, :out) }]]></db:sql>
-                <db:input-parameters><![CDATA[#[msgId : 1]]]></db:input-parameters>
-                <db:output-parameters>
-                    <db:output-parameter key="out" type="NVARCHAR" />
-                </db:output-parameters>
-            </db:stored-procedure>
+            <teradata:stored-procedure config-ref="Database_Config" queryTimeout="500" queryTimeoutUnit="MILLISECONDS">
+                <teradata:sql><![CDATA[{ call GET_DELAYED_MESSAGE_BY_ID(:msgId, :out) }]]></teradata:sql>
+                <teradata:input-parameters><![CDATA[#[msgId : 1]]]></teradata:input-parameters>
+                <teradata:output-parameters>
+                    <teradata:output-parameter key="out" type="NVARCHAR" />
+                </teradata:output-parameters>
+            </teradata:stored-procedure>
 
             <set-payload value="#[%dw 2.0 output application/json --- payload.out]"/>
 

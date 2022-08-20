@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="deleteMetadata">
-        <db:delete config-ref="dbConfig">
-            <db:sql>DELETE FROM PLANET WHERE name = :name</db:sql>
-        </db:delete>
+        <teradata:delete config-ref="dbConfig">
+            <teradata:sql>DELETE FROM PLANET WHERE name = :name</teradata:sql>
+        </teradata:delete>
     </flow>
 
     <flow name="bulkDeleteMetadata">
-        <db:bulk-delete config-ref="dbConfig">
-            <db:sql>DELETE FROM PLANET WHERE name = :name</db:sql>
-        </db:bulk-delete>
+        <teradata:bulk-delete config-ref="dbConfig">
+            <teradata:sql>DELETE FROM PLANET WHERE name = :name</teradata:sql>
+        </teradata:bulk-delete>
     </flow>
 
 </mule>

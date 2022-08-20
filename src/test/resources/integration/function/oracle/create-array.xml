@@ -7,16 +7,16 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 
     <flow name="createArrayFromObjectArray">
         <set-variable variableName="array" value="#[[1234, 'Apple', 54] as Array { class : 'java.lang.Object[]'}]"/>
-        <set-variable value="#[Db::createArray('dbConfig', 'PERSON_TABLE', [vars.array])]" variableName="PERSON" />
+        <set-variable value="#[teradata::createArray('dbConfig', 'PERSON_TABLE', [vars.array])]" variableName="PERSON" />
     </flow>
 
     <flow name="createArrayFromDWArray">
         <set-variable variableName="array" value="#[[1234, 'Apple', 54]]"/>
-        <set-variable value="#[Db::createArray('dbConfig', 'PERSON_TABLE', [vars.array])]" variableName="PERSON" />
+        <set-variable value="#[teradata::createArray('dbConfig', 'PERSON_TABLE', [vars.array])]" variableName="PERSON" />
     </flow>
 
     <flow name="createArrayFromStruct">
         <set-variable variableName="array" value="#[[1234, 'Apple', 54]]"/>
-        <set-variable value="#[Db::createArray('dbConfig', 'PERSON_TABLE', [Db::createStruct('dbConfig', 'PERSON_TYPE', vars.array)])]" variableName="PERSON" />
+        <set-variable value="#[teradata::createArray('dbConfig', 'PERSON_TABLE', [teradata::createStruct('dbConfig', 'PERSON_TYPE', vars.array)])]" variableName="PERSON" />
     </flow>
 </mule>

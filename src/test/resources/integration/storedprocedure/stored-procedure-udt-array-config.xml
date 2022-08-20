@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="returnsDefaultArrayValue">
-            <db:stored-procedure config-ref="dbConfig">
-                <db:sql>{ CALL getZipCodes('Southwest', :out) }</db:sql>
-                <db:output-parameters>
-                    <db:output-parameter key="out" customType="ZIPARRAY"/>
-                </db:output-parameters>
-            </db:stored-procedure>
+            <teradata:stored-procedure config-ref="dbConfig">
+                <teradata:sql>{ CALL getZipCodes('Southwest', :out) }</teradata:sql>
+                <teradata:output-parameters>
+                    <teradata:output-parameter key="out" customType="ZIPARRAY"/>
+                </teradata:output-parameters>
+            </teradata:stored-procedure>
         <set-payload value="#[payload.out]"/>
 
     </flow>
 
     <flow name="returnsCustomArrayValue">
-            <db:stored-procedure config-ref="dbConfig">
-                <db:sql>{ CALL getContactDetails('Contact1', :out) }</db:sql>
-                <db:output-parameters>
-                    <db:output-parameter key="out" customType="CONTACT_DETAILS_ARRAY"/>
-                </db:output-parameters>
-            </db:stored-procedure>
+            <teradata:stored-procedure config-ref="dbConfig">
+                <teradata:sql>{ CALL getContactDetails('Contact1', :out) }</teradata:sql>
+                <teradata:output-parameters>
+                    <teradata:output-parameter key="out" customType="CONTACT_DETAILS_ARRAY"/>
+                </teradata:output-parameters>
+            </teradata:stored-procedure>
             <set-payload value="#[payload.out]"/>
     </flow>
 </mule>

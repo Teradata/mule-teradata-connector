@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="inlineQuery">
-        <db:update config-ref="dbConfig">
-            <db:sql>#["update PLANET set NAME='Mercury' where PLANET_POS=4"]</db:sql>
-        </db:update>
+        <teradata:update config-ref="dbConfig">
+            <teradata:sql>#["update PLANET set NAME='Mercury' where PLANET_POS=4"]</teradata:sql>
+        </teradata:update>
     </flow>
 
     <flow name="expressionParam">
-        <db:update config-ref="dbConfig">
-            <db:sql>#["update PLANET set NAME='Mercury' where PLANET_POS=$(vars.planet_pos) AND NAME = 'Earth'"]</db:sql>
-        </db:update>
+        <teradata:update config-ref="dbConfig">
+            <teradata:sql>#["update PLANET set NAME='Mercury' where PLANET_POS=$(vars.planet_pos) AND NAME = 'Earth'"]</teradata:sql>
+        </teradata:update>
     </flow>
 </mule>

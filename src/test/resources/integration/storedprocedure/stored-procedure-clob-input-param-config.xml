@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="clobInputParameter">
-        <db:stored-procedure config-ref="dbConfig">
-            <db:sql>{ call updatePlanetDescription('Venus', :description) }</db:sql>
-            <db:parameter-types>
-                <db:parameter-type key="description" type="CLOB" />
-            </db:parameter-types>
-            <db:input-parameters>
+        <teradata:stored-procedure config-ref="dbConfig">
+            <teradata:sql>{ call updatePlanetDescription('Venus', :description) }</teradata:sql>
+            <teradata:parameter-types>
+                <teradata:parameter-type key="description" type="CLOB" />
+            </teradata:parameter-types>
+            <teradata:input-parameters>
                 #[{'description' : payload}]
-            </db:input-parameters>
-        </db:stored-procedure>
+            </teradata:input-parameters>
+        </teradata:stored-procedure>
 
         <try transactionalAction="ALWAYS_BEGIN">
-            <db:select config-ref="dbConfig">
-                <db:sql>select description from PLANET where name = 'Venus'</db:sql>
-            </db:select>
+            <teradata:select config-ref="dbConfig">
+                <teradata:sql>select description from PLANET where name = 'Venus'</teradata:sql>
+            </teradata:select>
             <!-- Get the CLOB field value -->
             <set-payload value="#[mel:payload.openCursor().next().get('DESCRIPTION')]"/>
             <set-payload value="#[output application/java --- payload as String]"/>

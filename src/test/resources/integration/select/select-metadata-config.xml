@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:db="http://www.mulesoft.org/schema/mule/db"
+        xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
         xmlns="http://www.mulesoft.org/schema/mule/core"
         xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="selectMetadata">
-        <db:select config-ref="dbConfig">
-            <db:sql>SELECT * FROM TABLE2</db:sql>
-        </db:select>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>SELECT * FROM TABLE2</teradata:sql>
+        </teradata:select>
     </flow>
 
     <flow name="insert">
-        <db:insert config-ref="dbConfig">
-        <db:sql >INSERT INTO   TABLE2 (FRUIT) VALUES (:fruit)</db:sql>
-        <db:input-parameters ><![CDATA[#[output application/java
+        <teradata:insert config-ref="dbConfig">
+        <teradata:sql >INSERT INTO   TABLE2 (FRUIT) VALUES (:fruit)</teradata:sql>
+        <teradata:input-parameters ><![CDATA[#[output application/java
 ---
 {
 	fruit : {fruitName : "Orange"} as Object {class : "estebanwasinger.Fruit"}
-}]]]></db:input-parameters>
-    </db:insert>
+}]]]></teradata:input-parameters>
+    </teradata:insert>
     </flow>
 
 </mule>

@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:db="http://www.mulesoft.org/schema/mule/db"
+<mule xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-        http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+        http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd
         ">
 
-    <db:config name="dbConfigTeradata">
-        <db:teradata-connection host="localhost" port="1025" user="dbc" password="dbc">
-            <db:pooling-profile/>
-        </db:teradata-connection>
-    </db:config>
+    <teradata:config name="dbConfigTeradata">
+        <teradata:teradata-connection host="localhost" port="1025" user="dbc" password="dbc">
+            <teradata:pooling-profile/>
+        </teradata:teradata-connection>
+    </teradata:config>
 
-    <db:config name="dbConfigTeradata2">
-        <db:teradata-connection host="localhost" port="1025" user="dbc" password="dbc">
-            <db:pooling-profile/>
-        </db:teradata-connection>
-    </db:config>
+    <teradata:config name="dbConfigTeradata2">
+        <teradata:teradata-connection host="localhost" port="1025" user="dbc" password="dbc">
+            <teradata:pooling-profile/>
+        </teradata:teradata-connection>
+    </teradata:config>
 
-    <db:config name="dbConfigWithPoolingTeradata">
-        <db:teradata-connection host="localhost" port="1025" user="dbc" password="dbc">
-            <db:pooling-profile maxPoolSize="10" maxWait="1">
-            </db:pooling-profile>
-        </db:teradata-connection>
-    </db:config>
+    <teradata:config name="dbConfigWithPoolingTeradata">
+        <teradata:teradata-connection host="localhost" port="1025" user="dbc" password="dbc">
+            <teradata:pooling-profile maxPoolSize="10" maxWait="1">
+            </teradata:pooling-profile>
+        </teradata:teradata-connection>
+    </teradata:config>
 
 </mule>
 

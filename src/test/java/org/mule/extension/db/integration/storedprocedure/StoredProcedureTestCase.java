@@ -118,7 +118,7 @@ public class StoredProcedureTestCase extends AbstractDbIntegrationTestCase {
 
   @Test
   public void runStoredProcedureWithArgumentThatDoesNotExists() throws Exception {
-    expectedError.expectErrorType("DB", "QUERY_EXECUTION");
+    expectedError.expectErrorType("TERADATA", "QUERY_EXECUTION");
     runProcedure("callNotExistingStoredProcedureWithAnArgument");
   }
 

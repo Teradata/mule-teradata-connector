@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="defaultQueryRequestResponse">
-        <db:stored-procedure config-ref="dbConfig">
-            <db:parameterized-query>{ call updateTestType1(:updateCount1) }</db:parameterized-query>
-            <db:out-param name="updateCount1" type="INTEGER"/>
-        </db:stored-procedure>
+        <teradata:stored-procedure config-ref="dbConfig">
+            <teradata:parameterized-query>{ call updateTestType1(:updateCount1) }</teradata:parameterized-query>
+            <teradata:out-param name="updateCount1" type="INTEGER"/>
+        </teradata:stored-procedure>
     </flow>
 </mule>

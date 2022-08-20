@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="bulkInsert">
-        <db:bulk-insert config-ref="dbConfig">
-            <db:sql>INSERT INTO PLANET(PLANET_POS, NAME) VALUES (:planet_pos, :name)</db:sql>
-        </db:bulk-insert>
+        <teradata:bulk-insert config-ref="dbConfig">
+            <teradata:sql>INSERT INTO PLANET(PLANET_POS, NAME) VALUES (:planet_pos, :name)</teradata:sql>
+        </teradata:bulk-insert>
     </flow>
 
     <flow name="bulkInsertWithOverriddenType">
-        <db:bulk-insert config-ref="dbConfig">
-            <db:sql>INSERT INTO PLANET(PLANET_POS, NAME) VALUES (:planet_pos, :name)</db:sql>
-            <db:parameter-types>
-                <db:parameter-type key="name" type="VARCHAR" />
-                <db:parameter-type key="planet_pos" type="INTEGER" />
-            </db:parameter-types>
-        </db:bulk-insert>
+        <teradata:bulk-insert config-ref="dbConfig">
+            <teradata:sql>INSERT INTO PLANET(PLANET_POS, NAME) VALUES (:planet_pos, :name)</teradata:sql>
+            <teradata:parameter-types>
+                <teradata:parameter-type key="name" type="VARCHAR" />
+                <teradata:parameter-type key="planet_pos" type="INTEGER" />
+            </teradata:parameter-types>
+        </teradata:bulk-insert>
     </flow>
 
     <flow name="bulkInsertWithUnusedParameterType">
-        <db:bulk-insert config-ref="dbConfig">
-            <db:sql>INSERT INTO PLANET(PLANET_POS, NAME) VALUES (:planet_pos, :name)</db:sql>
-            <db:parameter-types>
-                <db:parameter-type key="name" type="VARCHAR" />
-                <db:parameter-type key="planet_pos" type="INTEGER" />
-                <db:parameter-type key="unused" type="INTEGER" />
-            </db:parameter-types>
-        </db:bulk-insert>
+        <teradata:bulk-insert config-ref="dbConfig">
+            <teradata:sql>INSERT INTO PLANET(PLANET_POS, NAME) VALUES (:planet_pos, :name)</teradata:sql>
+            <teradata:parameter-types>
+                <teradata:parameter-type key="name" type="VARCHAR" />
+                <teradata:parameter-type key="planet_pos" type="INTEGER" />
+                <teradata:parameter-type key="unused" type="INTEGER" />
+            </teradata:parameter-types>
+        </teradata:bulk-insert>
     </flow>
 
     <flow name="bulkInsertInsideForEachScope">
         <foreach collection="#[payload]" batchSize="2">
-            <db:bulk-insert config-ref="dbConfig">
-                <db:sql>INSERT INTO PLANET(PLANET_POS, NAME) VALUES (:planet_pos, :name)</db:sql>
-                <db:parameter-types>
-                    <db:parameter-type key="name" type="VARCHAR" />
-                    <db:parameter-type key="planet_pos" type="INTEGER" />
-                </db:parameter-types>
-            </db:bulk-insert>
+            <teradata:bulk-insert config-ref="dbConfig">
+                <teradata:sql>INSERT INTO PLANET(PLANET_POS, NAME) VALUES (:planet_pos, :name)</teradata:sql>
+                <teradata:parameter-types>
+                    <teradata:parameter-type key="name" type="VARCHAR" />
+                    <teradata:parameter-type key="planet_pos" type="INTEGER" />
+                </teradata:parameter-types>
+            </teradata:bulk-insert>
         </foreach>
-        <db:select config-ref="dbConfig">
-            <db:sql>#["SELECT NAME from PLANET WHERE PLANET_POS >= :pos ORDER BY PLANET_POS"]</db:sql>
-            <db:input-parameters>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>#["SELECT NAME from PLANET WHERE PLANET_POS >= :pos ORDER BY PLANET_POS"]</teradata:sql>
+            <teradata:input-parameters>
                 #[{'pos' : vars.positionOffset}]
-            </db:input-parameters>
-        </db:select>
+            </teradata:input-parameters>
+        </teradata:select>
     </flow>
 
 </mule>
