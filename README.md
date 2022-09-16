@@ -1,12 +1,12 @@
 # Teradata Connector- Mule 4
 
-Anypoint Connector for Teradata (Teradata Connector) establishes communication between your Mule app and a Teradata relational database, enabling you to connect with your Teradata Vantage instance to load data and run SQL queries in Teradata tables.
+Anypoint Connector for Teradata (Teradata Connector) establishes communication between your Mule app and a Teradata Vantage database, enabling you to connect with your Teradata Vantage instance to load data and run SQL queries in Teradata Vantage tables.
 
 # Before You Begin
 
 To use this connector, you must be familiar with:
 
-- Teradata Vantage API
+- Teradata Vantage SQL
 
 - Anypoint Connectors
 
@@ -14,7 +14,7 @@ To use this connector, you must be familiar with:
 
 - Elements and global elements in a Mule flow
 
-- Creating a Mule app using Anypoint Studio (Studio)
+- Anypoint Studio (Studio)
 
 Before creating an app, you must have:
 
