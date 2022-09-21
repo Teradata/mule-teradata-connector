@@ -18,116 +18,18 @@ import java.util.List;
 public class TestDbConfig {
 
   static {
-    USE_MYSQL = getValueFor("mysql");
-    USE_MYSQL_OLD_DRIVER = getValueFor("mysql-old-version");
-    USE_MSSQL_SERVER = getValueFor("mssql");
-    USE_DERBY = getValueFor("derby");
-    USE_ORACLE = getValueFor("oracle");
     USE_TERADATA = getValueFor("teradata");
   }
-
-  private static boolean USE_DERBY;
-
-  /**
-   *  <strong>Developer Note:</strong>
-   *  To run the MySQL tests you need to follow the following steps:
-   *  <ul>
-   *    <li>Set this USE_MYSQL flag to true</li>
-   *    <li>Download a docker MySQL image: <code>docker pull mysql</code></li>
-   *    <li>Start the container <code>docker run -p 3306:3306 --name some-mysql -e MYSQL_ROOT_PASSWORD=mysql -d mysql:latest</code></li>
-   *  </ul>
-   *
-   *  Alternately, you can enable the system property <code>mysql</code>.
-   */
-  private static boolean USE_MYSQL;
-  private static boolean USE_MYSQL_OLD_DRIVER;
-
-  /**
-   * <strong>Developer Note:</strong>
-   * To run the oracle tests you need to follow the following steps:
-   * <ul>
-   *  <li>Set this USE_ORACLE flag to true</li>
-   *  <li>Download a docker Oracle image: <code>docker pull store/oracle/database-enterprise:12.2.0.1</code></li>
-   *  <li>Start the container:<code>docker run -d -it --name oracle-db -p 1521:1521 store/oracle/database-enterprise:12.2.0.1</code> </li>
-   *  <li>Install in your maven repository an <strong>oracle-jdbc-driver</strong> using the mvn install:install-file command</li>
-   *  <li>Add the installed driver dependency to this project so the test can find it in the classpath</li>
-   *  <li>Add the driver as a shared dependency on {@link DbArtifactClassLoaderRunnerConfig}</li>
-   * </ul>
-   *
-   * Alternately, you can enable the system property oracle, and follow just the steps five and six above.
-   */
-  private static boolean USE_ORACLE;
-
-  /**
-   * <strong>Developer Note:</strong>
-   * To run the MsSQL tests you need to follow the following steps:
-   * <ul>
-   *  <li>Set this USE_MSSQL_SERVER flag to true</li>
-   *   <li>Download a docker MsSQL image: <code>docker pull microsoft/mssql-server-linux</code></li>
-   *  <li>Start the container: <code>docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=yourStrong(!)Password' -p 1433:1433 -d microsoft/mssql-server-linux</code>
-   * </ul>
-   *
-   * Alternately, you can enable the system property <code>mssql</code>.
-   */
-  private static boolean USE_MSSQL_SERVER;
 
   private static boolean USE_TERADATA;
 
   public static List<Object[]> getResources() {
-
-    if (!(USE_DERBY || USE_MYSQL || USE_MYSQL_OLD_DRIVER || USE_MSSQL_SERVER || USE_ORACLE || USE_TERADATA)) {
-      USE_TERADATA = true;
-    }
-
+    USE_TERADATA = true;
     List<Object[]> result = new ArrayList<>();
 
-    result.addAll(getDerbyResource());
-    result.addAll(getMySqlResource());
-    result.addAll(getOracleResource());
-    result.addAll(getSqlServerResource());
     result.addAll(getTeradataResource());
 
     return result;
-  }
-
-  public static List<Object[]> getDerbyResource() {
-    if (USE_DERBY) {
-      final DerbyTestDatabase derbyTestDatabase = new DerbyTestDatabase();
-      return singletonList(new Object[] {"integration/config/derby-datasource.xml", derbyTestDatabase,
-          derbyTestDatabase.getDbType(), emptyList()});
-    } else {
-      return emptyList();
-    }
-  }
-
-  public static List<Object[]> getMySqlResource() {
-    if (USE_MYSQL || USE_MYSQL_OLD_DRIVER) {
-      final MySqlTestDatabase mySqlTestDatabase = new MySqlTestDatabase();
-      return singletonList(new Object[] {"integration/config/mysql-db-config.xml", mySqlTestDatabase,
-          mySqlTestDatabase.getDbType(), emptyList()});
-    } else {
-      return emptyList();
-    }
-  }
-
-  public static List<Object[]> getOracleResource() {
-    if (USE_ORACLE) {
-      final OracleTestDatabase oracleTestDatabase = new OracleTestDatabase();
-      return singletonList(new Object[] {"integration/config/oracle-db-config.xml", oracleTestDatabase,
-          oracleTestDatabase.getDbType(), emptyList()});
-    } else {
-      return emptyList();
-    }
-  }
-
-  public static List<Object[]> getSqlServerResource() {
-    if (USE_MSSQL_SERVER) {
-      final SqlServerTestDataBase sqlServerTestDataBase = new SqlServerTestDataBase();
-      return singletonList(new Object[] {"integration/config/mssql-db-config.xml", sqlServerTestDataBase,
-          sqlServerTestDataBase.getDbType(), singletonList("merge")});
-    } else {
-      return emptyList();
-    }
   }
 
   public static List<Object[]> getTeradataResource() {

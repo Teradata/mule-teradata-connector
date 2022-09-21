@@ -12,8 +12,6 @@ import static org.mule.db.commons.api.exception.connection.DbError.CANNOT_LOAD_D
 import static org.mule.tck.junit4.matcher.ErrorTypeMatcher.errorType;
 
 import org.junit.Ignore;
-import org.mule.extension.db.internal.domain.connection.oracle.OracleDbConnectionProvider;
-
 import org.junit.Assume;
 import org.junit.Test;
 

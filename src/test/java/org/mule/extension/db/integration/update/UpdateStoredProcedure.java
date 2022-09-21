@@ -14,7 +14,6 @@ import static org.junit.Assume.assumeThat;
 import org.mule.extension.db.api.StatementResult;
 import org.mule.extension.db.integration.AbstractDbIntegrationTestCase;
 import org.mule.extension.db.integration.matcher.SupportsReturningStoredProcedureResultsWithoutParameters;
-import org.mule.extension.db.integration.model.DerbyTestDatabase;
 import org.mule.extension.db.integration.model.Field;
 import org.mule.extension.db.integration.model.Record;
 import org.mule.runtime.api.message.Message;
@@ -46,7 +45,7 @@ public class UpdateStoredProcedure extends AbstractDbIntegrationTestCase {
   public void testRequestResponse() throws Exception {
     Message response = flowRunner("updateStoredProcedure").run().getMessage();
 
-    assertAffectedRows((StatementResult) response.getPayload().getValue(), testDatabase instanceof DerbyTestDatabase ? 0 : 1);
+    assertAffectedRows((StatementResult) response.getPayload().getValue(), 1);
     List<Map<String, String>> result = selectData("select * from PLANET where PLANET_POS=4", getDefaultDataSource());
     assertRecords(result, new Record(new Field("NAME", "Mercury"), new Field("PLANET_POS", 4)));
   }

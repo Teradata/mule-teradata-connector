@@ -11,18 +11,5 @@ import java.sql.SQLException;
 
 public class ConnectionUtils {
 
-  /** Oracle.
-   */
-  public static final String ORACLE = "Oracle";
-
-  /** Tells whether a connection is an Oracle connection.
-   *
-   * @param connection    the connection to check
-   * @return true if it's an Oracle connection
-   */
-  public static boolean isOracle(Connection connection) throws SQLException {
-    return connection.getMetaData().getDatabaseProductName().equals(ORACLE);
-  }
-
   private ConnectionUtils() {}
 }

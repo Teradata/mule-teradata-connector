@@ -10,7 +10,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static java.util.stream.IntStream.range;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mule.extension.db.integration.TestDbConfig.getDerbyResource;
+import static org.mule.extension.db.integration.TestDbConfig.getTeradataResource;
 
 import org.junit.Ignore;
 import org.mule.extension.db.integration.AbstractDbIntegrationTestCase;
@@ -39,7 +39,7 @@ public class DataSourcePoolingTestCase extends AbstractDbIntegrationTestCase {
 
   @Parameterized.Parameters(name = "{2}")
   public static List<Object[]> parameters() {
-    return getDerbyResource();
+    return getTeradataResource();
   }
 
   @Before
@@ -54,7 +54,7 @@ public class DataSourcePoolingTestCase extends AbstractDbIntegrationTestCase {
 
   @Override
   protected String[] getFlowConfigurationResources() {
-    return new String[] {"integration/config/derby-pooling-db-config.xml",
+    return new String[] {"integration/connectivity/teradata-db-pooling-config.xml",
         "integration/connectivity/connection-pooling-config.xml"};
   }
 

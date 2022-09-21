@@ -10,30 +10,19 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mule.db.commons.internal.util.CredentialsMaskUtils.maskUrlUserAndPassword;
-import static org.mule.extension.db.internal.domain.connection.oracle.util.OracleCredentialsMaskUtils.maskUrlUserAndPasswordForOracle;
 
 import org.junit.Test;
 
 public class CredentialsMaskUtilTestCase {
 
   private static final String URL_TEST =
-      "jdbc:sqlserver://1.1.1.1:1443;databaseName=STAGING;user=mulesoftuser;password=mulesoftpass;";
+      "jdbc:teradata://1.1.1.1:1443;databaseName=STAGING;user=mulesoftuser;password=mulesoftpass;";
   private static final String EXPECTED_URL_TEST_MASKED =
-      "jdbc:sqlserver://1.1.1.1:1443;databaseName=STAGING;user=<<user>>;password=<<credentials>>;";
+      "jdbc:teradata://1.1.1.1:1443;databaseName=STAGING;user=<<user>>;password=<<credentials>>;";
 
   @Test
   public void whenUrlWithUserAndPasswordMaskUserPassword() {
     String maskedUrl = maskUrlUserAndPassword(URL_TEST);
     assertThat(maskedUrl, equalTo(EXPECTED_URL_TEST_MASKED));
   }
-
-  @Test
-  public void maskOracleUserAndPasswordUrl() {
-    String originalUrl = "jdbc:oracle:thin:secretUser/secretP@ssword@somehost.com:1521/sid";
-    String expectedUrl = "jdbc:oracle:thin:<<user>>/<<credentials>>@somehost.com:1521/sid";
-    String scapedUrl = maskUrlUserAndPasswordForOracle(originalUrl);
-
-    assertThat(scapedUrl, is(expectedUrl));
-  }
-
 }

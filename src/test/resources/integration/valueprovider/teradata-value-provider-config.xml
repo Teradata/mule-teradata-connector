@@ -5,10 +5,7 @@
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
             http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
-    <flow name="defaultQueryRequestResponse">
-        <teradata:stored-procedure config-ref="dbConfig">
-            <teradata:parameterized-query>{ :resultSet1 = call getTestRecordsFunction() }</teradata:parameterized-query>
-            <teradata:out-param name="resultSet1" type="CURSOR"/>
-        </teradata:stored-procedure>
-    </flow>
+    <teradata:config name="dbConfig">
+        <teradata:teradata-connection />
+    </teradata:config>
 </mule>

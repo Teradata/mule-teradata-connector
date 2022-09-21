@@ -11,14 +11,13 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
-import static org.mule.extension.db.integration.TestDbConfig.getOracleResource;
 import static org.mule.extension.db.integration.model.Contact.CONTACT1;
 import static org.mule.extension.db.integration.model.Region.SOUTHWEST;
 
+import org.junit.Ignore;
 import org.mule.extension.db.integration.AbstractDbIntegrationTestCase;
 import org.mule.extension.db.integration.DbTestUtil;
 import org.mule.extension.db.integration.model.ContactDetails;
-import org.mule.extension.db.integration.model.OracleTestDatabase;
 import org.mule.runtime.api.message.Message;
 
 import java.util.ArrayList;
@@ -32,19 +31,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runners.Parameterized;
 
+//TODO: Original test for Derby DB only. Re-added test if Teradata supports UDT.
+@Ignore
 public class StoredProcedureJavaArrayUdtTestCase extends AbstractDbIntegrationTestCase {
-
-  @Parameterized.Parameters(name = "{2}")
-  public static List<Object[]> parameters() {
-    List<Object[]> params = new LinkedList<>();
-
-    if (!getOracleResource().isEmpty()) {
-      params.add(new Object[] {"integration/config/oracle-mapped-udt-db-config.xml", new OracleTestDatabase(),
-          DbTestUtil.DbType.ORACLE, emptyList()});
-    }
-
-    return params;
-  }
 
   @Override
   protected String[] getFlowConfigurationResources() {
