@@ -11,7 +11,8 @@ import static java.sql.DriverManager.registerDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.fail;
-import static org.mule.extension.db.integration.TestDbConfig.getDerbyResource;
+
+import org.junit.Ignore;
 import org.mule.extension.db.integration.AbstractDbIntegrationTestCase;
 import org.mule.runtime.core.api.event.CoreEvent;
 
@@ -21,16 +22,14 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runners.Parameterized;
 
+//TODO: Original test for Derby DB only. Re-added test if Teradata supports
+// Stale Pooled Connection Reset.
+@Ignore
 public class StalePooledConnectionResetTestCase extends AbstractDbIntegrationTestCase {
-
-  @Parameterized.Parameters
-  public static List<Object[]> parameters() {
-    return getDerbyResource();
-  }
 
   @Override
   protected String[] getFlowConfigurationResources() {
-    return new String[] {"integration/connectivity/derby-db-pool-reset-config.xml"};
+    return new String[] {"integration/connectivity/teradata-db-pooling-config.xml"};
   }
 
   @Test
@@ -47,12 +46,12 @@ public class StalePooledConnectionResetTestCase extends AbstractDbIntegrationTes
   }
 
   private void startDatabase() throws SQLException {
-    registerDriver(new org.apache.derby.jdbc.EmbeddedDriver());
+    registerDriver(new com.teradata.jdbc.TeraDriver());
   }
 
   private void stopDatabase() {
     try {
-      getConnection("jdbc:derby:;shutdown=true");
+      getConnection("jdbc:teradata:;shutdown=true");
       fail("Expected to throw an exception while shutting down the database");
     } catch (Exception e) {
       // Expected

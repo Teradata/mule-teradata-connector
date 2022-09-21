@@ -8,14 +8,13 @@
 package org.mule.extension.db.integration.select;
 
 import static java.util.Collections.emptyList;
-import static org.mule.extension.db.integration.TestDbConfig.getDerbyResource;
-import static org.mule.extension.db.integration.TestDbConfig.getOracleResource;
 import static org.mule.extension.db.integration.TestRecordUtil.assertRecords;
 import static org.mule.extension.db.integration.model.RegionManager.NORTHWEST_MANAGER;
 import static org.mule.extension.db.integration.model.RegionManager.SOUTHWEST_MANAGER;
+
+import org.junit.Ignore;
 import org.mule.extension.db.integration.AbstractDbIntegrationTestCase;
 import org.mule.extension.db.integration.model.Field;
-import org.mule.extension.db.integration.model.OracleTestDatabase;
 import org.mule.extension.db.integration.model.Record;
 import org.mule.runtime.api.message.Message;
 
@@ -27,27 +26,13 @@ import org.junit.runners.Parameterized;
 
 public class SelectJavaUdtTestCase extends AbstractDbIntegrationTestCase {
 
-  @Parameterized.Parameters(name = "{2}")
-  public static List<Object[]> parameters() {
-    List<Object[]> params = new LinkedList<>();
-    if (!getOracleResource().isEmpty()) {
-      final OracleTestDatabase oracleTestDatabase = new OracleTestDatabase();
-      params.add(new Object[] {"integration/config/oracle-mapped-udt-db-config.xml", oracleTestDatabase,
-          oracleTestDatabase.getDbType(), emptyList()});
-    }
-
-    if (!getDerbyResource().isEmpty()) {
-      params.add(getDerbyResource().get(0));
-    }
-
-    return params;
-  }
-
   @Override
   protected String[] getFlowConfigurationResources() {
     return new String[] {"integration/select/select-udt-config.xml"};
   }
 
+  //TODO: Original test for Derby DB only. Re-added test if Teradata supports UDT.
+  @Ignore
   @Test
   public void returnsMappedObject() throws Exception {
     Message response = flowRunner("returnsUDT").keepStreamsOpen().run().getMessage();

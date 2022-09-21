@@ -8,7 +8,6 @@ package org.mule.extension.db.unit;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mule.extension.db.internal.domain.connection.sqlserver.SqlServerConnectionParameters;
 import org.mule.extension.db.internal.domain.connection.teradata.TeradataConnectionParameters;
 
 import java.util.Collections;

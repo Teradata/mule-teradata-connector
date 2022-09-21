@@ -10,7 +10,6 @@ import org.mule.db.commons.internal.domain.connection.DataSourceConfig;
 import org.mule.db.commons.internal.domain.connection.DbConnection;
 import org.mule.db.commons.internal.domain.connection.DbConnectionProvider;
 import org.mule.db.commons.internal.domain.type.ResolvedDbType;
-import org.mule.extension.db.internal.domain.connection.mysql.MySqlConnectionParameters;
 import org.mule.runtime.api.connection.ConnectionProvider;
 import org.mule.runtime.extension.api.annotation.Alias;
 import org.mule.runtime.extension.api.annotation.ExternalLib;
@@ -18,14 +17,12 @@ import org.mule.runtime.extension.api.annotation.param.ParameterGroup;
 import org.mule.runtime.extension.api.annotation.param.display.DisplayName;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 import static org.mule.extension.db.internal.util.MigrationUtils.mapDataSourceConfig;
-import static org.mule.runtime.api.meta.ExternalLibraryType.JAR;
 import static org.mule.runtime.extension.api.annotation.param.ParameterGroup.CONNECTION;
 
 /**

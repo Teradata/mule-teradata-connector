@@ -29,7 +29,7 @@ public class ColumnValueProviderTestCase extends AbstractDbIntegrationTestCase
 
   @Override
   protected String[] getFlowConfigurationResources() {
-    return new String[] {"integration/valueprovider/derby-on-table-row-config.xml"};
+    return new String[] {"integration/valueprovider/teradata-on-table-row-config.xml"};
   }
 
   @Test

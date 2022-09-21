@@ -6,7 +6,7 @@
             http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="defaultQueryRequestResponse">
-        <set-variable variableName="derbyDb" value="target/muleEmbeddedDB"/>
+        <set-variable variableName="teradataDb" value="target/muleEmbeddedDB"/>
         <try transactionType="XA" transactionalAction="ALWAYS_BEGIN">
             <teradata:select config-ref="pooledJdbcConfig" maxRows="2">
                 <teradata:sql>select * from PLANET order by ID</teradata:sql>

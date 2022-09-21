@@ -7,16 +7,15 @@
 package org.mule.extension.db.integration.update;
 
 import static java.util.Collections.emptyList;
-import static org.mule.extension.db.integration.TestDbConfig.getOracleResource;
 import static org.mule.extension.db.AllureConstants.DbFeature.DB_EXTENSION;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
+import org.junit.Ignore;
 import org.mule.extension.db.integration.AbstractDbIntegrationTestCase;
 import org.mule.extension.db.integration.model.ContactDetails;
-import org.mule.extension.db.integration.model.OracleTestDatabase;
 import org.mule.runtime.api.message.Message;
 
 import java.util.LinkedList;
@@ -28,22 +27,11 @@ import org.junit.runners.Parameterized;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 
+//TODO: Original test for Derby DB only. Re-added test if Teradata supports UDT.
+@Ignore
 @Feature(DB_EXTENSION)
 @Story("Update Statement")
 public class UpdateJavaArrayUdtTestCase extends AbstractDbIntegrationTestCase {
-
-  @Parameterized.Parameters(name = "{2}")
-  public static List<Object[]> parameters() {
-    List<Object[]> params = new LinkedList<>();
-
-    if (!getOracleResource().isEmpty()) {
-      final OracleTestDatabase oracleTestDatabase = new OracleTestDatabase();
-      params.add(new Object[] {"integration/config/oracle-mapped-udt-db-config.xml", oracleTestDatabase,
-          oracleTestDatabase.getDbType(), emptyList()});
-    }
-
-    return params;
-  }
 
   @Override
   protected String[] getFlowConfigurationResources() {
