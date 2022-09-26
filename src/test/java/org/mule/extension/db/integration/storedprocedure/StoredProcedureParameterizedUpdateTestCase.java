@@ -12,10 +12,8 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assume.assumeThat;
 import static org.mule.extension.db.integration.DbTestUtil.selectData;
 import static org.mule.extension.db.integration.TestRecordUtil.assertRecords;
-import static org.mule.extension.db.integration.model.derbyutil.DerbyTestStoredProcedure.NULL_PLANET_NAME;
 import org.mule.extension.db.integration.AbstractDbIntegrationTestCase;
 import org.mule.extension.db.integration.matcher.SupportsReturningStoredProcedureResultsWithoutParameters;
-import org.mule.extension.db.integration.model.DerbyTestDatabase;
 import org.mule.extension.db.integration.model.Field;
 import org.mule.extension.db.integration.model.Record;
 
@@ -47,12 +45,12 @@ public class StoredProcedureParameterizedUpdateTestCase extends AbstractDbIntegr
   @Test
   public void storedProcedureWithNullArgument() throws Exception {
     Map<String, Object> payload = runProcedure("update", null);
-    assertPlanetUpdated(payload, NULL_PLANET_NAME);
+    assertPlanetUpdated(payload, "NullLand");
   }
 
   private void assertPlanetUpdated(Map<String, Object> payload, String expectedPlanetName) throws java.sql.SQLException {
     assertThat(payload.size(), is(1));
-    int expectedUpdateCount = testDatabase instanceof DerbyTestDatabase ? 0 : 1;
+    int expectedUpdateCount = 1;
     assertThat(payload.get("updateCount1"), equalTo(expectedUpdateCount));
 
     List<Map<String, String>> result = selectData("select * from PLANET where PLANET_POS=4", getDefaultDataSource());

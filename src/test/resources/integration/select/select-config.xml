@@ -1,118 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="select">
-        <db:select config-ref="dbConfig">
-            <db:sql>select * from PLANET order by ID</db:sql>
-        </db:select>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>select * from PLANET order by ID</teradata:sql>
+        </teradata:select>
     </flow>
 
     <flow name="selectWithNullParams">
-        <db:select config-ref="dbConfig">
-            <db:sql>select * from PLANET order by ID</db:sql>
-            <db:input-parameters>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>select * from PLANET order by ID</teradata:sql>
+            <teradata:input-parameters>
                 #[null]
-            </db:input-parameters>
-        </db:select>
+            </teradata:input-parameters>
+        </teradata:select>
     </flow>
 
     <flow name="fixedParam">
-        <db:select config-ref="dbConfig">
-            <db:sql>SELECT * FROM PLANET WHERE PLANET_POS = 4</db:sql>
-        </db:select>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>SELECT * FROM PLANET WHERE PLANET_POS = 4</teradata:sql>
+        </teradata:select>
     </flow>
 
     <flow name="expressionAndFixedParamMixed">
         <set-variable variableName="planet_pos" value="3"/>
-        <db:select config-ref="dbConfig">
-            <db:sql>#["SELECT * FROM PLANET WHERE PLANET_POS = $(vars.planet_pos) AND NAME = 'Earth'"]</db:sql>
-        </db:select>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>#["SELECT * FROM PLANET WHERE PLANET_POS = $(vars.planet_pos) AND NAME = 'Earth'"]</teradata:sql>
+        </teradata:select>
     </flow>
 
     <flow name="dynamicQuery">
         <set-variable variableName="tableName" value="PLANET"/>
-        <db:select config-ref="dbConfig">
-            <db:sql>#["select * from $(vars.tableName) order by ID"]</db:sql>
-        </db:select>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>#["select * from $(vars.tableName) order by ID"]</teradata:sql>
+        </teradata:select>
     </flow>
 
     <flow name="selectMaxRows">
-        <db:select config-ref="dbConfig" maxRows="2">
-            <db:sql>select * from PLANET order by ID</db:sql>
-        </db:select>
+        <teradata:select config-ref="dbConfig" maxRows="2">
+            <teradata:sql>select * from PLANET order by ID</teradata:sql>
+        </teradata:select>
     </flow>
 
     <flow name="emptyResult">
-        <db:select config-ref="dbConfig">
-            <db:sql>select * from SPACESHIP order by ID</db:sql>
-        </db:select>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>select * from SPACESHIP order by ID</teradata:sql>
+        </teradata:select>
         <foreach>
             <logger message="#[payload]" />
         </foreach>
     </flow>
 
     <flow name="selectParameterizedQuery">
-        <db:select config-ref="dbConfig">
-            <db:sql>select * from PLANET where name = :name</db:sql>
-            <db:input-parameters>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>select * from PLANET where name = :name</teradata:sql>
+            <teradata:input-parameters>
                 #[{'name' : payload}]
-            </db:input-parameters>
-        </db:select>
+            </teradata:input-parameters>
+        </teradata:select>
     </flow>
 
 
     <flow name="selectNestedQuery">
-        <db:select config-ref="dbConfig">
-            <db:sql>SELECT COUNT(PLANET.ID) AS TOTAL FROM PLANET WHERE (NOT EXISTS (SELECT ID FROM PLANET WHERE 0 > PLANET.ID))</db:sql>
-        </db:select>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>SELECT COUNT(PLANET.ID) AS TOTAL FROM PLANET WHERE (NOT EXISTS (SELECT ID FROM PLANET WHERE 0 > PLANET.ID))</teradata:sql>
+        </teradata:select>
     </flow>
 
     <flow name="selectDoubleNestedQuery">
-        <db:select config-ref="dbConfig">
-            <db:sql>SELECT COUNT(PLANET.ID) AS TOTAL FROM PLANET WHERE (NOT EXISTS (SELECT ID FROM PLANET WHERE 0 > PLANET.ID)) AND (EXISTS (SELECT NAME FROM PLANET WHERE PLANET.ID > 0))</db:sql>
-        </db:select>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>SELECT COUNT(PLANET.ID) AS TOTAL FROM PLANET WHERE (NOT EXISTS (SELECT ID FROM PLANET WHERE 0 > PLANET.ID)) AND (EXISTS (SELECT NAME FROM PLANET WHERE PLANET.ID > 0))</teradata:sql>
+        </teradata:select>
     </flow>
 
     <flow name="selectNestedParametrizedFirstQuery">
-        <db:select config-ref="dbConfig">
-            <db:sql>SELECT COUNT(PLANET.ID) AS TOTAL FROM PLANET WHERE PLANET.NAME = :planetName AND (NOT EXISTS (SELECT ID FROM PLANET WHERE 0 > PLANET.ID))</db:sql>
-            <db:input-parameters>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>SELECT COUNT(PLANET.ID) AS TOTAL FROM PLANET WHERE PLANET.NAME = :planetName AND (NOT EXISTS (SELECT ID FROM PLANET WHERE 0 > PLANET.ID))</teradata:sql>
+            <teradata:input-parameters>
                 #[{'planetName' : 'Venus'}]
-            </db:input-parameters>
-        </db:select>
+            </teradata:input-parameters>
+        </teradata:select>
     </flow>
 
     <flow name="selectNestedParametrizedSecondQuery">
         <set-payload value="Mars"/>
-        <db:select config-ref="dbConfig">
-            <db:sql>SELECT COUNT(PLANET.ID) AS TOTAL FROM PLANET WHERE (NOT EXISTS (SELECT ID FROM PLANET WHERE 0 > PLANET.ID)) AND PLANET.NAME = :planetName</db:sql>
-            <db:input-parameters>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>SELECT COUNT(PLANET.ID) AS TOTAL FROM PLANET WHERE (NOT EXISTS (SELECT ID FROM PLANET WHERE 0 > PLANET.ID)) AND PLANET.NAME = :planetName</teradata:sql>
+            <teradata:input-parameters>
                 #[{'planetName' : payload}]
-            </db:input-parameters>
-        </db:select>
+            </teradata:input-parameters>
+        </teradata:select>
     </flow>
 
     <flow name="usesAlias">
-        <db:select config-ref="dbConfig">
-            <db:sql>select name as planetName from PLANET order by ID</db:sql>
-        </db:select>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>select name as planetName from PLANET order by ID</teradata:sql>
+        </teradata:select>
     </flow>
 
     <flow name="invalidQueryType">
-        <db:select config-ref="dbConfig">
-            <db:sql>I dunno SQL</db:sql>
-        </db:select>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>I dunno SQL</teradata:sql>
+        </teradata:select>
         <set-payload value="#[payload[0]]" />
     </flow>
 
     <flow name="badSqlSyntax">
-        <db:select config-ref="dbConfig">
-            <db:sql>SELECT FROM PLANETS col1, col2</db:sql>
-        </db:select>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>SELECT FROM PLANETS col1, col2</teradata:sql>
+        </teradata:select>
         <set-payload value="#[payload[0]]" />
     </flow>
 

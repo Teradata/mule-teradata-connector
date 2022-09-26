@@ -111,12 +111,12 @@ public class SelectTestCase extends AbstractDbIntegrationTestCase {
 
   @Test
   public void invalidQueryType() throws Exception {
-    assertErrorType(() -> flowRunner("invalidQueryType").run(), "DB", BAD_SQL_SYNTAX.name());
+    assertErrorType(() -> flowRunner("invalidQueryType").run(), "TERADATA", BAD_SQL_SYNTAX.name());
   }
 
   @Test
   public void badSqlSyntax() throws Exception {
-    assertErrorType(() -> flowRunner("badSqlSyntax").run(), "DB", QUERY_EXECUTION.name());
+    assertErrorType(() -> flowRunner("badSqlSyntax").run(), "TERADATA", QUERY_EXECUTION.name());
   }
 
   @Test

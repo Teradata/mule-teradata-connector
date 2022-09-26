@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="getResultSet">
-        <db:stored-procedure config-ref="dbConfig">
-            <db:sql>{ call getTestRecords() }</db:sql>
-        </db:stored-procedure>
+        <teradata:stored-procedure config-ref="dbConfig">
+            <teradata:sql>{ call getTestRecords() }</teradata:sql>
+        </teradata:stored-procedure>
         <!--This is done so that the payload can be used after the connection is closed -->
         <set-payload value="#[output application/json --- payload]"/>
         <set-payload value="#[output application/java --- payload]"/>
@@ -16,9 +16,9 @@
 
 
     <flow name="getResultSets">
-        <db:stored-procedure config-ref="dbConfig">
-            <db:sql>{ call getSplitTestRecords() }</db:sql>
-        </db:stored-procedure>
+        <teradata:stored-procedure config-ref="dbConfig">
+            <teradata:sql>{ call getSplitTestRecords() }</teradata:sql>
+        </teradata:stored-procedure>
         <!--This is done so that the payload can be used after the connection is closed -->
         <set-payload value="#[output application/json --- payload]"/>
         <set-payload value="#[output application/java --- payload]"/>

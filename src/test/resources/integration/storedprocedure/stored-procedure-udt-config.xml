@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="returnsObject">
-        <db:stored-procedure config-ref="dbConfig">
-            <db:sql>{ CALL getManagerDetails('Southwest', :out) }</db:sql>
-            <db:output-parameters>
-                <db:output-parameter key="out" customType="CONTACT_DETAILS"/>
-            </db:output-parameters>
-        </db:stored-procedure>
+        <teradata:stored-procedure config-ref="dbConfig">
+            <teradata:sql>{ CALL getManagerDetails('Southwest', :out) }</teradata:sql>
+            <teradata:output-parameters>
+                <teradata:output-parameter key="out" customType="CONTACT_DETAILS"/>
+            </teradata:output-parameters>
+        </teradata:stored-procedure>
 
         <!--Obtains the UDT -->
         <set-payload value="#[payload['out']]"/>
     </flow>
 
     <flow name="returnsObjectWithAllConfiguredTypes">
-        <db:stored-procedure config-ref="dbConfig">
-            <db:sql>{ CALL getManagerDetails(:region, :out) }</db:sql>
-            <db:parameter-types >
-                <db:parameter-type key="region" type="VARCHAR" />
-                <db:parameter-type key="out" customType="CONTACT_DETAILS" />
-            </db:parameter-types>
-            <db:input-parameters>
+        <teradata:stored-procedure config-ref="dbConfig">
+            <teradata:sql>{ CALL getManagerDetails(:region, :out) }</teradata:sql>
+            <teradata:parameter-types >
+                <teradata:parameter-type key="region" type="VARCHAR" />
+                <teradata:parameter-type key="out" customType="CONTACT_DETAILS" />
+            </teradata:parameter-types>
+            <teradata:input-parameters>
                 #[ { 'region' : 'Southwest' }]
-            </db:input-parameters>
-            <db:output-parameters>
-                <db:output-parameter key="out" customType="CONTACT_DETAILS"/>
-            </db:output-parameters>
-        </db:stored-procedure>
+            </teradata:input-parameters>
+            <teradata:output-parameters>
+                <teradata:output-parameter key="out" customType="CONTACT_DETAILS"/>
+            </teradata:output-parameters>
+        </teradata:stored-procedure>
 
         <!--Obtains the UDT -->
         <set-payload value="#[payload['out']]"/>
     </flow>
 
     <flow name="returnsObjectWitSomeParameterTypesConfigured">
-        <db:stored-procedure config-ref="dbConfig">
-            <db:sql>{ CALL getManagerDetails(:region, :out) }</db:sql>
-            <db:parameter-types >
-                <db:parameter-type key="out" customType="CONTACT_DETAILS" />
-            </db:parameter-types>
-            <db:input-parameters>
+        <teradata:stored-procedure config-ref="dbConfig">
+            <teradata:sql>{ CALL getManagerDetails(:region, :out) }</teradata:sql>
+            <teradata:parameter-types >
+                <teradata:parameter-type key="out" customType="CONTACT_DETAILS" />
+            </teradata:parameter-types>
+            <teradata:input-parameters>
                 #[ { 'region' : 'Southwest' }]
-            </db:input-parameters>
-            <db:output-parameters>
-                <db:output-parameter key="out" customType="CONTACT_DETAILS"/>
-            </db:output-parameters>
-        </db:stored-procedure>
+            </teradata:input-parameters>
+            <teradata:output-parameters>
+                <teradata:output-parameter key="out" customType="CONTACT_DETAILS"/>
+            </teradata:output-parameters>
+        </teradata:stored-procedure>
 
         <!--Obtains the UDT -->
         <set-payload value="#[payload['out']]"/>

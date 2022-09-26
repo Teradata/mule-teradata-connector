@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="usesStringOnImplicitParam">
-        <db:insert config-ref="dbConfig">
-           <db:sql>
+        <teradata:insert config-ref="dbConfig">
+           <teradata:sql>
                INSERT INTO PLANET(PLANET_POS, NAME, DESCRIPTION) VALUES (777, 'Pluto', :description)
-           </db:sql>
-            <db:input-parameters>
+           </teradata:sql>
+            <teradata:input-parameters>
                 #[
                     {'description' : payload}
                 ]
-            </db:input-parameters>
-        </db:insert>
+            </teradata:input-parameters>
+        </teradata:insert>
 
         <flow-ref name="obtainClobValue"/>
     </flow>
 
     <flow name="usesStringOnExplicitParam">
-        <db:insert config-ref="dbConfig">
-            <db:sql>
+        <teradata:insert config-ref="dbConfig">
+            <teradata:sql>
                 INSERT INTO PLANET(PLANET_POS, NAME, DESCRIPTION) VALUES (777, 'Pluto', :description)
-            </db:sql>
-            <db:parameter-types>
-                <db:parameter-type key="description" type="CLOB"/>
-            </db:parameter-types>
-            <db:input-parameters>
+            </teradata:sql>
+            <teradata:parameter-types>
+                <teradata:parameter-type key="description" type="CLOB"/>
+            </teradata:parameter-types>
+            <teradata:input-parameters>
                 #[
                 {'description' : payload}
                 ]
-            </db:input-parameters>
-        </db:insert>
+            </teradata:input-parameters>
+        </teradata:insert>
 
         <flow-ref name="obtainClobValue"/>
     </flow>
 
     <sub-flow name="obtainClobValue">
         <try transactionalAction="ALWAYS_BEGIN">
-            <db:select config-ref="dbConfig">
-                <db:sql>select description from PLANET where name = 'Pluto'</db:sql>
-            </db:select>
+            <teradata:select config-ref="dbConfig">
+                <teradata:sql>select description from PLANET where name = 'Pluto'</teradata:sql>
+            </teradata:select>
             <!-- Get the CLOB field value -->
             <set-payload value="#[mel:payload.openCursor().next().get('DESCRIPTION')]"/>
             <set-payload value="#[output application/java --- payload as String]"/>

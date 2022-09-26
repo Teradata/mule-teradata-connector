@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns:test="http://www.mulesoft.org/schema/mule/test"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
             http://www.mulesoft.org/schema/mule/test http://www.mulesoft.org/schema/mule/test/current/mule-test.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="listenPlanets" initialState="stopped">
-        <db:listener table="PLANET" config-ref="dbConfig">
+        <teradata:listener table="PLANET" config-ref="dbConfig">
             <scheduling-strategy>
                 <fixed-frequency frequency="1000"/>
             </scheduling-strategy>
-        </db:listener>
+        </teradata:listener>
         <test:processor class="org.mule.extension.db.integration.source.RowListenerTestCase$CapturePayloadProcessor" />
     </flow>
 
     <flow name="listenPlanetsWithWaitTime" initialState="stopped">
-        <db:listener table="PLANET" config-ref="dbConfig">
+        <teradata:listener table="PLANET" config-ref="dbConfig">
             <scheduling-strategy>
                 <fixed-frequency frequency="1000"/>
             </scheduling-strategy>
-        </db:listener>
+        </teradata:listener>
         <test:processor class="org.mule.extension.db.integration.source.RowListenerTestCase$CapturePayloadProcessor" />
         <test:processor waitTime="5000" />
     </flow>
 
     <flow name="listenPlanetsWithWatermark" initialState="stopped">
-        <db:listener table="PLANET" watermarkColumn="ID" config-ref="dbConfig">
+        <teradata:listener table="PLANET" watermarkColumn="ID" config-ref="dbConfig">
             <scheduling-strategy>
                 <fixed-frequency frequency="1000"/>
             </scheduling-strategy>
-        </db:listener>
+        </teradata:listener>
         <test:processor class="org.mule.extension.db.integration.source.RowListenerTestCase$CapturePayloadProcessor" />
     </flow>
 
     <flow name="updatePlanetDescriptionWithClobField">
-        <db:stored-procedure config-ref="dbConfig">
-            <db:sql>{ call updatePlanetDescription('Venus', :description) }</db:sql>
-            <db:parameter-types>
-                <db:parameter-type key="description" type="CLOB" />
-            </db:parameter-types>
-            <db:input-parameters>
+        <teradata:stored-procedure config-ref="dbConfig">
+            <teradata:sql>{ call updatePlanetDescription('Venus', :description) }</teradata:sql>
+            <teradata:parameter-types>
+                <teradata:parameter-type key="description" type="CLOB" />
+            </teradata:parameter-types>
+            <teradata:input-parameters>
                 #[{'description' : payload}]
-            </db:input-parameters>
-        </db:stored-procedure>
+            </teradata:input-parameters>
+        </teradata:stored-procedure>
     </flow>
 
     <flow name="idempotentListen" initialState="stopped">
-        <db:listener table="PLANET" idColumn="NAME" config-ref="dbConfig">
+        <teradata:listener table="PLANET" idColumn="NAME" config-ref="dbConfig">
             <scheduling-strategy>
                 <fixed-frequency frequency="1000"/>
             </scheduling-strategy>
-        </db:listener>
+        </teradata:listener>
         <test:processor class="org.mule.extension.db.integration.source.RowListenerTestCase$CapturePayloadProcessor" />
         <test:processor waitTime="5000" />
     </flow>

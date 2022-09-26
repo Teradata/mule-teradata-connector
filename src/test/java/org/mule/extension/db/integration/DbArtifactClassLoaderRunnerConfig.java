@@ -15,8 +15,7 @@ import org.mule.test.runner.ArtifactClassLoaderRunnerConfig;
  * @since 1.0
  */
 @ArtifactClassLoaderRunnerConfig(
-    applicationSharedRuntimeLibs = {"org.apache.derby:derby", "mysql:mysql-connector-java", "com.microsoft.sqlserver:mssql-jdbc",
-        "com.oracle.database.jdbc:ojdbc8", "org.mule.connectors:mule-db-client", "com.experlog:xapool", "com.mchange:c3p0",
+    applicationSharedRuntimeLibs = {"org.mule.connectors:mule-db-client", "com.experlog:xapool", "com.mchange:c3p0",
         "com.mchange:mchange-commons-java", "com.github.ben-manes.caffeine:caffeine", "org.apache.commons:commons-lang3",
         "commons-collections:commons-collections", "commons-io:commons-io", "com.teradata:terajdbc4"})
 public interface DbArtifactClassLoaderRunnerConfig {

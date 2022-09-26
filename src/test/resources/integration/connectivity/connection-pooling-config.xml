@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns:test="http://www.mulesoft.org/schema/mule/test"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
             http://www.mulesoft.org/schema/mule/test http://www.mulesoft.org/schema/mule/test/current/mule-test.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="queryAndJoin">
         <try transactionalAction="ALWAYS_BEGIN">
-            <db:delete config-ref="pooledJdbcConfig">
-                <db:sql>delete from PLANET</db:sql>
-            </db:delete>
+            <teradata:delete config-ref="pooledJdbcConfig">
+                <teradata:sql>delete from PLANET</teradata:sql>
+            </teradata:delete>
             <set-payload value="OK" />
                 <test:processor>
                     <test:callback class="org.mule.extension.db.integration.connectivity.DataSourcePoolingTestCase$JoinRequests"/>
@@ -29,9 +29,9 @@
 
     <flow name="queryAndJoinLargePoolDynamicConfig">
         <try>
-            <db:select config-ref="largePooledJdbcDynamicConfig">
-                <db:sql>select * from PLANET</db:sql>
-            </db:select>
+            <teradata:select config-ref="largePooledJdbcDynamicConfig">
+                <teradata:sql>select * from PLANET</teradata:sql>
+            </teradata:select>
             <set-payload value="OK" />
             <test:processor>
                 <test:callback class="org.mule.extension.db.integration.connectivity.DataSourcePoolingTestCase$JoinRequests"/>
@@ -50,9 +50,9 @@
 
     <flow name="queryAndJoinPoolWithAdditionalProperties">
         <try>
-            <db:select config-ref="poolWithAdditionalProperties">
-                <db:sql>select * from PLANET</db:sql>
-            </db:select>
+            <teradata:select config-ref="poolWithAdditionalProperties">
+                <teradata:sql>select * from PLANET</teradata:sql>
+            </teradata:select>
             <set-payload value="OK" />
             <test:processor>
                 <test:callback class="org.mule.extension.db.integration.connectivity.DataSourcePoolingTestCase$JoinRequests"/>
@@ -71,9 +71,9 @@
 
     <flow name="queryAndJoinSmallPoolDynamicConnections">
         <try>
-            <db:select config-ref="smallPoolPooledJdbcDynamicConfig">
-                <db:sql>select * from PLANET</db:sql>
-            </db:select>
+            <teradata:select config-ref="smallPoolPooledJdbcDynamicConfig">
+                <teradata:sql>select * from PLANET</teradata:sql>
+            </teradata:select>
             <set-payload value="OK" />
             <test:processor>
                 <test:callback class="org.mule.extension.db.integration.connectivity.DataSourcePoolingTestCase$JoinRequests"/>
@@ -91,9 +91,9 @@
 
     <flow name="queryAndJoinSmallPoolConnections">
         <try transactionalAction="ALWAYS_BEGIN">
-            <db:delete config-ref="smallPoolPooledJdbcConfig">
-                <db:sql>delete from PLANET</db:sql>
-            </db:delete>
+            <teradata:delete config-ref="smallPoolPooledJdbcConfig">
+                <teradata:sql>delete from PLANET</teradata:sql>
+            </teradata:delete>
             <set-payload value="OK" />
             <test:processor>
                 <test:callback class="org.mule.extension.db.integration.connectivity.DataSourcePoolingTestCase$JoinRequests"/>
@@ -111,9 +111,9 @@
 
     <flow name="waitForever">
         <try transactionalAction="ALWAYS_BEGIN">
-            <db:delete config-ref="waitForeverJdbcConfig">
-                <db:sql>delete from PLANET</db:sql>
-            </db:delete>
+            <teradata:delete config-ref="waitForeverJdbcConfig">
+                <teradata:sql>delete from PLANET</teradata:sql>
+            </teradata:delete>
             <set-payload value="OK" />
             <test:processor>
                 <test:callback class="org.mule.extension.db.integration.connectivity.DataSourcePoolingTestCase$JoinRequests"/>

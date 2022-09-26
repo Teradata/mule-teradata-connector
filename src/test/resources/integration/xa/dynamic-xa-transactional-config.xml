@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns:test="http://www.mulesoft.org/schema/mule/test"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
             http://www.mulesoft.org/schema/mule/test http://www.mulesoft.org/schema/mule/test/current/mule-test.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="jdbcRollback">
         <set-variable variableName="dataSourceUrl" value="jdbc:derby:muleEmbeddedDB;create=true"/>
 
-        <db:update config-ref="dbConfig">
-            <db:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</db:parameterized-query>
-        </db:update>
+        <teradata:update config-ref="dbConfig">
+            <teradata:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</teradata:parameterized-query>
+        </teradata:update>
         <test:processor throwException="true" exceptionToThrow="java.lang.IllegalStateException"/>
     </flow>
 
     <flow name="jdbcCommit">
         <set-variable variableName="dataSourceUrl" value="jdbc:derby:muleEmbeddedDB;create=true"/>
 
-        <db:update config-ref="dbConfig">
-            <db:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</db:parameterized-query>
-        </db:update>
+        <teradata:update config-ref="dbConfig">
+            <teradata:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</teradata:parameterized-query>
+        </teradata:update>
     </flow>
 
     <flow name="rollbackWithNonTransactionalMP">
         <set-variable variableName="dataSourceUrl" value="jdbc:derby:muleEmbeddedDB;create=true"/>
 
-        <db:update config-ref="dbConfig" transactionalAction="NOT_SUPPORTED">
-            <db:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</db:parameterized-query>
-        </db:update>
+        <teradata:update config-ref="dbConfig" transactionalAction="NOT_SUPPORTED">
+            <teradata:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</teradata:parameterized-query>
+        </teradata:update>
 
         <test:processor throwException="true" exceptionToThrow="java.lang.IllegalStateException"/>
     </flow>
@@ -37,9 +37,9 @@
     <flow name="commitWithNonTransactionalMP">
         <set-variable variableName="dataSourceUrl" value="jdbc:derby:muleEmbeddedDB;create=true"/>
 
-        <db:update config-ref="dbConfig" transactionalAction="NOT_SUPPORTED">
-            <db:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</db:parameterized-query>
-        </db:update>
+        <teradata:update config-ref="dbConfig" transactionalAction="NOT_SUPPORTED">
+            <teradata:parameterized-query>update PLANET set NAME='Mercury' where PLANET_POS=4</teradata:parameterized-query>
+        </teradata:update>
 
         <test:processor throwException="true" exceptionToThrow="java.lang.IllegalStateException"/>
     </flow>

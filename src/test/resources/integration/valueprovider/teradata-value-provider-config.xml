@@ -5,9 +5,7 @@
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
             http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
-    <teradata:template-query name="invalidTemplate">
-        <teradata:parameterized-query file="integration/template-query.sql">
-            SELECT * FROM PLANET
-        </teradata:parameterized-query>
-    </teradata:template-query>
+    <teradata:config name="dbConfig">
+        <teradata:teradata-connection />
+    </teradata:config>
 </mule>

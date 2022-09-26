@@ -15,7 +15,6 @@ import static org.mule.extension.db.integration.TestRecordUtil.getEarthRecord;
 import static org.mule.extension.db.integration.TestRecordUtil.getMarsRecord;
 import static org.mule.extension.db.integration.TestRecordUtil.getVenusRecord;
 import org.mule.extension.db.integration.matcher.SupportsReturningStoredProcedureResultsWithoutParameters;
-import org.mule.extension.db.integration.model.MySqlTestDatabase;
 import org.mule.runtime.api.message.Message;
 
 import java.util.Map;
@@ -31,12 +30,7 @@ public class StoredProcedureReturningResultsetsTestCase extends AbstractStoredPr
   protected void assertResponse(Message response) {
     Map payload = (Map) response.getPayload().getValue();
 
-    if (testDatabase instanceof MySqlTestDatabase) {
-      assertThat(payload.size(), equalTo(3));
-      assertThat(payload.get("updateCount1"), equalTo(0));
-    } else {
-      assertThat(payload.size(), equalTo(2));
-    }
+    assertThat(payload.size(), equalTo(2));
 
     assertRecords(payload.get("resultSet1"), getVenusRecord());
     assertRecords(payload.get("resultSet2"), getEarthRecord(), getMarsRecord());

@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:db="http://www.mulesoft.org/schema/mule/db"
+      xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+            http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <flow name="insert">
-        <db:insert config-ref="dbConfig">
-            <db:sql>INSERT INTO PLANET (NAME, PICTURE) VALUES (:name, :data)</db:sql>
-            <db:input-parameters>
+        <teradata:insert config-ref="dbConfig">
+            <teradata:sql>INSERT INTO PLANET (NAME, PICTURE) VALUES (:name, :data)</teradata:sql>
+            <teradata:input-parameters>
                 #[{
                 data : payload,
                 name : 88
                 }]
-            </db:input-parameters>
-        </db:insert>
+            </teradata:input-parameters>
+        </teradata:insert>
     </flow>
 
     <flow name="select">
-        <db:select config-ref="dbConfig">
-            <db:sql>SELECT * FROM PLANET WHERE NAME = '88'</db:sql>
-        </db:select>
+        <teradata:select config-ref="dbConfig">
+            <teradata:sql>SELECT * FROM PLANET WHERE NAME = '88'</teradata:sql>
+        </teradata:select>
     </flow>
 
     <flow name="consumingStreamDoesntCloseConnection">
         <set-variable variableName="accumulator" value="#[[]]"/>
         <try transactionalAction="ALWAYS_BEGIN">
-            <db:select config-ref="dbConfig">
-                <db:sql>SELECT * FROM PLANET</db:sql>
-            </db:select>
+            <teradata:select config-ref="dbConfig">
+                <teradata:sql>SELECT * FROM PLANET</teradata:sql>
+            </teradata:select>
             <!--For each used to consume the entire stream-->
             <set-variable variableName="accumulator" value="#[vars.accumulator + payload[0] + payload[1] + payload[2]]"/>
-            <db:select config-ref="dbConfig">
-                <db:sql>SELECT * FROM PLANET</db:sql>
-            </db:select>
+            <teradata:select config-ref="dbConfig">
+                <teradata:sql>SELECT * FROM PLANET</teradata:sql>
+            </teradata:select>
             <set-variable variableName="accumulator" value="#[vars.accumulator + payload[0] + payload[1] + payload[2]]"/>
         </try>
         <set-payload value="#[vars.accumulator]"/>

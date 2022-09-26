@@ -15,12 +15,6 @@ import org.mule.extension.db.api.logger.LoggerApiPackage;
 import org.mule.extension.db.api.param.BulkQueryDefinition;
 import org.mule.extension.db.api.param.QueryDefinition;
 import org.mule.extension.db.api.param.StoredProcedureCall;
-import org.mule.extension.db.internal.domain.connection.datasource.DbDataSourceReferenceConnectionProvider;
-import org.mule.extension.db.internal.domain.connection.derby.DerbyConnectionProvider;
-import org.mule.extension.db.internal.domain.connection.generic.DbGenericConnectionProvider;
-import org.mule.extension.db.internal.domain.connection.mysql.MySqlConnectionProvider;
-import org.mule.extension.db.internal.domain.connection.oracle.OracleDbConnectionProvider;
-import org.mule.extension.db.internal.domain.connection.sqlserver.SqlServerConnectionProvider;
 import org.mule.extension.db.internal.domain.connection.teradata.TeradataConnectionProvider;
 import org.mule.extension.db.internal.operation.DbBulkOperations;
 import org.mule.extension.db.internal.operation.DbDdlOperations;
@@ -44,8 +38,8 @@ import org.mule.runtime.extension.api.annotation.error.ErrorTypes;
 @Extension(name = "Teradata")
 @Operations({DbBulkOperations.class, DbDdlOperations.class, DbDmlOperations.class})
 @Sources(RowListener.class)
-@ConnectionProviders({DbGenericConnectionProvider.class, TeradataConnectionProvider.class})
-@Xml(prefix = "db")
+@ConnectionProviders({TeradataConnectionProvider.class})
+@Xml(prefix = "teradata")
 @ErrorTypes(DbError.class)
 @ExpressionFunctions(DbFunctions.class)
 @OnException(DbExceptionHandler.class)
