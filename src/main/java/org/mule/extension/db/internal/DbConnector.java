@@ -6,6 +6,8 @@
  */
 package org.mule.extension.db.internal;
 
+import static org.mule.runtime.api.meta.Category.CERTIFIED;
+
 import org.mule.db.commons.AbstractDbConnector;
 import org.mule.db.commons.api.exception.connection.ConnectionCreationException;
 import org.mule.db.commons.api.exception.connection.DbError;
@@ -35,7 +37,7 @@ import org.mule.runtime.extension.api.annotation.error.ErrorTypes;
  *
  * @since 1.0
  */
-@Extension(name = "Teradata")
+@Extension(name = "Teradata", category = CERTIFIED)
 @Operations({DbBulkOperations.class, DbDdlOperations.class, DbDmlOperations.class})
 @Sources(RowListener.class)
 @ConnectionProviders({TeradataConnectionProvider.class})
