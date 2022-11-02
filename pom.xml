@@ -170,7 +170,7 @@
         <dependency>
             <groupId>com.teradata</groupId>
             <artifactId>terajdbc4</artifactId>
-            <version>17.10.00.24</version>
+            <version>17.20.00.12</version>
         </dependency>
     </dependencies>
 
