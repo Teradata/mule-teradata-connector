@@ -17,6 +17,6 @@ import org.mule.test.runner.ArtifactClassLoaderRunnerConfig;
 @ArtifactClassLoaderRunnerConfig(
     applicationSharedRuntimeLibs = {"org.mule.connectors:mule-db-client", "com.experlog:xapool", "com.mchange:c3p0",
         "com.mchange:mchange-commons-java", "com.github.ben-manes.caffeine:caffeine", "org.apache.commons:commons-lang3",
-        "commons-collections:commons-collections", "commons-io:commons-io", "com.teradata:terajdbc4"})
+        "commons-collections:commons-collections", "commons-io:commons-io", "com.teradata.jdbc:terajdbc4"})
 public interface DbArtifactClassLoaderRunnerConfig {
 }
