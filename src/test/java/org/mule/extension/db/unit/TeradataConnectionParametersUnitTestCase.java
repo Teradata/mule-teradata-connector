@@ -24,7 +24,7 @@ public class TeradataConnectionParametersUnitTestCase {
   @Before
   public void setUpTeradataConnectionParameters() {
     teradataConnectionParameters = new TeradataConnectionParameters();
-    teradataConnectionParameters.setUrl("jdbc:teradata://localhost/DATABASE=dbc,DBS_PORT=1025");
+    teradataConnectionParameters.setUrl("jdbc:teradata://35.188.63.46/DATABASE=dbc,DBS_PORT=1025");
     teradataConnectionParameters.setUser("dbc");
     teradataConnectionParameters.setPassword("dbc");
   }
@@ -36,7 +36,7 @@ public class TeradataConnectionParametersUnitTestCase {
 
   @Test
   public void defaultUrl() {
-    validate("jdbc:teradata://localhost/DATABASE=dbc,DBS_PORT=1025");
+    validate("jdbc:teradata://35.188.63.46/DATABASE=dbc,DBS_PORT=1025");
   }
 
   @Test
