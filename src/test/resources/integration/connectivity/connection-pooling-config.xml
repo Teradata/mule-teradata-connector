@@ -51,7 +51,9 @@
     <flow name="queryAndJoinPoolWithAdditionalProperties">
         <try>
             <teradata:select config-ref="poolWithAdditionalProperties">
-                <teradata:sql>select * from PLANET</teradata:sql>
+                <teradata:sql>SELECT * FROM 
+                    SCRIPT(SCRIPT_COMMAND('sleep 12s') 
+                    RETURNS ('Message varchar(512)'));</teradata:sql>
             </teradata:select>
             <set-payload value="OK" />
             <test:processor>
@@ -72,7 +74,9 @@
     <flow name="queryAndJoinSmallPoolDynamicConnections">
         <try>
             <teradata:select config-ref="smallPoolPooledJdbcDynamicConfig">
-                <teradata:sql>select * from PLANET</teradata:sql>
+                <teradata:sql>SELECT * FROM 
+                    SCRIPT(SCRIPT_COMMAND('sleep 12s') 
+                    RETURNS ('Message varchar(512)'));</teradata:sql>
             </teradata:select>
             <set-payload value="OK" />
             <test:processor>
@@ -92,7 +96,9 @@
     <flow name="queryAndJoinSmallPoolConnections">
         <try transactionalAction="ALWAYS_BEGIN">
             <teradata:delete config-ref="smallPoolPooledJdbcConfig">
-                <teradata:sql>delete from PLANET</teradata:sql>
+                <teradata:sql>SELECT * FROM 
+                    SCRIPT(SCRIPT_COMMAND('sleep 12s') 
+                    RETURNS ('Message varchar(512)'));</teradata:sql>
             </teradata:delete>
             <set-payload value="OK" />
             <test:processor>

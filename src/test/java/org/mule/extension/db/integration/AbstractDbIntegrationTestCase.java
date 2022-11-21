@@ -63,11 +63,16 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.runners.Parameterized;
+import org.junit.rules.Timeout;
 
 @RunnerDelegateTo(Parameterized.class)
 public abstract class AbstractDbIntegrationTestCase extends MuleArtifactFunctionalTestCase
     implements DbArtifactClassLoaderRunnerConfig {
+  
+  @Rule
+  public Timeout timeout = Timeout.seconds(120);
 
   @Parameterized.Parameter(0)
   public String dataSourceConfigResource;
