@@ -72,8 +72,7 @@ public class SelectSingleQueryTestCase extends AbstractDbIntegrationTestCase {
     assertThat(((Map<String, Object>) message.getPayload().getValue()).size(), is(1));
   }
 
-  @Test
-  @Ignore
+  // TODO: Test setup issues with Clob and Blob, re add when fixed
   public void querySingleRecordWithClobField() throws Exception {
     String description = "Venus is the second planet from the Sun. It is named after the Roman goddess of love and beauty.";
 
@@ -84,8 +83,7 @@ public class SelectSingleQueryTestCase extends AbstractDbIntegrationTestCase {
     assertThat(((TypedValue<Object>) row.get("DESCRIPTION")).getValue(), is(equalTo(description)));
   }
 
-  @Test
-  @Ignore
+  // TODO: Test setup issues with Clob and Blob, re add when fixed
   public void querySingleRecordWithBlobField() throws Exception {
     byte[] picture = new byte[100];
     new Random().nextBytes(picture);

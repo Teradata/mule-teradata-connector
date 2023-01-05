@@ -92,16 +92,6 @@ public class DataSourcePoolingTestCase extends AbstractDbIntegrationTestCase {
     assertThat(countFailures(responses), is(1));
   }
 
-  @Test
-  @Ignore // TODO DBCON-313: Fix flaky test.
-  public void limitsConnectionsWithDynamicConfigs() throws Exception {
-    setConcurrentRequests(100);
-    Message[] responses = request("queryAndJoinLargePoolDynamicConfig", 100);
-    assertThat(countSuccesses(responses), is(10));
-    assertThat(countFailures(responses), is(90));
-  }
-
-
   protected Message[] request(String flowName, int times) throws Exception {
     Thread[] requests = new Thread[times];
     Message[] responses = new Message[times];

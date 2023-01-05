@@ -27,8 +27,8 @@ import org.junit.runners.Parameterized;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 
-//TODO: Original test for Derby DB only. Re-added test if Teradata supports UDT.
 @Ignore
+//TODO: Original test for Derby DB only. Re-added test if Teradata supports UDT.
 @Feature(DB_EXTENSION)
 @Story("Update Statement")
 public class UpdateJavaArrayUdtTestCase extends AbstractDbIntegrationTestCase {

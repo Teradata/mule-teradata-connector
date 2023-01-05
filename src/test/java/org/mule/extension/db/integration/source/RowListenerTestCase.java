@@ -79,8 +79,6 @@ public class RowListenerTestCase extends AbstractDbIntegrationTestCase {
   }
 
   //TODO: Currently errored out, fix the test later.
-  @Test
-  @Ignore
   public void listenPlanetsWithWatermark() throws Exception {
     listenPlanets("listenPlanetsWithWatermark", PLANET_TEST_VALUES);
 
@@ -107,8 +105,7 @@ public class RowListenerTestCase extends AbstractDbIntegrationTestCase {
     assertPlanetObjectType(getListenerOutputMetadata("PLANET"));
   }
 
-  @Test
-  @Ignore
+  //TODO: Currently have issues with Blob and Clob, readd when fixed
   public void listenPlanetsWithClobData() throws Exception {
     flowRunner("updatePlanetDescriptionWithClobField").withPayload(TEST_MESSAGE).run();
 

@@ -6,20 +6,20 @@
             http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <teradata:config name="dbConfig">
-        <teradata:teradata-connection url="jdbc:teradata://35.188.63.46/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
+        <teradata:teradata-connection url="jdbc:teradata://mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="teradata123">
             <teradata:pooling-profile maxPoolSize="2" minPoolSize="0" maxWait="20" maxWaitUnit="SECONDS"/>
         </teradata:teradata-connection>
     </teradata:config>
 
     <teradata:config name="dbConfigWithPooling">
-        <teradata:teradata-connection url="jdbc:teradata://35.188.63.46/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
+        <teradata:teradata-connection url="jdbc:teradata://mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="teradata123">
             <teradata:pooling-profile maxPoolSize="10" maxWait="20" maxWaitUnit="SECONDS">
             </teradata:pooling-profile>
         </teradata:teradata-connection>
     </teradata:config>
 
     <teradata:config name="pooledJdbcConfig">
-        <teradata:teradata-connection url="jdbc:teradata://35.188.63.46/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
+        <teradata:teradata-connection url="jdbc:teradata://mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="teradata123">
             <teradata:pooling-profile maxPoolSize="2" minPoolSize="0" maxWait="20" maxWaitUnit="SECONDS"/>
             <teradata:column-types>
                 <teradata:column-type typeName="CONTACT_DETAILS" id="2000"/>

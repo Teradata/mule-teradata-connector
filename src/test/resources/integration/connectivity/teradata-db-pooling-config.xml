@@ -6,7 +6,7 @@
             http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
     <teradata:config name="teradataPooledJdbcConfig">
-        <teradata:teradata-connection url="jdbc:teradata://35.188.63.46/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
+        <teradata:teradata-connection url="jdbc:teradata://mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="teradata123">
             <teradata:pooling-profile maxPoolSize="2" minPoolSize="0" maxWait="20" maxWaitUnit="SECONDS"/>
             <teradata:column-types>
                 <teradata:column-type typeName="CONTACT_DETAILS" id="2000"/>
@@ -15,7 +15,7 @@
     </teradata:config>
 
     <teradata:config name="waitForeverJdbcConfig">
-        <teradata:teradata-connection url="jdbc:teradata://35.188.63.46/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
+        <teradata:teradata-connection url="jdbc:teradata://mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="teradata123">
             <teradata:pooling-profile maxPoolSize="2" minPoolSize="0" />
             <teradata:column-types>
                 <teradata:column-type typeName="CONTACT_DETAILS" id="2000"/>
@@ -24,7 +24,7 @@
     </teradata:config>
 
     <teradata:config name="smallPoolPooledJdbcConfig">
-        <teradata:teradata-connection url="jdbc:teradata://35.188.63.46/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
+        <teradata:teradata-connection url="jdbc:teradata://mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="teradata123">
             <teradata:pooling-profile maxPoolSize="1" minPoolSize="0" maxWait="10" maxWaitUnit="SECONDS"/>
             <teradata:column-types>
                 <teradata:column-type typeName="CONTACT_DETAILS" id="2000"/>
@@ -33,7 +33,7 @@
     </teradata:config>
 
     <teradata:config name="smallPoolPooledJdbcDynamicConfig">
-        <teradata:teradata-connection url="jdbc:teradata://35.188.63.46/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
+        <teradata:teradata-connection url="jdbc:teradata://mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="teradata123">
             <teradata:pooling-profile maxPoolSize="1" minPoolSize="0" maxWait="10" maxWaitUnit="SECONDS"/>
             <teradata:column-types>
                 <teradata:column-type typeName="CONTACT_DETAILS" id="2000"/>
@@ -42,7 +42,7 @@
     </teradata:config>
 
     <teradata:config name="largePooledJdbcDynamicConfig">
-        <teradata:teradata-connection url="jdbc:teradata://35.188.63.46/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
+        <teradata:teradata-connection url="jdbc:teradata://mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="teradata123">
             <teradata:pooling-profile maxPoolSize="10" minPoolSize="0" maxWait="20" maxWaitUnit="SECONDS"/>
             <teradata:column-types>
                 <teradata:column-type typeName="CONTACT_DETAILS" id="2000"/>
@@ -51,7 +51,7 @@
     </teradata:config>
 
     <teradata:config name="poolWithAdditionalProperties">
-        <teradata:teradata-connection url="jdbc:teradata://35.188.63.46/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="dbc">
+        <teradata:teradata-connection url="jdbc:teradata://mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com/DATABASE=INTEGRATION_TEST,DBS_PORT=1025,TMODE=ANSI,CHARSET=UTF8" user="dbc" password="teradata123">
             <teradata:pooling-profile maxPoolSize="1" maxWait="10" minPoolSize="0" maxWaitUnit="SECONDS">
                 <teradata:additional-properties>
                     <teradata:additional-property key="checkoutTimeout" value="1000"/>

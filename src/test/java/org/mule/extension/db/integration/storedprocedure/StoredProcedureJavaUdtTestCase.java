@@ -23,8 +23,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runners.Parameterized;
 
-//TODO: Original test for Derby DB only. Re-added test if Teradata supports UDT.
 @Ignore
+//TODO: Original test for Derby DB only. Re-added test if Teradata supports UDT.
 public class StoredProcedureJavaUdtTestCase extends AbstractDbIntegrationTestCase {
 
   @Override

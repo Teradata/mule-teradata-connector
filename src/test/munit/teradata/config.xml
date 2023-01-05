@@ -8,19 +8,19 @@
         ">
 
     <teradata:config name="dbConfigTeradata">
-        <teradata:teradata-connection host="35.188.63.46" port="1025" user="dbc" password="dbc">
+        <teradata:teradata-connection host="mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com" port="1025" user="dbc" password="teradata123">
             <teradata:pooling-profile/>
         </teradata:teradata-connection>
     </teradata:config>
 
     <teradata:config name="dbConfigTeradata2">
-        <teradata:teradata-connection host="35.188.63.46" port="1025" user="dbc" password="dbc">
+        <teradata:teradata-connection host="mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com" port="1025" user="dbc" password="teradata123">
             <teradata:pooling-profile/>
         </teradata:teradata-connection>
     </teradata:config>
 
     <teradata:config name="dbConfigWithPoolingTeradata">
-        <teradata:teradata-connection host="35.188.63.46" port="1025" user="dbc" password="dbc">
+        <teradata:teradata-connection host="mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com" port="1025" user="dbc" password="teradata123">
             <teradata:pooling-profile maxPoolSize="10" maxWait="1">
             </teradata:pooling-profile>
         </teradata:teradata-connection>
