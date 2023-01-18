@@ -6,21 +6,22 @@
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd
         ">
-
+    <configuration-properties file="connection.properties"/>
+    
     <teradata:config name="dbConfigTeradata">
-        <teradata:teradata-connection host="mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com" port="1025" user="dbc" password="teradata123">
+        <teradata:teradata-connection host="${INTEGRATION_TEST_HOST}" port="${INTEGRATION_TEST_PORT}" user="${INTEGRATION_TEST_USERNAME}" password="${INTEGRATION_TEST_PASSWORD}">
             <teradata:pooling-profile/>
         </teradata:teradata-connection>
     </teradata:config>
 
     <teradata:config name="dbConfigTeradata2">
-        <teradata:teradata-connection host="mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com" port="1025" user="dbc" password="teradata123">
+        <teradata:teradata-connection host="${INTEGRATION_TEST_HOST}" port="${INTEGRATION_TEST_PORT}" user="${INTEGRATION_TEST_USERNAME}" password="${INTEGRATION_TEST_PASSWORD}">
             <teradata:pooling-profile/>
         </teradata:teradata-connection>
     </teradata:config>
 
     <teradata:config name="dbConfigWithPoolingTeradata">
-        <teradata:teradata-connection host="mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com" port="1025" user="dbc" password="teradata123">
+        <teradata:teradata-connection host="${INTEGRATION_TEST_HOST}" port="${INTEGRATION_TEST_PORT}" user="${INTEGRATION_TEST_USERNAME}" password="${INTEGRATION_TEST_PASSWORD}">
             <teradata:pooling-profile maxPoolSize="10" maxWait="1">
             </teradata:pooling-profile>
         </teradata:teradata-connection>
