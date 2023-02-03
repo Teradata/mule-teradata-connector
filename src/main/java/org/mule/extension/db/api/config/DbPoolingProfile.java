@@ -13,6 +13,7 @@ import static org.mule.runtime.extension.api.annotation.param.display.Placement.
 import org.mule.runtime.api.config.DatabasePoolingProfile;
 import org.mule.runtime.extension.api.annotation.Alias;
 import org.mule.runtime.extension.api.annotation.Expression;
+import org.mule.runtime.extension.api.annotation.param.NullSafe;
 import org.mule.runtime.extension.api.annotation.param.Parameter;
 import org.mule.runtime.extension.api.annotation.param.Optional;
 import org.mule.runtime.extension.api.annotation.param.display.Placement;
@@ -121,6 +122,7 @@ public class DbPoolingProfile implements DatabasePoolingProfile {
   @Optional
   @Placement(tab = ADVANCED_TAB, order = 10)
   @Expression(NOT_SUPPORTED)
+  @NullSafe
   @Summary("Additional properties used to configure pooling profile.")
   private Map<String, Object> additionalProperties = emptyMap();
 

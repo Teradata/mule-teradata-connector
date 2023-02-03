@@ -11,6 +11,7 @@ import static org.mule.runtime.api.i18n.I18nMessageFactory.createStaticMessage;
 import static org.mule.runtime.extension.api.annotation.param.display.Placement.ADVANCED_TAB;
 import org.mule.runtime.api.exception.MuleRuntimeException;
 import org.mule.runtime.extension.api.annotation.metadata.MetadataKeyId;
+import org.mule.runtime.extension.api.annotation.param.NullSafe;
 import org.mule.runtime.extension.api.annotation.param.Optional;
 import org.mule.runtime.extension.api.annotation.param.Parameter;
 import org.mule.runtime.extension.api.annotation.param.display.DisplayName;
@@ -45,6 +46,7 @@ public abstract class StatementDefinition<T extends StatementDefinition> extends
   @Parameter
   @Optional
   @Placement(tab = ADVANCED_TAB)
+  @NullSafe
   private List<ParameterType> parameterTypes = new LinkedList<>();
 
   /**

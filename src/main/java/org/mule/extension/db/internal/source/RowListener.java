@@ -161,6 +161,7 @@ public class RowListener extends PollingSource<Map<String, Object>, Void> {
   }
 
   @Override
+  // Intentionally left blank as no actions needed for Teradata Connector
   protected void doStop() {
 
   }
@@ -234,6 +235,7 @@ public class RowListener extends PollingSource<Map<String, Object>, Void> {
   private final class NullItemHandler implements ItemHandler {
 
     @Override
+    // Method is intentionally left blank as we need no operation handler
     public void accept(PollItem<Map<String, Object>, Void> mapVoidPollItem, Map<String, Object> stringObjectMap) {
 
     }
