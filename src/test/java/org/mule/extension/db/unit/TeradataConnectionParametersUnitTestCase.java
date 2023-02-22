@@ -24,7 +24,8 @@ public class TeradataConnectionParametersUnitTestCase {
   @Before
   public void setUpTeradataConnectionParameters() {
     teradataConnectionParameters = new TeradataConnectionParameters();
-    teradataConnectionParameters.setUrl("jdbc:teradata://mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com/DATABASE=dbc,DBS_PORT=1025");
+    teradataConnectionParameters
+        .setUrl("jdbc:teradata://mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com/DATABASE=dbc,DBS_PORT=1025");
     teradataConnectionParameters.setUser("dbc");
     teradataConnectionParameters.setPassword("teradata123");
   }

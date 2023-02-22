@@ -70,7 +70,7 @@ import org.junit.rules.Timeout;
 @RunnerDelegateTo(Parameterized.class)
 public abstract class AbstractDbIntegrationTestCase extends MuleArtifactFunctionalTestCase
     implements DbArtifactClassLoaderRunnerConfig {
-  
+
   @Rule
   public Timeout timeout = Timeout.seconds(120);
 
