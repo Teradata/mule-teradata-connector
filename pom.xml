@@ -187,6 +187,20 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <coverage>
+                        <runCoverage>true</runCoverage>
+                        <failBuild>false</failBuild>
+                        <requiredApplicationCoverage>0</requiredApplicationCoverage>
+                        <requiredResourceCoverage>0</requiredResourceCoverage>
+                        <requiredFlowCoverage>0</requiredFlowCoverage>
+                        <formats>
+                            <format>console</format>
+                            <format>html</format>
+                            <format>json</format>
+                        </formats>
+                    </coverage>
+                </configuration>
                 <dependencies>
                     <!-- MUnit Dependencies -->
                     <dependency>
