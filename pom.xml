@@ -184,6 +184,7 @@
                         <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
+                            <goal>coverage-report</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -198,6 +199,7 @@
                             <format>console</format>
                             <format>html</format>
                             <format>json</format>
+                            <format>xml</format>
                         </formats>
                     </coverage>
                 </configuration>
