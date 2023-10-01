@@ -51,6 +51,7 @@ public class SelectTestCase extends AbstractDbIntegrationTestCase {
 
   @Test
   public void select() throws Exception {
+    System.out.println("select() called");
     Message response = flowRunner("select").keepStreamsOpen().run().getMessage();
     assertMessageContains(response, getAllPlanetRecords());
   }
