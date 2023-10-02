@@ -192,7 +192,7 @@ public class RowListener extends PollingSource<Map<String, Object>, Void> {
       });
 
       queryDefinition.setSql(sql.toString());
-      Query query = queryResolver.resolve(mapParameterizedStatementDefinition(queryDefinition), config, connection, null);
+      Query query = queryResolver.resolve(mapParameterizedStatementDefinition(queryDefinition), config, connection, null, null);
 
       QueryStatementFactory statementFactory = new QueryStatementFactory();
       statementFactory.setFetchSize(settings.getFetchSize() != null ? settings.getFetchSize() : DEFAULT_FETCH_SIZE);
