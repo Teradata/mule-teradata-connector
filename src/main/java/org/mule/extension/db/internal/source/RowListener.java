@@ -11,6 +11,7 @@ import org.mule.db.commons.api.param.ParameterizedStatementDefinition;
 import org.mule.db.commons.internal.domain.connection.DbConnection;
 import org.mule.db.commons.internal.domain.executor.SelectExecutor;
 import org.mule.db.commons.internal.domain.query.Query;
+import org.mule.db.commons.internal.domain.query.QueryTemplate;
 import org.mule.db.commons.internal.domain.statement.QueryStatementFactory;
 import org.mule.db.commons.internal.resolver.query.ParameterizedQueryResolver;
 import org.mule.db.commons.internal.resolver.query.QueryResolver;
@@ -42,6 +43,9 @@ import org.mule.runtime.extension.api.runtime.source.PollingSource;
 import org.mule.runtime.extension.api.runtime.source.SourceCallbackContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 
 import java.io.Serializable;
 import java.nio.charset.Charset;
@@ -192,7 +196,9 @@ public class RowListener extends PollingSource<Map<String, Object>, Void> {
       });
 
       queryDefinition.setSql(sql.toString());
-      Query query = queryResolver.resolve(mapParameterizedStatementDefinition(queryDefinition), config, connection, null, null);
+
+      Cache<String, QueryTemplate> cache = Caffeine.newBuilder().build();
+      Query query = queryResolver.resolve(mapParameterizedStatementDefinition(queryDefinition), config, connection, null, cache);
 
       QueryStatementFactory statementFactory = new QueryStatementFactory();
       statementFactory.setFetchSize(settings.getFetchSize() != null ? settings.getFetchSize() : DEFAULT_FETCH_SIZE);
