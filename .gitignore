@@ -2,7 +2,6 @@
 # Maven
 target/
 
-
 # Eclipse files
 .classpath
 .project
@@ -30,3 +29,9 @@ hostkey.ser
 *.h2.db
 *.factorypath
 dependency-reduced-pom.xml
+
+#Other
+.java-version
+backup/
+mule-teradata-connector.code-workspace
+
