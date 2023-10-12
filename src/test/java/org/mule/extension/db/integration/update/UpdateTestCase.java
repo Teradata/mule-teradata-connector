@@ -79,32 +79,32 @@ public class UpdateTestCase extends AbstractDbIntegrationTestCase {
     assertPlanetRecordsFromQuery(PLUTO);
   }
 
-  //TODO: Add @Test back when createBlob() is supported by Teradata JDBC Driver
-  @Description("This test tries to update the value of a Blob column from a byte[]. " +
-      "This implies that DB connector will detect this type, and transform it from byte[] to Blob")
-  public void updateBlob() throws Exception {
-    byte[] picture = new byte[100];
-    new Random().nextBytes(picture);
+  // TODO: Add @Test back when createBlob() is supported by Teradata JDBC Driver
+  // @Description("This test tries to update the value of a Blob column from a byte[]. " +
+  //     "This implies that DB connector will detect this type, and transform it from byte[] to Blob")
+  // public void updateBlob() throws Exception {
+  //   byte[] picture = new byte[100];
+  //   new Random().nextBytes(picture);
 
-    assertBlob(picture);
-  }
+  //   assertBlob(picture);
+  // }
 
-  //TODO: Add @Test back when createBlob() is supported by Teradata JDBC Driver
-  @Description("This test tries to update the value of a Blob column from an InputStream. " +
-      "This implies that DB connector will detect this type, and transform it from InputStream to Blob")
-  public void updateBlobWithStream() throws Exception {
-    byte[] picture = new byte[100];
-    new Random().nextBytes(picture);
+  // TODO: Add @Test back when createBlob() is supported by Teradata JDBC Driver
+  // @Description("This test tries to update the value of a Blob column from an InputStream. " +
+  //     "This implies that DB connector will detect this type, and transform it from InputStream to Blob")
+  // public void updateBlobWithStream() throws Exception {
+  //   byte[] picture = new byte[100];
+  //   new Random().nextBytes(picture);
 
-    assertBlob(new ByteArrayInputStream(picture));
-  }
+  //   assertBlob(new ByteArrayInputStream(picture));
+  // }
 
-  //TODO: Add @Test back when createBlob() is supported by Teradata JDBC Driver
-  @Description("This test tries to update the value of a Blob column from an String. " +
-      "This implies that DB connector will detect this type, and transform it from String to Blob")
-  public void updateBlobWithString() throws Exception {
-    assertBlob("Hello world!");
-  }
+  // TODO: Add @Test back when createBlob() is supported by Teradata JDBC Driver
+  // @Description("This test tries to update the value of a Blob column from an String. " +
+  //     "This implies that DB connector will detect this type, and transform it from String to Blob")
+  // public void updateBlobWithString() throws Exception {
+  //   assertBlob("Hello world!");
+  // }
 
   @Test
   @Description("Executes an UPDATE with a parameter which is present but resolves to null")
