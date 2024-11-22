@@ -1,35 +1,33 @@
 /*
- * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-
 package org.mule.extension.db.integration;
+
+import static org.mule.extension.db.integration.DbTestUtil.selectData;
+import static org.mule.extension.db.integration.TestRecordUtil.assertRecords;
+import static org.mule.metadata.api.model.MetadataFormat.JAVA;
+import static org.mule.runtime.core.api.connection.util.ConnectionProviderUtils.unwrapProviderWrapper;
 
 import static java.lang.String.format;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
+
 import static org.apache.commons.lang3.StringUtils.endsWith;
-import static org.apache.commons.lang3.StringUtils.isAllBlank;
 import static org.apache.commons.lang3.StringUtils.replace;
 import static org.apache.commons.lang3.StringUtils.startsWith;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
-import static org.junit.Assert.assertThat;
-import static org.mule.extension.db.integration.DbTestUtil.selectData;
-import static org.mule.extension.db.integration.TestRecordUtil.assertRecords;
-import static org.mule.metadata.api.model.MetadataFormat.JAVA;
-import static org.mule.runtime.api.component.location.Location.builder;
-import static org.mule.runtime.api.metadata.MetadataKeyBuilder.newKey;
-import static org.mule.runtime.core.api.connection.util.ConnectionProviderUtils.unwrapProviderWrapper;
 
+import org.mule.db.commons.internal.domain.connection.DbConnection;
 import org.mule.extension.db.api.StatementResult;
 import org.mule.extension.db.integration.model.AbstractTestDatabase;
 import org.mule.extension.db.integration.model.Field;
 import org.mule.extension.db.integration.model.Record;
-import org.mule.db.commons.internal.domain.connection.DbConnection;
 import org.mule.functional.api.flow.FlowRunner;
 import org.mule.functional.junit4.MuleArtifactFunctionalTestCase;
 import org.mule.metadata.api.ClassTypeLoader;
@@ -37,12 +35,10 @@ import org.mule.metadata.api.builder.BaseTypeBuilder;
 import org.mule.metadata.api.model.MetadataType;
 import org.mule.metadata.api.model.ObjectFieldType;
 import org.mule.metadata.api.model.ObjectType;
-import org.mule.runtime.api.component.location.Location;
 import org.mule.runtime.api.connection.ConnectionProvider;
 import org.mule.runtime.api.exception.MuleException;
 import org.mule.runtime.api.message.Message;
 import org.mule.runtime.api.meta.model.operation.OperationModel;
-import org.mule.runtime.api.metadata.MetadataService;
 import org.mule.runtime.api.metadata.descriptor.ComponentMetadataDescriptor;
 import org.mule.runtime.api.metadata.resolving.MetadataResult;
 import org.mule.runtime.core.api.event.CoreEvent;
@@ -59,7 +55,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.junit.Before;
@@ -85,9 +80,6 @@ public abstract class AbstractDbIntegrationTestCase extends MuleArtifactFunction
 
   @Parameterized.Parameter(3)
   public List<String> vendorFlows;
-
-  @Inject
-  protected MetadataService metadataService;
 
   protected final BaseTypeBuilder typeBuilder = BaseTypeBuilder.create(JAVA);
   protected final ClassTypeLoader typeLoader = ExtensionsTypeLoaderFactory.getDefault().createTypeLoader();
@@ -274,22 +266,6 @@ public abstract class AbstractDbIntegrationTestCase extends MuleArtifactFunction
     return (Map<String, Object>) response.getPayload().getValue();
   }
 
-  protected MetadataResult<ComponentMetadataDescriptor<OperationModel>> getMetadata(String flow, String query) {
-    Location location = builder().globalName(flow).addProcessorsPart().addIndexPart(0).build();
-
-    return isAllBlank(query) ? metadataService.getOperationMetadata(location)
-        : metadataService.getOperationMetadata(location, newKey(query).build());
-  }
-
-  protected MetadataType getInputMetadata(String flow, String query) {
-    MetadataResult<ComponentMetadataDescriptor<OperationModel>> metadata = getMetadata(flow, query);
-
-    assertThat(metadata.isSuccess(), is(true));
-    return metadata.get().getModel().getAllParameterModels().stream()
-        .filter(p -> p.getName().equals("inputParameters") || p.getName().equals("bulkInputParameters"))
-        .findFirst().get().getType();
-  }
-
   protected void assertFieldRequirement(ObjectType record, String name, boolean required) {
     Optional<ObjectFieldType> field = record.getFieldByName(name);
     assertThat(field.isPresent(), is(true));
@@ -307,14 +283,6 @@ public abstract class AbstractDbIntegrationTestCase extends MuleArtifactFunction
     assertThat(metadata.get().getModel().getOutput().getType(), is(type));
   }
 
-  protected MetadataType getParameterValuesMetadata(String flow, String query) {
-    MetadataResult<ComponentMetadataDescriptor<OperationModel>> metadata = getMetadata(flow, query);
-    assertThat(metadata.isSuccess(), is(true));
-    return metadata.get().getModel().getAllParameterModels().stream()
-        .filter(p -> p.getName().equals("inputParameters") || p.getName().equals("bulkInputParameters"))
-        .findFirst().get().getType();
-  }
-
   public List<DbConfig> additionalConfigs() {
     return emptyList();
   }
@@ -330,8 +298,8 @@ public abstract class AbstractDbIntegrationTestCase extends MuleArtifactFunction
 
   public static class DbConfig {
 
-    private String name;
-    private Map<String, Object> variables;
+    private final String name;
+    private final Map<String, Object> variables;
 
     public DbConfig(String name, Map<String, Object> variables) {
       this.name = name;

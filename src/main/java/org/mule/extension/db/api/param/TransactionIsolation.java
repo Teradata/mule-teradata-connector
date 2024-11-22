@@ -1,5 +1,5 @@
 /*
- * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
@@ -11,6 +11,8 @@ import static java.sql.Connection.TRANSACTION_READ_COMMITTED;
 import static java.sql.Connection.TRANSACTION_READ_UNCOMMITTED;
 import static java.sql.Connection.TRANSACTION_REPEATABLE_READ;
 import static java.sql.Connection.TRANSACTION_SERIALIZABLE;
+
+import org.mule.extension.db.internal.util.ExcludeFromGeneratedCoverage;
 
 /**
  * The transaction isolation levels that can be set on the JDBC driver when connecting to the database.
@@ -28,6 +30,7 @@ public enum TransactionIsolation {
     this.code = code;
   }
 
+  @ExcludeFromGeneratedCoverage
   public int getCode() {
     return code;
   }
