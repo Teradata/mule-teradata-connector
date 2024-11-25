@@ -509,31 +509,6 @@
                     </relocations>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>${maven.helper.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>reserve-network-port</id>
-                        <phase>process-test-sources</phase>
-                        <goals>
-                            <goal>reserve-network-port</goal>
-                        </goals>
-                        <configuration>
-                            <portNames>
-                                <portName>oracle.db.port</portName>
-                                <portName>oracle.db.mtls.port</portName>
-                                <portName>oracle.db.mtls.port2</portName>
-                                <portName>mysql.db.port</portName>
-                                <portName>postgresql.db.port</portName>
-                                <portName>mssql.db.port</portName>
-                                <portName>derby.db.port</portName>
-                            </portNames>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
