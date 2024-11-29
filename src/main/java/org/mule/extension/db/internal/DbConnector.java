@@ -18,7 +18,6 @@ import org.mule.extension.db.api.param.BulkQueryDefinition;
 import org.mule.extension.db.api.param.QueryDefinition;
 import org.mule.extension.db.api.param.StoredProcedureCall;
 import org.mule.extension.db.internal.domain.connection.teradata.TeradataConnectionProvider;
-import org.mule.extension.db.internal.lifecycle.DbCompositeLifecycleListener;
 import org.mule.extension.db.internal.operation.DbBulkOperations;
 import org.mule.extension.db.internal.operation.DbDdlOperations;
 import org.mule.extension.db.internal.operation.DbDmlOperations;
@@ -32,7 +31,6 @@ import org.mule.runtime.extension.api.annotation.Sources;
 import org.mule.runtime.extension.api.annotation.connectivity.ConnectionProviders;
 import org.mule.runtime.extension.api.annotation.dsl.xml.Xml;
 import org.mule.runtime.extension.api.annotation.error.ErrorTypes;
-import org.mule.sdk.api.annotation.OnArtifactLifecycle;
 import org.mule.sdk.api.annotation.JavaVersionSupport;
 
 import static org.mule.sdk.api.meta.JavaVersion.JAVA_11;
@@ -56,7 +54,6 @@ import static org.mule.sdk.api.meta.JavaVersion.JAVA_8;
     classes = {QueryDefinition.class, StoredProcedureCall.class, BulkQueryDefinition.class, ConnectionCreationException.class,
         LoggerApiPackage.class})
 @JavaVersionSupport({JAVA_8, JAVA_11, JAVA_17})
-@OnArtifactLifecycle(DbCompositeLifecycleListener.class)
 public class DbConnector extends AbstractDbConnector {
 
 }
