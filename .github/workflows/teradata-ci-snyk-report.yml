@@ -30,7 +30,5 @@ jobs:
               echo "Build failed: Vulnerabilities detected in mule connector."
               exit 1
           fi
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          ZIP_NAME="mule-teradata_snyk_report_${GITHUB_REF##*/}_${TIMESTAMP}.zip"  
 
           
