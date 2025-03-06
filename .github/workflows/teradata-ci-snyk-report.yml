@@ -16,11 +16,6 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ vars.BRANCH_NAME }}
-      - name: "Install Java"
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '8'
       - name: "Install snyk"
         run: |
           curl --compressed https://downloads.snyk.io/cli/stable/snyk-linux -o snyk
