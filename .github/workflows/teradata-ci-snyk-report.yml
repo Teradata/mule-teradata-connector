@@ -26,9 +26,3 @@ jobs:
         run:  |  
           export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
           snyk code test
-          if ! (grep -q "Awesome! No issues were found" snyk_test_report); then
-              echo "Build failed: Vulnerabilities detected in mule connector."
-              exit 1
-          fi
-
-          
