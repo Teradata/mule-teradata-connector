@@ -24,21 +24,4 @@ jobs:
       - name: "Run Snyk report"
         run:  |  
           export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
-          snyk code test > snyk_test_report 2>&1
-          echo "scan completed"
-          cat snyk_test_report
-          if ! (grep -q "Awesome! No issues were found" snyk_test_report); then
-              echo "Build failed: Vulnerabilities detected in mule connector."
-              exit 1
-          fi
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          ZIP_NAME="mule-teradata_snyk_report_${GITHUB_REF##*/}_${TIMESTAMP}.zip"         
-          zip $ZIP_NAME snyk_test_report
-          echo "Zipped directory: $ZIP_NAME"
-      - name: Upload report to GitHub Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: mule-teradata-connector-code-coverage-report
-          path: |
-            $ZIP_NAME
-          
+          snyk code test 
