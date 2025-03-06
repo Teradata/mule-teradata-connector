@@ -45,5 +45,5 @@ jobs:
         with:
           name: mule-teradata-connector-code-coverage-report
           path: |
-            target/site/jacoco
+            $ZIP_NAME
           
