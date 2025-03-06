@@ -22,4 +22,4 @@ jobs:
           curl --compressed https://downloads.snyk.io/cli/stable/snyk-linux -o snyk
           chmod +x ./snyk
           sudo mv ./snyk /usr/local/bin/          
-          sudo synk code test
+          synk code test
