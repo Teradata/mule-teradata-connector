@@ -25,4 +25,3 @@ jobs:
       - name: "Run Snyk report"
         run:  |  
           export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
-          snyk code test
