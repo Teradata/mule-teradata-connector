@@ -1,0 +1,45 @@
+name: teradata-ci-snyk-scan
+
+on:
+  workflow_dispatch:
+  schedule:
+     - cron:  '0 6 * * *'
+
+jobs:
+  main:
+    runs-on: self-hosted
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ vars.BRANCH_NAME }}
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Snyk Security Scan
+        shell: bash
+        run: |
+          export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
+          snyk code test > snyk_test_report 2>&1
+          echo "scan completed"
+          cat snyk_test_report
+          if ! (grep -q "Awesome! No issues were found" snyk_test_report); then
+              echo "Build failed: Vulnerabilities detected in snyk_test_report."
+              exit 1
+          fi
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          ZIP_NAME="airbyte-teradata_snyk_report_${GITHUB_REF##*/}_${TIMESTAMP}.zip"         
+          zip $ZIP_NAME snyk_test_report
+          echo "Zipped directory: $ZIP_NAME"
+        env:
+          REMOTE_GH_TOKEN: ${{ secrets.REMOTE_GH_TOKEN }}
+      - name: Archive snyk report
+        uses: actions/upload-artifact@v3
+        with:
+          name: mule-teradata-connector-snyk-report-on-${{ vars.BRANCH_NAME }}
+          path: |
+            $ZIP_NAME
+      - name: Upload snyk report to artifactory of ${{ vars.BRANCH_NAME }}
+        run: |
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          zip -r mule-connector-destination-teradata-snyk-report-$TAGNAME.zip snyk_test_report
+          curl -u '${{ vars.ARTIFACT_USERNAME }}:${{ secrets.ARTIFACT_PASSWORD }}' -X PUT "https://artifacts.td.teradata.com/artifactory/tdproduct-generic-qa/devtools/mule/${{ vars.BRANCH_NAME }}/${TIMESTAMP}/" -T mule-connector-destination-teradata-snyk-report-$TAGNAME.zip
