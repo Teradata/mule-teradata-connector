@@ -1,14 +1,16 @@
-name: teradata-ci-snyk-scan
-
+name: teradata-ci-code-coverage
 on:
   workflow_dispatch:
   schedule:
-     - cron:  '0 6 * * *'
-
+  - cron: "0 6 * * *"
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 jobs:
-  main:
+  teradata-tests:
+    name: "Run Mule Teradata Connector Unit Tests"
     runs-on: "ubuntu-22.04"
-    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
