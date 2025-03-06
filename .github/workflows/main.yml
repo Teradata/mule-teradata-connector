@@ -1,0 +1,43 @@
+name: teradata-ci-code-coverage
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "0 6 * * *"
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+jobs:
+  teradata-tests:
+    name: "Run Mule Teradata Connector Unit Tests"
+    runs-on: "ubuntu-22.04"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ vars.BRANCH_NAME }}
+      - name: "Install Snyk"
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '8'
+      - name: "Install snyk"
+        run: |
+          curl --compressed https://downloads.snyk.io/cli/stable/snyk-linux -o snyk
+          chmod +x ./snyk
+          sudo mv ./snyk /usr/local/bin/
+      - name: "Run Snyk report"
+        run:  |  
+          export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
+          snyk code test > snyk_test_report 2>&1
+          echo "scan completed"
+          cat snyk_test_report
+          if ! (grep -q "Awesome! No issues were found" snyk_test_report); then
+              echo "Build failed: Vulnerabilities detected in mule connector."
+              exit 1
+          fi
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          ZIP_NAME="mule-teradata_snyk_report_${GITHUB_REF##*/}_${TIMESTAMP}.zip"         
+          zip $ZIP_NAME snyk_test_report
+          echo "Zipped directory: $ZIP_NAME"
+          
