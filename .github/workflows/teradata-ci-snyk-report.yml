@@ -20,6 +20,5 @@ jobs:
         run: |
           export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
           curl --compressed https://downloads.snyk.io/cli/stable/snyk-linux -o snyk
-          chmod +x ./snyk
-          sudo mv ./snyk /usr/local/bin/          
-          synk code test
+          chmod +x ./snyk      
+          ./snyk code test
