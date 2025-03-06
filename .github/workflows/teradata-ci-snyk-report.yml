@@ -1,4 +1,4 @@
-name: teradata-ci-code-coverage
+name: teradata-ci-snyk-report
 on:
   workflow_dispatch:
   schedule:
