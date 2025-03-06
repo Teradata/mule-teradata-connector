@@ -16,7 +16,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ vars.BRANCH_NAME }}
-      - name: "Install Snyk"
+      - name: "Install Java"
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
