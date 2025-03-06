@@ -25,5 +25,6 @@ jobs:
       - name: "Run Snyk report"
         run:  |  
           export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
-          sudo snyk code test > snyk_test_report 2>&1
+          snyk code test > $GITHUB_WORKSPACE/snyk_test_report 2>&1
+
           
