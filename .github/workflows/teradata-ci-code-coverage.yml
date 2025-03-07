@@ -31,15 +31,3 @@ jobs:
       - name: "Run Unit Tests"
         run:  |  
           mvn clean install
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: mule-teradata-connector-code-coverage-report
-          path: |
-            target/site/jacoco
-      - name: Upload test coverage report to artifactory
-        run: |
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          zip -r mule-connector-teradata-code-coverage-report-$TAGNAME.zip target/site/jacoco
-          curl -u '${{ vars.ARTIFACT_USERNAME }}:${{ secrets.ARTIFACT_PASSWORD }}' -X PUT "https://artifacts.td.teradata.com/artifactory/tdproduct-generic-qa/devtools/mule/${{ vars.BRANCH_NAME }}/${TIMESTAMP}/" -T mule-connector-teradata-code-coverage-report-$TAGNAME.zip
-          
