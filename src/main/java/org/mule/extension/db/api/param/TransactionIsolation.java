@@ -12,6 +12,7 @@ import static java.sql.Connection.TRANSACTION_READ_UNCOMMITTED;
 import static java.sql.Connection.TRANSACTION_REPEATABLE_READ;
 import static java.sql.Connection.TRANSACTION_SERIALIZABLE;
 
+import org.mule.extension.db.internal.util.ExcludeFromGeneratedCoverage;
 
 /**
  * The transaction isolation levels that can be set on the JDBC driver when connecting to the database.
@@ -29,6 +30,7 @@ public enum TransactionIsolation {
     this.code = code;
   }
 
+  @ExcludeFromGeneratedCoverage
   public int getCode() {
     return code;
   }

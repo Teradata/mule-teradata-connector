@@ -9,6 +9,8 @@ package org.mule.extension.db.api;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.unmodifiableMap;
 
+import org.mule.extension.db.internal.util.ExcludeFromGeneratedCoverage;
+
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +19,7 @@ import java.util.Map;
  * Information about the execution of a DML statement
  *
  */
+@ExcludeFromGeneratedCoverage
 public class StatementResult {
 
   /**
