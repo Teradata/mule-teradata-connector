@@ -25,9 +25,9 @@ public class TeradataConnectionParametersUnitTestCase {
   public void setUpTeradataConnectionParameters() {
     teradataConnectionParameters = new TeradataConnectionParameters();
     teradataConnectionParameters
-        .setUrl("jdbc:teradata://mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com/DATABASE=dbc,DBS_PORT=1025");
-    teradataConnectionParameters.setUser("dbc");
-    teradataConnectionParameters.setPassword("teradata123");
+        .setUrl("jdbc:teradata://<<HOSTNAME>>/DATABASE=<<DATABASE_NAME>>,DBS_PORT=<<PORT_NO>>");
+    teradataConnectionParameters.setUser("<<USERNAME>>");
+    teradataConnectionParameters.setPassword("<<PASSWORD>>");
   }
 
   @Test
@@ -37,17 +37,17 @@ public class TeradataConnectionParametersUnitTestCase {
 
   @Test
   public void defaultUrl() {
-    validate("jdbc:teradata://mule-teradata-connector-uowav7ypz8ap6h4q.env.clearscape.teradata.com/DATABASE=dbc,DBS_PORT=1025");
+    validate("jdbc:teradata://<<HOSTNAME>>/DATABASE=<<DATABASE_NAME>>,DBS_PORT=<<PORT_NO>>");
   }
 
   @Test
   public void defaultUser() {
-    assertThat(teradataConnectionParameters.getUser(), is("dbc"));
+    assertThat(teradataConnectionParameters.getUser(), is("<<USERNAME>>"));
   }
 
   @Test
   public void defaultPassword() {
-    assertThat(teradataConnectionParameters.getPassword(), is("teradata123"));
+    assertThat(teradataConnectionParameters.getPassword(), is("<<PASSWORD>>"));
   }
 
 
