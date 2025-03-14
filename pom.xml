@@ -49,6 +49,8 @@
         <mule.maven.plugin.version>3.8.1</mule.maven.plugin.version>
         <jacoco.maven.plugin.version>0.8.7</jacoco.maven.plugin.version>
         <mtf.tools.version>1.1.2</mtf.tools.version>
+        <!-- JDK 17 Compatibility Props -->
+        <mule.sdk.api.version>0.10.1</mule.sdk.api.version>
     </properties>
 
     <dependencies>
@@ -56,6 +58,11 @@
             <groupId>org.mule.connectors</groupId>
             <artifactId>mule-db-client</artifactId>
             <version>${muleDbClientVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.sdk</groupId>
+            <artifactId>mule-sdk-api</artifactId>
+            <version>${mule.sdk.api.version}</version>
         </dependency>
         <dependency>
             <groupId>com.mchange</groupId>
