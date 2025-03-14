@@ -1,0 +1,24 @@
+name: teradata-ci-snyk-report
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "0 6 * * *"
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+jobs:
+  teradata-tests:
+    name: "Run Mule Teradata Connector Unit Tests"
+    runs-on: "ubuntu-22.04"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ vars.BRANCH_NAME }}
+      - name: "Install snyk and zip"
+        run: |
+          export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
+          curl --compressed https://downloads.snyk.io/cli/stable/snyk-linux -o snyk
+          chmod +x ./snyk      
+          ./snyk code test
