@@ -1,5 +1,5 @@
 /*
- * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
@@ -7,6 +7,7 @@
 package org.mule.extension.db.api.exception.connection;
 
 import org.mule.extension.db.internal.DbConnector;
+import org.mule.extension.db.internal.util.ExcludeFromGeneratedCoverage;
 import org.mule.runtime.extension.api.error.ErrorTypeDefinition;
 import org.mule.runtime.extension.api.error.MuleErrors;
 
@@ -19,6 +20,7 @@ import java.util.Optional;
  *  @deprecated since 1.9.4. Replace with equivalent on mule-db-client. To be removed in the next major (2.0).
  */
 @Deprecated
+@ExcludeFromGeneratedCoverage
 public enum DbError implements ErrorTypeDefinition<DbError> {
   /**
    * Generic error for a connectivity issue with the Database

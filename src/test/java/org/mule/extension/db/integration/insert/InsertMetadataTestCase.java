@@ -1,21 +1,20 @@
 /*
- * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-
 package org.mule.extension.db.integration.insert;
+
+import static org.mule.extension.db.integration.DbTestUtil.DbType.ORACLE;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-
-import static org.junit.Assert.assertThat;
-import static org.mule.extension.db.integration.DbTestUtil.DbType.ORACLE;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.mule.extension.db.api.StatementResult;
-import org.mule.extension.db.integration.AbstractDbIntegrationTestCase;
+import org.mule.extension.db.integration.AbstractDbMetadataIntegrationTestCase;
 import org.mule.metadata.api.model.ArrayType;
 import org.mule.metadata.api.model.MetadataType;
 import org.mule.metadata.api.model.NullType;
@@ -24,10 +23,9 @@ import org.mule.runtime.api.meta.model.operation.OperationModel;
 import org.mule.runtime.api.metadata.descriptor.ComponentMetadataDescriptor;
 import org.mule.runtime.api.metadata.resolving.MetadataResult;
 
-import org.junit.Assume;
 import org.junit.Test;
 
-public class InsertMetadataTestCase extends AbstractDbIntegrationTestCase {
+public class InsertMetadataTestCase extends AbstractDbMetadataIntegrationTestCase {
 
   @Override
   protected String[] getFlowConfigurationResources() {

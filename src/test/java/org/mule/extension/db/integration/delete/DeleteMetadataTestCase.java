@@ -1,17 +1,17 @@
 /*
- * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-
 package org.mule.extension.db.integration.delete;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import org.mule.extension.db.integration.AbstractDbIntegrationTestCase;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import org.mule.extension.db.integration.AbstractDbMetadataIntegrationTestCase;
 import org.mule.metadata.api.model.ArrayType;
 import org.mule.metadata.api.model.MetadataType;
 import org.mule.metadata.api.model.NullType;
@@ -22,7 +22,7 @@ import org.mule.runtime.api.metadata.resolving.MetadataResult;
 
 import org.junit.Test;
 
-public class DeleteMetadataTestCase extends AbstractDbIntegrationTestCase {
+public class DeleteMetadataTestCase extends AbstractDbMetadataIntegrationTestCase {
 
   @Override
   protected String[] getFlowConfigurationResources() {

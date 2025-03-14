@@ -1,10 +1,12 @@
 /*
- * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
 package org.mule.extension.db.api.logger;
+
+import org.mule.extension.db.internal.util.ExcludeFromGeneratedCoverage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import org.slf4j.LoggerFactory;
  *
  * @since 1.0
  */
+@ExcludeFromGeneratedCoverage
 public class MuleMySqlLogger {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MuleMySqlLogger.class);
@@ -26,6 +29,9 @@ public class MuleMySqlLogger {
   public MuleMySqlLogger(String name) {
     this.name = name;
   }
+
+
+  public MuleMySqlLogger() {}
 
   /**
    * {@inheritDoc}
@@ -151,5 +157,13 @@ public class MuleMySqlLogger {
    */
   public void logWarn(Object msg, Throwable e) {
     LOGGER.warn(msg.toString(), e);
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
@@ -9,6 +9,8 @@ package org.mule.extension.db.api.param;
 import static org.mule.extension.db.api.param.DbNameConstants.SQL_QUERY_TEXT;
 import static org.mule.runtime.api.i18n.I18nMessageFactory.createStaticMessage;
 import static org.mule.runtime.extension.api.annotation.param.display.Placement.ADVANCED_TAB;
+
+import org.mule.extension.db.internal.util.ExcludeFromGeneratedCoverage;
 import org.mule.runtime.api.exception.MuleRuntimeException;
 import org.mule.runtime.extension.api.annotation.metadata.MetadataKeyId;
 import org.mule.runtime.extension.api.annotation.param.NullSafe;
@@ -74,6 +76,7 @@ public abstract class StatementDefinition<T extends StatementDefinition> extends
    * @param paramName the parameter's name
    * @return an optional {@link ParameterType}
    */
+  @ExcludeFromGeneratedCoverage
   public java.util.Optional<ParameterType> getParameterType(String paramName) {
     return parameterTypes.stream().filter(p -> p.getKey().equals(paramName)).findFirst();
   }
@@ -81,6 +84,12 @@ public abstract class StatementDefinition<T extends StatementDefinition> extends
   public List<ParameterType> getParameterTypes() {
     return parameterTypes;
   }
+
+  @ExcludeFromGeneratedCoverage
+  public void setParameterTypes(List<ParameterType> parameterTypes) {
+    this.parameterTypes = parameterTypes;
+  }
+
 
   public String getSql() {
     return sql;
