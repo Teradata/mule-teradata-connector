@@ -28,7 +28,7 @@
         <xmlunit.version>1.6</xmlunit.version>
         <javax.transaction.version>1.3</javax.transaction.version>
         <xaPoolVersion>1.5.0</xaPoolVersion>
-        <cglibVersion>3.3.0</cglibVersion>
+        <net.bytebuddy.version>1.14.5</net.bytebuddy.version>
         <muleDbClientVersion>1.6.0</muleDbClientVersion>
         <muleExtensionsShadeVersion>1.0.4</muleExtensionsShadeVersion>
 
@@ -47,10 +47,10 @@
         <skipTita>false</skipTita>
         <settingsFile>${java.io.tmpdir}/effective-settings.xml</settingsFile>
         <mule.maven.plugin.version>3.8.1</mule.maven.plugin.version>
-        <jacoco.maven.plugin.version>0.8.7</jacoco.maven.plugin.version>
         <mtf.tools.version>1.1.2</mtf.tools.version>
         <!-- JDK 17 Compatibility Props -->
         <mule.sdk.api.version>0.10.1</mule.sdk.api.version>
+        <jacoco.version>0.8.10</jacoco.version>
     </properties>
 
     <dependencies>
@@ -101,9 +101,9 @@
             <version>${caffeineVersion}</version>
         </dependency>
         <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib-nodep</artifactId>
-            <version>${cglibVersion}</version>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>${net.bytebuddy.version}</version>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -283,7 +283,7 @@
                     <argLines>
                         <!--suppress UnresolvedMavenProperty -->
                         <argLine>
-                            -javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/${jacoco.maven.plugin.version}/org.jacoco.agent-${jacoco.maven.plugin.version}-runtime.jar=destfile=${session.executionRootDirectory}/target/jacoco.exec
+                            -javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/${jacoco.version}/org.jacoco.agent-${jacoco.version}-runtime.jar=destfile=${session.executionRootDirectory}/target/jacoco.exec
                         </argLine>
                     </argLines>
                     <runtimeConfiguration>
@@ -333,7 +333,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.maven.plugin.version}</version>
+                <version>${jacoco.version}</version>
                 <configuration>
                     <skip>false</skip>
                     <output>file</output>
