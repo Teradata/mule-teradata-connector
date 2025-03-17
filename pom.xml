@@ -40,17 +40,15 @@
 
         <formatterConfigPath>formatter.xml</formatterConfigPath>
 
-        <munit.extensions.maven.plugin.version>1.4.0</munit.extensions.maven.plugin.version>
-        <munit.version>2.3.6</munit.version>
-
-        <mtf-tools.version>1.1.2</mtf-tools.version>
         <skipTita>false</skipTita>
         <settingsFile>${java.io.tmpdir}/effective-settings.xml</settingsFile>
-        <mule.maven.plugin.version>3.8.1</mule.maven.plugin.version>
-        <mtf.tools.version>1.1.2</mtf.tools.version>
         <!-- JDK 17 Compatibility Props -->
         <mule.sdk.api.version>0.10.1</mule.sdk.api.version>
         <jacoco.version>0.8.10</jacoco.version>
+        <munit.extensions.maven.plugin.version>1.4.0</munit.extensions.maven.plugin.version>
+        <munit.version>2.3.6</munit.version>
+        <mtf.tools.version>1.1.2</mtf.tools.version>
+        <mule.maven.plugin.version>3.8.1</mule.maven.plugin.version>
     </properties>
 
     <dependencies>
