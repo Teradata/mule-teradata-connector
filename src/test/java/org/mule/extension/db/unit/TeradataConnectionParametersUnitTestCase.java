@@ -24,12 +24,12 @@ public class TeradataConnectionParametersUnitTestCase {
 
   private TeradataConnectionParameters teradataConnectionParameters;
 
-    private static String dbUrl="";
+  private static String dbUrl = "";
 
-    private static String dbPort="";
-    private static String dbUser="";
-    private static String dbPassword="";
-    private static String dbDatabase="";
+  private static String dbPort = "";
+  private static String dbUser = "";
+  private static String dbPassword = "";
+  private static String dbDatabase = "";
 
   @Before
   public void setUpTeradataConnectionParameters() {
@@ -57,7 +57,7 @@ public class TeradataConnectionParametersUnitTestCase {
 
     teradataConnectionParameters = new TeradataConnectionParameters();
     teradataConnectionParameters
-        .setUrl("jdbc:teradata://"+dbUrl+"/DATABASE="+dbDatabase+",DBS_PORT="+dbPort);
+        .setUrl("jdbc:teradata://" + dbUrl + "/DATABASE=" + dbDatabase + ",DBS_PORT=" + dbPort);
     teradataConnectionParameters.setUser(dbUser);
     teradataConnectionParameters.setPassword(dbPassword);
   }
@@ -69,7 +69,7 @@ public class TeradataConnectionParametersUnitTestCase {
 
   @Test
   public void defaultUrl() {
-    validate("jdbc:teradata://"+dbUrl+"/DATABASE="+dbDatabase+",DBS_PORT="+dbPort);
+    validate("jdbc:teradata://" + dbUrl + "/DATABASE=" + dbDatabase + ",DBS_PORT=" + dbPort);
   }
 
   @Test
