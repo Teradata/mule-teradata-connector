@@ -1,7 +1,8 @@
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+      xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+      xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
       xmlns:teradata="http://www.mulesoft.org/schema/mule/teradata"
-      xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+      xmlns="http://www.mulesoft.org/schema/mule/core"
       xsi:schemaLocation="
           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
           http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd
@@ -9,137 +10,92 @@
           http://www.mulesoft.org/schema/mule/munit-tools http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
 
     <munit:config name="teradata-connector-flows-tests.xml" />
+
     <!-- Test Case for SimpleCaseSetupFlow -->
     <munit:test name="SimpleCaseSetupFlowTest" description="Test case for SimpleCaseSetupFlow">
-        <munit:execution>
-            <flow-ref name="SimpleCaseSetupFlow" />
-        </munit:execution>
         <munit:behavior>
-            <munit-tools:mock-when>
-                <munit-tools:with-processor>
-                    <teradata:insert config-ref="dbConfigTeradata">
-                        <teradata:sql><![CDATA[INSERT INTO flights(start, destination) VALUES('NY', 'BR');]]></teradata:sql>
-                    </teradata:insert>
-                </munit-tools:with-processor>
+            <munit-tools:mock-when processor="teradata:insert">
+                <munit-tools:with-attributes>
+                    <munit-tools:with-attribute attributeName="config-ref" whereValue="dbConfigTeradata"/>
+                </munit-tools:with-attributes>
                 <munit-tools:then-return>
-                    <munit-tools:payload><![CDATA[{"status": "success"}]]></munit-tools:payload>
+                    <munit-tools:payload value="#[{'status': 'success'}]" />
                 </munit-tools:then-return>
             </munit-tools:mock-when>
         </munit:behavior>
+
+        <munit:execution>
+            <flow-ref name="SimpleCaseSetupFlow" />
+        </munit:execution>
+
         <munit:validation>
-            <munit-tools:assert-that expression="#[payload.status == 'success']" is-true="true" />
+            <munit-tools:assert-that expression="#[payload.status]" is="#[MunitTools::equalTo('success')]" />
         </munit:validation>
     </munit:test>
 
     <!-- Test Case for CreateTableInDatabaseFlow -->
     <munit:test name="CreateTableInDatabaseFlowTest" description="Test case for CreateTableInDatabaseFlow">
+        <munit:behavior>
+            <munit-tools:mock-when processor="teradata:execute-ddl">
+                <munit-tools:with-attributes>
+                    <munit-tools:with-attribute attributeName="config-ref" whereValue="dbConfigTeradata"/>
+                </munit-tools:with-attributes>
+                <munit-tools:then-return>
+                    <munit-tools:payload value="#[{'status': 'success'}]" />
+                </munit-tools:then-return>
+            </munit-tools:mock-when>
+        </munit:behavior>
+
         <munit:execution>
             <flow-ref name="CreateTableInDatabaseFlow" />
         </munit:execution>
-        <munit:behavior>
-            <munit-tools:mock-when>
-                <munit-tools:with-processor>
-                    <teradata:execute-ddl config-ref="dbConfigTeradata">
-                        <teradata:sql><![CDATA[CREATE TABLE IF NOT EXISTS flights (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    start VARCHAR(255),
-    destination VARCHAR(255)
-);]]></teradata:sql>
-                    </teradata:execute-ddl>
-                </munit-tools:with-processor>
-                <munit-tools:then-return>
-                    <munit-tools:payload><![CDATA[{"status": "success"}]]></munit-tools:payload>
-                </munit-tools:then-return>
-            </munit-tools:mock-when>
-        </munit:behavior>
-        <munit:validation>
-            <munit-tools:assert-that expression="#[payload.status == 'success']" is-true="true" />
-        </munit:validation>
-    </munit:test>
 
-    <!-- Test Case for ComplexCaseSetup -->
-    <munit:test name="ComplexCaseSetupTest" description="Test case for ComplexCaseSetup">
-        <munit:execution>
-            <flow-ref name="ComplexCaseSetup" />
-        </munit:execution>
-        <munit:behavior>
-            <munit-tools:mock-when>
-                <munit-tools:with-processor>
-                    <teradata:insert config-ref="dbConfigTeradata">
-                        <teradata:sql><![CDATA[INSERT INTO flights(start, destination) VALUES('NY', 'BR');]]></teradata:sql>
-                    </teradata:insert>
-                </munit-tools:with-processor>
-                <munit-tools:then-return>
-                    <munit-tools:payload><![CDATA[{"status": "success"}]]></munit-tools:payload>
-                </munit-tools:then-return>
-            </munit-tools:mock-when>
-            <munit-tools:mock-when>
-                <munit-tools:with-processor>
-                    <teradata:insert config-ref="dbConfigTeradata">
-                        <teradata:sql><![CDATA[INSERT INTO flights(start, destination) VALUES('AR', 'CL');]]></teradata:sql>
-                    </teradata:insert>
-                </munit-tools:with-processor>
-                <munit-tools:then-return>
-                    <munit-tools:payload><![CDATA[{"status": "success"}]]></munit-tools:payload>
-                </munit-tools:then-return>
-            </munit-tools:mock-when>
-            <munit-tools:mock-when>
-                <munit-tools:with-processor>
-                    <teradata:insert config-ref="dbConfigTeradata">
-                        <teradata:sql><![CDATA[INSERT INTO flights(start, destination) VALUES('CL', 'BR');]]></teradata:sql>
-                    </teradata:insert>
-                </munit-tools:with-processor>
-                <munit-tools:then-return>
-                    <munit-tools:payload><![CDATA[{"status": "success"}]]></munit-tools:payload>
-                </munit-tools:then-return>
-            </munit-tools:mock-when>
-        </munit:behavior>
         <munit:validation>
-            <munit-tools:assert-that expression="#[payload.status == 'success']" is-true="true" />
+            <munit-tools:assert-that expression="#[payload.status]" is="#[MunitTools::equalTo('success')]" />
         </munit:validation>
     </munit:test>
 
     <!-- Test Case for TruncateTableFlow -->
     <munit:test name="TruncateTableFlowTest" description="Test case for TruncateTableFlow">
-        <munit:execution>
-            <flow-ref name="TruncateTableFlow" />
-        </munit:execution>
         <munit:behavior>
-            <munit-tools:mock-when>
-                <munit-tools:with-processor>
-                    <teradata:delete config-ref="dbConfigTeradata">
-                        <teradata:sql><![CDATA[DELETE FROM flights;]]></teradata:sql>
-                    </teradata:delete>
-                </munit-tools:with-processor>
+            <munit-tools:mock-when processor="teradata:delete">
+                <munit-tools:with-attributes>
+                    <munit-tools:with-attribute attributeName="config-ref" whereValue="dbConfigTeradata"/>
+                </munit-tools:with-attributes>
                 <munit-tools:then-return>
-                    <munit-tools:payload><![CDATA[{"status": "success"}]]></munit-tools:payload>
+                    <munit-tools:payload value="#[{'status': 'success'}]" />
                 </munit-tools:then-return>
             </munit-tools:mock-when>
         </munit:behavior>
+
+        <munit:execution>
+            <flow-ref name="TruncateTableFlow" />
+        </munit:execution>
+
         <munit:validation>
-            <munit-tools:assert-that expression="#[payload.status == 'success']" is-true="true" />
+            <munit-tools:assert-that expression="#[payload.status]" is="#[MunitTools::equalTo('success')]" />
         </munit:validation>
     </munit:test>
 
     <!-- Test Case for DropFlightsTable -->
     <munit:test name="DropFlightsTableTest" description="Test case for DropFlightsTable">
-        <munit:execution>
-            <flow-ref name="DropFlightsTable" />
-        </munit:execution>
         <munit:behavior>
-            <munit-tools:mock-when>
-                <munit-tools:with-processor>
-                    <teradata:execute-ddl config-ref="dbConfigTeradata">
-                        <teradata:sql><![CDATA[DROP TABLE IF EXISTS flights;]]></teradata:sql>
-                    </teradata:execute-ddl>
-                </munit-tools:with-processor>
+            <munit-tools:mock-when processor="teradata:execute-ddl">
+                <munit-tools:with-attributes>
+                    <munit-tools:with-attribute attributeName="config-ref" whereValue="dbConfigTeradata"/>
+                </munit-tools:with-attributes>
                 <munit-tools:then-return>
-                    <munit-tools:payload><![CDATA[{"status": "success"}]]></munit-tools:payload>
+                    <munit-tools:payload value="#[{'status': 'success'}]" />
                 </munit-tools:then-return>
             </munit-tools:mock-when>
         </munit:behavior>
+
+        <munit:execution>
+            <flow-ref name="DropFlightsTable" />
+        </munit:execution>
+
         <munit:validation>
-            <munit-tools:assert-that expression="#[payload.status == 'success']" is-true="true" />
+            <munit-tools:assert-that expression="#[payload.status]" is="#[MunitTools::equalTo('success')]" />
         </munit:validation>
     </munit:test>
 
