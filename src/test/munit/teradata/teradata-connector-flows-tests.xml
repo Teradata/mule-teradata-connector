@@ -8,6 +8,7 @@
           http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
           http://www.mulesoft.org/schema/mule/munit-tools http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
 
+    <munit:config name="teradata-connector-flows-tests.xml" />
     <!-- Test Case for SimpleCaseSetupFlow -->
     <munit:test name="SimpleCaseSetupFlowTest" description="Test case for SimpleCaseSetupFlow">
         <munit:execution>
