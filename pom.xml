@@ -42,6 +42,7 @@
 
         <skipTita>false</skipTita>
         <settingsFile>${java.io.tmpdir}/effective-settings.xml</settingsFile>
+        <runtimeVersion>4.3.0</runtimeVersion>
         <!-- JDK 17 Compatibility Props -->
         <mule.sdk.api.version>0.10.1</mule.sdk.api.version>
         <jacoco.version>0.8.10</jacoco.version>
@@ -240,7 +241,6 @@
                 </executions>
                 <configuration>
                     <runtimeProduct>MULE_EE</runtimeProduct>
-                    <runtimeVersion>${app.runtime}</runtimeVersion>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <munitTestsDirectory>src/test/munit</munitTestsDirectory>
                     <coverage>
