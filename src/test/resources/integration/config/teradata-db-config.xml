@@ -5,7 +5,7 @@
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
             http://www.mulesoft.org/schema/mule/teradata http://www.mulesoft.org/schema/mule/teradata/current/mule-teradata.xsd">
 
-    <configuration-properties file="connection.properties"/>
+    <configuration-properties file="automation-credentials.properties"/>
     
     <teradata:config name="dbConfig">
         <teradata:teradata-connection url="jdbc:teradata://${INTEGRATION_TEST_HOST}/DATABASE=INTEGRATION_TEST,DBS_PORT=${INTEGRATION_TEST_PORT},TMODE=ANSI,CHARSET=UTF8" user="${INTEGRATION_TEST_USERNAME}" password="${INTEGRATION_TEST_PASSWORD}">
