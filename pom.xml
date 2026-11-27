@@ -177,7 +177,7 @@
         <dependency>
             <groupId>com.teradata.jdbc</groupId>
             <artifactId>terajdbc</artifactId>
-            <version>20.00.00.06</version>
+            <version>20.00.00.62</version>
         </dependency>
     </dependencies>
 
