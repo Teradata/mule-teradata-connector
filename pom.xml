@@ -28,7 +28,7 @@
         <xmlunit.version>1.6</xmlunit.version>
         <javax.transaction.version>1.3</javax.transaction.version>
         <xaPoolVersion>1.5.0</xaPoolVersion>
-        <net.bytebuddy.version>1.14.5</net.bytebuddy.version>
+        <net.bytebuddy.version>1.18.17-jdk5</net.bytebuddy.version>
         <muleDbClientVersion>1.6.0</muleDbClientVersion>
         <muleExtensionsShadeVersion>1.0.4</muleExtensionsShadeVersion>
 
